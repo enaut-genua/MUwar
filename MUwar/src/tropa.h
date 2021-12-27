@@ -16,6 +16,7 @@ typedef enum
 /* Tropen estatistikak */
 typedef struct
 {
+	int id;					/* Zeinen tropa den */
 	int bizitza;			/* Zenbat bizitza daukaten */
 	int atakea;				/* Zenbat atake daukaten */
 	int amunizioa;			/* Zenbat amunizio daukaten */
@@ -27,9 +28,9 @@ typedef struct
 } TropaStat;
 
 /* Sortu tropak memorian */
-TropaStat* Tropa_SortuTropa(TropaMota mota);
+TropaStat* Tropa_SortuTropa(TropaMota mota, int id);
 
 /* Borratu tropa */
-void Tropa_BorratuTropa(TropaStat* tropa);
+void Tropa_BorratuTropa(TropaStat** tropa);
 
 #endif // TROPAK_H

@@ -21,9 +21,18 @@
     <ClCompile Include="src\tropa.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\mapa.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\tropa.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\baldosa.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mapa.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

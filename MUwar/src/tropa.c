@@ -9,42 +9,43 @@ static void EraikiErrekonozimentua(TropaStat* trp);
 static void EraikiTankeArina(TropaStat* trp);
 static void EraikiTankeHand(TropaStat* trp);
 
-TropaStat* Tropa_SortuTropa(TropaMota mota)
+TropaStat* Tropa_SortuTropa(TropaMota mota, int id)
 {
-	TropaStat* ret = NULL;
-
-	switch (mota)
+	TropaStat* ret = (TropaStat*)malloc(sizeof(TropaStat));
+	
+	if (ret != NULL)
 	{
-	case Infanteria:
-		ret = (TropaStat*)malloc(sizeof(TropaStat));
-		EraikiInfanteria(ret);
-		break;
-	case InfanteriaMek:
-		ret = (TropaStat*)malloc(sizeof(TropaStat));
-		EraikiInfanteriaMek(ret);
-		break;
-	case Errekonozimentu:
-		ret = (TropaStat*)malloc(sizeof(TropaStat));
-		EraikiErrekonozimentua(ret);
-		break;
-	case TankeArina:
-		ret = (TropaStat*)malloc(sizeof(TropaStat));
-		EraikiTankeArina(ret);
-		break;
-	case TankeHand:
-		ret = (TropaStat*)malloc(sizeof(TropaStat));
-		EraikiTankeHand(ret);
-		break;
-	default:
-		ret = NULL;
+		ret->id = id;
+		switch (mota)
+		{
+		case Infanteria:
+			EraikiInfanteria(ret);
+			break;
+		case InfanteriaMek:
+			EraikiInfanteriaMek(ret);
+			break;
+		case Errekonozimentu:
+			EraikiErrekonozimentua(ret);
+			break;
+		case TankeArina:
+			EraikiTankeArina(ret);
+			break;
+		case TankeHand:
+			EraikiTankeHand(ret);
+			break;
+		default:
+			Tropa_BorratuTropa(ret);
+			ret = NULL;
+		}
 	}
 
 	return ret;
 }
 
-void Tropa_BorratuTropa(TropaStat* tropa)
+void Tropa_BorratuTropa(TropaStat** tropa)
 {
-	free(tropa);
+	free(*tropa);
+	*tropa = NULL;
 }
 
 void EraikiInfanteria(TropaStat* trp)
