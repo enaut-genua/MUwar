@@ -12,6 +12,6 @@ void Mapa_BorratuMapa(Mapa* mapa)
 
 void prestatu_mapa(Mapa *mapa, int dimx, int dimy)
 {
-	mapa->mapa = (Baldosa*)malloc(dimx * dimy * sizeof(Baldosa));
+	mapa->mapa = (Baldosa*)malloc(sizeof(Baldosa) * dimx * dimy);
 }
 

@@ -34,8 +34,7 @@ TropaStat* Tropa_SortuTropa(TropaMota mota, int id)
 			EraikiTankeHand(ret);
 			break;
 		default:
-			Tropa_BorratuTropa(ret);
-			ret = NULL;
+			Tropa_BorratuTropa(&ret);
 		}
 	}
 
