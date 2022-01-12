@@ -16,6 +16,6 @@ typedef struct
 } Mapa;
 
 Mapa* Mapa_SortuMapa(BaldosaMota mapa[], int tamaina);
-void Mapa_BorratuMapa(Mapa* mapa);
+void Mapa_BorratuMapa(Mapa** mapa);
 
 #endif // !MAPA_H

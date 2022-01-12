@@ -3,21 +3,23 @@
 
 #include "mapa.h"
 
-static void prestatu_mapa(Mapa *mapa, int dimx, int dimy);
 
-Mapa* Mapa_SortuMapa(BaldosaMota mapa[], int tamaina)
+Mapa* Mapa_SortuMapa(BaldosaMota mapa_array[], int tamaina)
 {
-	
+	Mapa* mapa = (Mapa*)malloc(sizeof(Mapa));
+	mapa->mapa = (Baldosa*)malloc(sizeof(Baldosa) * tamaina);
+
+	for (int i = 0; i < tamaina; i++)
+	{
+		mapa->mapa[i].mota = mapa_array[i];
+	}
+
+	return mapa;
 }
 
-void Mapa_BorratuMapa(Mapa* mapa)
+void Mapa_BorratuMapa(Mapa** mapa)
 {
-	free(mapa->mapa);
-	mapa->mapa = NULL;
+	free((*mapa)->mapa);
+	free(*mapa);
+	*mapa = NULL;
 }
-
-void prestatu_mapa(Mapa *mapa, int dimx, int dimy)
-{
-	mapa->mapa = (Baldosa*)malloc(sizeof(Baldosa) * dimx * dimy);
-}
-
