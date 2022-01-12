@@ -44,7 +44,7 @@ atera:
 	return dena_ondo;
 }
 
-void render_kill(void)
+void render_garbitu(void)
 {
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);

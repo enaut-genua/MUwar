@@ -23,7 +23,7 @@ int main(void)
 		render_marraztu();
 	}
 
-	render_kill();
+	render_garbitu();
 	return 0;
 }
 
