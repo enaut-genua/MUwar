@@ -24,6 +24,9 @@
     <ClCompile Include="src\mapa.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\renderizadorea.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\tropa.h">
@@ -33,6 +36,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\mapa.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\renderizadorea.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

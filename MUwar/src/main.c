@@ -1,25 +1,57 @@
-#define _CRT_SECURE_NO_WARNINGS
-#include <stdio.h>
+#include "main.h"
 
-#define SDL_MAIN_HANDLED
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
-
+#include "renderizadorea.h"
 #include "tropa.h"
 #include "baldosa.h"
 
+void ebentoakGestionatu(void);
+
+bool jokoaMartxan = false;
+
 int main(void)
 {
-	SDL_Window* window = NULL;
+	/* Memoria ondo borratu den ikusteko */
+#ifdef _DEBUG
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+#endif // _DEBUG
 
-	SDL_Init(SDL_INIT_EVERYTHING);
+	jokoaMartxan = render_init("MUwar", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1000, 700, false);
 
-	window = SDL_CreateWindow("MUwar", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_SHOWN);
+	while (jokoaMartxan)
+	{
+		ebentoakGestionatu();
+		render_marraztu();
+	}
 
-	SDL_Delay(8000);
-
-	SDL_DestroyWindow(window);
-	SDL_Quit();
-
+	render_garbitu();
 	return 0;
+}
+
+/*-----------------------------------------------------------------------------------------------
+Funtzio honek eventuak gestionatzen ditu beraz, ebentoak uneoro errebisatzen joango dira jokoa martxan dabilen bitartean
+-----------------------------------------------------------------------------------------------*/
+void ebentoakGestionatu(void)
+{
+	SDL_Event event = { 0 };
+
+	while (SDL_PollEvent(&event))
+	{
+		switch (event.type)
+		{
+		case SDL_QUIT:
+			jokoaMartxan = false;
+			break;
+		case SDL_KEYDOWN:
+		{
+			switch (event.key.keysym.sym)
+			{
+			case SDLK_ESCAPE:
+				jokoaMartxan = false; break;
+			}
+			break;
+		}
+		default:
+			break;
+		}
+	}
 }

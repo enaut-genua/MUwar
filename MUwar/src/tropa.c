@@ -1,7 +1,5 @@
 #include "tropa.h"
 
-#include <stdlib.h>
-
 /* Funtzio laguntzaileak */
 static void EraikiInfanteria(TropaStat* trp);
 static void EraikiInfanteriaMek(TropaStat* trp);

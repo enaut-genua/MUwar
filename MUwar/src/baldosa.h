@@ -11,7 +11,7 @@ typedef enum
 	Basoa,
 	BasoMoztua,
 	Mendia,
-	MendiHautsia,
+	MendiHautsia,	
 	Hiria,
 	Fabrika,
 	Basea
