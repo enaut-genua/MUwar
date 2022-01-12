@@ -5,8 +5,6 @@
 
 static void prestatu_mapa(Mapa *mapa, int dimx, int dimy);
 
-
-
 void Mapa_BorratuMapa(Mapa* mapa)
 {
 	free(mapa->mapa);
