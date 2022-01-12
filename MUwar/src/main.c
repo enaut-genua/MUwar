@@ -23,8 +23,7 @@ int main(void)
 
 	}
 
-	SDL_DestroyWindow(window);
-	SDL_Quit();
+	close( window, renderer);
 
 	return 0;
 }
