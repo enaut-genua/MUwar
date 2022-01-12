@@ -10,40 +10,44 @@
 
 #pragma region FUNTZIOEN DEKLARAZIOAK
 
-bool init(SDL_Window* window, SDL_Renderer* renderer, char* titulo, int xpos, int ypos, int width, int height, bool fullscreen);
-void close(SDL_Window* window, SDL_Renderer* renderer);
+bool init( char* titulo, int xpos, int ypos, int width, int height, bool fullscreen);
+void close();
 
 
 #pragma endregion
 #pragma region FUNTZIO ERREPIKAKORREN DEKLARAZIOAK
 
 void ebentoakGestionatu();
+void render();
 
 #pragma endregion
-
+/*-----------------------------------------------------------------------------------------------
+Eñaut aldagai hauek global bezala ipini ditut gero beste funtzio guztietan erabiltzen direlako
+-----------------------------------------------------------------------------------------------*/
+SDL_Window* window = NULL;
+SDL_Renderer* renderer = NULL;
 bool jokoaMartxan = false;
 int main(void)
 {
-	SDL_Window* window = NULL;
-	SDL_Renderer* renderer = NULL;
+
 	
 
-	jokoaMartxan = init(window, renderer, "MUwar", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1000, 700, false);
+	jokoaMartxan = init( "MUwar", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1000, 700, false);
 
 	while (jokoaMartxan)
 	{
 		ebentoakGestionatu();
-		
+		render();
 	}
 
-	close( window, renderer);
+	close();
 
 	return 0;
 }
 
 #pragma region MAIN FUNTZIOAN BAKARRIK ERABILTZEN DIREN FUNTZIOAK
 
-bool init(SDL_Window* window, SDL_Renderer* renderer, char* titulo, int xpos, int ypos, int width, int height, bool fullscreen)
+bool init( char* titulo, int xpos, int ypos, int width, int height, bool fullscreen)
 {
 	int flags = 0;
 	bool ret = true;
@@ -87,16 +91,11 @@ bool init(SDL_Window* window, SDL_Renderer* renderer, char* titulo, int xpos, in
 		ret = false;
 	}
 	/*-----------------------------------------------------------------------------------------------
-	Lehioa por defekto txuriz margotzen da, ze kolorearekin margotzea esan ondoren lehioan dagoena guztiz ezabatu eta berriro marrazteko esaten da
-	-----------------------------------------------------------------------------------------------*/
-	SDL_RenderClear(renderer);
-	SDL_RenderPresent(renderer);
-	/*-----------------------------------------------------------------------------------------------
 	jokoa hasteko prest dagoen edo ez itsuliko du
 	-----------------------------------------------------------------------------------------------*/
 	return ret;
 }
-void close(SDL_Window* window, SDL_Renderer* renderer) {
+void close() {
 	/*-----------------------------------------------------------------------------------------------
 	Memoria garbitzen du, hau jokoaren amaieran ipintzen da BETI!!!
 	-----------------------------------------------------------------------------------------------*/
@@ -131,6 +130,18 @@ void ebentoakGestionatu() {
 	}
 }
 
+
+
+/*-----------------------------------------------------------------------------------------------
+Funtzio honek Behin eta berriz marraztuko du 
+-----------------------------------------------------------------------------------------------*/
+void render() {
+	/*-----------------------------------------------------------------------------------------------
+Behin eta berriro borratu eta marrazteko
+	-----------------------------------------------------------------------------------------------*/
+	SDL_RenderClear(renderer);
+	SDL_RenderPresent(renderer);
+}
 #pragma endregion
 
 
