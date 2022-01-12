@@ -10,6 +10,7 @@
 
 int main(void)
 {
+	int a;
 	SDL_Window* window = NULL;
 
 	SDL_Init(SDL_INIT_EVERYTHING);
