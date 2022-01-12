@@ -10,8 +10,9 @@
 
 int main(void)
 {
-	int a;
 	SDL_Window* window = NULL;
+	SDL_Renderer* renderer = NULL;
+	bool isRunning;
 
 	SDL_Init(SDL_INIT_EVERYTHING);
 
