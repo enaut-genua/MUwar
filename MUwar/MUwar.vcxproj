@@ -148,13 +148,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="InitClose.c" />
     <ClCompile Include="src\main.c" />
     <ClCompile Include="src\mapa.c" />
     <ClCompile Include="src\tropa.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="InitClose.h" />
     <ClInclude Include="src\baldosa.h" />
     <ClInclude Include="src\mapa.h" />
     <ClInclude Include="src\tropa.h" />
