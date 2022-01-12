@@ -7,7 +7,7 @@
 
 #include "tropa.h"
 #include "baldosa.h"
-#include"InitClose.h"
+
 
 
 int main(void)
