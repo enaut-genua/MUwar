@@ -9,8 +9,7 @@ typedef enum
 	Infanteria,
 	InfanteriaMek,
 	Errekonozimentu,
-	TankeArina,
-	TankeHand,
+	Tanke
 } TropaMota;
 
 /* Tropen estatistikak */

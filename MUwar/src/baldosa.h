@@ -6,13 +6,15 @@
 typedef enum
 {
 	Larrea,
+	Ibaia,
 	Karretera,
 	Basoa,
 	BasoMoztua,
 	Mendia,
 	MendiHautsia,
 	Hiria,
-	Fabrika
+	Fabrika,
+	Basea
 } BaldosaMota;
 
 typedef enum

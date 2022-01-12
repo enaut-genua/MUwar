@@ -6,8 +6,7 @@
 static void EraikiInfanteria(TropaStat* trp);
 static void EraikiInfanteriaMek(TropaStat* trp);
 static void EraikiErrekonozimentua(TropaStat* trp);
-static void EraikiTankeArina(TropaStat* trp);
-static void EraikiTankeHand(TropaStat* trp);
+static void EraikiTanke(TropaStat* trp);
 
 TropaStat* Tropa_SortuTropa(TropaMota mota, int id)
 {
@@ -27,11 +26,8 @@ TropaStat* Tropa_SortuTropa(TropaMota mota, int id)
 		case Errekonozimentu:
 			EraikiErrekonozimentua(ret);
 			break;
-		case TankeArina:
-			EraikiTankeArina(ret);
-			break;
-		case TankeHand:
-			EraikiTankeHand(ret);
+		case Tanke:
+			EraikiTanke(ret);
 			break;
 		default:
 			Tropa_BorratuTropa(&ret);
@@ -83,26 +79,14 @@ void EraikiErrekonozimentua(TropaStat* trp)
 	trp->hiriak_hartu = false;
 }
 
-void EraikiTankeArina(TropaStat* trp)
+void EraikiTanke(TropaStat* trp)
 {
 	trp->bizitza = 250;
 	trp->atakea = 30;
 	trp->amunizioa = 12;
 	trp->errekurtsoak = 12;
 	trp->mug_max = 8;
-	trp->mota = TankeArina;
-	trp->terrenoa_puskatu = true;
-	trp->hiriak_hartu = false;
-}
-
-void EraikiTankeHand(TropaStat* trp)
-{
-	trp->bizitza = 350;
-	trp->atakea = 50;
-	trp->amunizioa = 10;
-	trp->errekurtsoak = 10;
-	trp->mug_max = 6;
-	trp->mota = TankeHand;
+	trp->mota = Tanke;
 	trp->terrenoa_puskatu = true;
 	trp->hiriak_hartu = false;
 }
