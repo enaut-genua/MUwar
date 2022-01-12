@@ -15,19 +15,25 @@ void close(SDL_Window* window, SDL_Renderer* renderer);
 
 
 #pragma endregion
+#pragma region FUNTZIO ERREPIKAKORREN DEKLARAZIOAK
 
+void ebentoakGestionatu();
 
+#pragma endregion
+
+bool jokoaMartxan = false;
 int main(void)
 {
 	SDL_Window* window = NULL;
 	SDL_Renderer* renderer = NULL;
-	bool jokoaMartxan = false;
+	
 
 	jokoaMartxan = init(window, renderer, "MUwar", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1000, 700, false);
 
 	while (jokoaMartxan)
 	{
-
+		ebentoakGestionatu();
+		
 	}
 
 	close( window, renderer);
@@ -101,6 +107,32 @@ void close(SDL_Window* window, SDL_Renderer* renderer) {
 }
 
 #pragma endregion
+
+#pragma region BEHIN ETA BERRIRO ERREBISATUKO DIREN DUNTZIOAK
+
+/*-----------------------------------------------------------------------------------------------
+Funtzio honek eventuak gestionatzen ditu beraz, ebentoak uneoro errebisatzen joango dira jokoa martxan dabilen bitartean
+-----------------------------------------------------------------------------------------------*/
+void ebentoakGestionatu() {
+	SDL_Event event;
+	SDL_PollEvent(&event);
+	switch (event.key.type) {
+		case SDL_KEYDOWN:
+			switch (event.key.keysym.sym) {
+			case SDLK_ESCAPE: jokoaMartxan = false; break;
+			}
+		break;
+	}
+	/*-----------------------------------------------------------------------------------------------
+	LEHIOAREN X botoia sakatzean jokoa amaituko da
+	-----------------------------------------------------------------------------------------------*/
+	switch (event.quit.type) {
+	case SDL_QUIT: jokoaMartxan = false; break;
+	}
+}
+
+#pragma endregion
+
 
 
 
