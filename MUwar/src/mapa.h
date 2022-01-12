@@ -15,7 +15,7 @@ typedef struct
 	Baldosa* mapa;		/* 1D-n errepresentatutako matrizea */
 } Mapa;
 
-Mapa* Mapa_SortuMapa(BaldosaMota mapa[]);
+Mapa* Mapa_SortuMapa(BaldosaMota mapa[], int tamaina);
 void Mapa_BorratuMapa(Mapa* mapa);
 
 #endif // !MAPA_H

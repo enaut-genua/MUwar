@@ -4,7 +4,7 @@
 SDL_Window* window = NULL;
 SDL_Renderer* renderer = NULL;
 
-bool render_init(char* titulo, int xpos, int ypos, int width, int height, bool fullscreen)
+bool render_sortu(char* titulo, int xpos, int ypos, int width, int height, bool fullscreen)
 {
 	bool dena_ondo = true;
 	int flags = fullscreen ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0;
