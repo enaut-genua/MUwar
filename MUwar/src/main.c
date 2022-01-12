@@ -7,10 +7,9 @@
 
 #include "tropa.h"
 #include "baldosa.h"
-//-------------------------------------------------------
+
 int main(void)
 {
-	int hola;
 	SDL_Window* window = NULL;
 
 	SDL_Init(SDL_INIT_EVERYTHING);
