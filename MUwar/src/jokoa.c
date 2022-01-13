@@ -143,12 +143,11 @@ void init(char* titulo, int xpos, int ypos, int width, int height, bool fullscre
 		isRunning = true;
 	}
 }
-SDL_Texture* loadImage(char* file, SDL_Renderer* render) {
-	SDL_Surface* tmpSurface = IMG_Load(file);
-	SDL_Texture* Tex = SDL_CreateTextureFromSurface(render, tmpSurface);
-	SDL_FreeSurface(tmpSurface);
-	return Tex;
-}
+
+
+
+
+
 void handleEvents() {
 	MousePos();
 
@@ -243,17 +242,24 @@ void Desplazatu(int x, int y, int orientazioa) {
 		}
 	}
 }
+
+void MousePos(void) {
+	int buttons;
+	SDL_PumpEvents();  // make sure we have the latest mouse state.
+	buttons = SDL_GetMouseState(&mousePos.x, &mousePos.y);
+}
+SDL_Texture* loadImage(char* file, SDL_Renderer* render) {
+	SDL_Surface* tmpSurface = IMG_Load(file);
+	SDL_Texture* Tex = SDL_CreateTextureFromSurface(render, tmpSurface);
+	SDL_FreeSurface(tmpSurface);
+	return Tex;
+}
 void laukia(int x0, int y0, int w, int h, SDL_Rect* laukia)
 {
-	laukia-> h= h;
+	laukia->h = h;
 	laukia->w = w;
 	laukia->x = x0;
 	laukia->y = y0;
-}
-void MousePos() {
-	Uint32 buttons;
-	SDL_PumpEvents();  // make sure we have the latest mouse state.
-	buttons = SDL_GetMouseState(&mousePos.x, &mousePos.y);
 }
 void Mapa() {
 	SDL_Rect laukiakk;
