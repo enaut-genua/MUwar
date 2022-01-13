@@ -5,8 +5,9 @@
 
 Mapa* mapa_sortu(TerrenoMotak mapa_array[], int tamaina)
 {
-	Mapa* mapa = (Mapa*)malloc(sizeof(Mapa));
-	mapa->mapa = (Baldosa*)malloc(sizeof(Baldosa) * tamaina);
+	/* Sortu Mapa estruktura eta barruko Baldosa* arraya */
+	Mapa* mapa = (Mapa*)calloc(1, sizeof(Mapa));
+	mapa->mapa = (Baldosa*)calloc(tamaina, sizeof(Baldosa) * tamaina);
 
 	for (int i = 0; i < tamaina; i++)
 	{

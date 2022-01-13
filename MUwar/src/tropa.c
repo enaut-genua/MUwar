@@ -16,7 +16,8 @@ static void eraiki_tanke(TropaStat* trp);
 
 TropaStat* tropa_sortu(TropaMota mota, int id)
 {
-	TropaStat* ret = (TropaStat*)malloc(sizeof(TropaStat));
+	/* Sortu TropaStat estruktura bat */
+	TropaStat* ret = (TropaStat*)calloc(1, sizeof(TropaStat));
 	
 	if (ret != NULL)
 	{

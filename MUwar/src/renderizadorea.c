@@ -42,8 +42,8 @@ typedef struct
   *	START: Funtzio pribatuak
   */
 
-static SDL_Texture* argazkiak_kargatu(SDL_Renderer* renderer);						/* Argazkiak memoriara kargatzen ditu */
-static void argazkiak_garbitu();													/* Argazkiak memoriatik garbitzen ditu */
+static ElementuenTexturak* argazkiak_kargatu(SDL_Renderer* render);					/* Argazkiak memoriara kargatzen ditu */
+static void argazkiak_garbitu(ElementuenTexturak** texturak);						/* Argazkiak memoriatik garbitzen ditu */
 
 /*
  *	END: Funtzio pribatuak
@@ -53,6 +53,8 @@ static void argazkiak_garbitu();													/* Argazkiak memoriatik garbitzen d
  /* Globalak (tenporalki) */
 SDL_Window* window = NULL;
 SDL_Renderer* renderer = NULL;
+ElementuenTexturak* text = NULL;
+
 
 bool render_sortu(char* titulo, int xpos, int ypos, int width, int height, bool fullscreen)
 {
@@ -88,7 +90,17 @@ bool render_sortu(char* titulo, int xpos, int ypos, int width, int height, bool 
 	{
 		fprintf(stderr, SDL_GetError());
 		dena_ondo = false;
+		goto atera;
 	}
+
+	/* IMG inzializatu */
+	if (IMG_Init(IMG_INIT_PNG) != IMG_INIT_PNG)
+	{
+		fprintf(stderr, IMG_GetError());
+		dena_ondo = false;
+	}
+
+	text = argazkiak_kargatu(renderer);
 
 atera:
 	return dena_ondo;
@@ -105,12 +117,24 @@ bool render_marraztu(void)
 {
 	bool dena_ondo = true;
 
+	SDL_Rect rekt = { 0 };
+
+	rekt.x = 400;
+	rekt.y = 400;
+
+	rekt.w = 100;
+	rekt.h = 100;
+
+
 	if (SDL_RenderClear(renderer) < 0)
 	{
 		fprintf(stderr, SDL_GetError());
 		dena_ondo = false;
 		goto atera;
 	}
+	
+
+	SDL_RenderCopy(renderer, text->infanteria.aurrea, NULL, &rekt);
 
 	SDL_RenderPresent(renderer);
 
@@ -122,6 +146,45 @@ atera:
  *	START: Funtzio pribatuen inplementazioa
  */
 
+ElementuenTexturak* argazkiak_kargatu(SDL_Renderer* render)
+{
+	/* Sortu ElementuTexturak structa */
+	ElementuenTexturak* texturak = (ElementuenTexturak*)calloc(1, sizeof(ElementuenTexturak));
+
+	SDL_Surface* tmpsrf = NULL;
+
+	/*
+	 * Kargatu Terrenoaren Texturak
+	 */
+
+	/* Larrea */
+	tmpsrf = IMG_Load("res\\img\\GRASS.png");
+	texturak->larrea.aurrea = SDL_CreateTextureFromSurface(render, tmpsrf);
+	SDL_FreeSurface(tmpsrf);
+
+	/* Mendia */
+	tmpsrf = IMG_Load("res\\img\\MOUNTAIN.png");
+	texturak->mendia.aurrea = SDL_CreateTextureFromSurface(render, tmpsrf);
+	SDL_FreeSurface(tmpsrf);
+
+	/* Ibaia */
+	tmpsrf = IMG_Load("res\\img\\WATER.png");
+	texturak->mendia.aurrea = SDL_CreateTextureFromSurface(render, tmpsrf);
+	SDL_FreeSurface(tmpsrf);
+
+	/* 
+	 * Kargatu Tropen Texturak 
+	 */
+
+	/* Infanteria */
+	tmpsrf = IMG_Load("res\\img\\PERTSONA.png");
+	texturak->infanteria.aurrea = SDL_CreateTextureFromSurface(render, tmpsrf);
+	SDL_FreeSurface(tmpsrf);
+
+	return texturak;
+}
+
  /*
   *	END: Funtzio pribatuen inplementazioa
   */
+
