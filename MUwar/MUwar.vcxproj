@@ -121,7 +121,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)\deps\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <TreatWarningAsError>true</TreatWarningAsError>
+      <TreatWarningAsError>false</TreatWarningAsError>
       <CompileAs>CompileAsC</CompileAs>
     </ClCompile>
     <Link>
@@ -153,17 +153,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\jokoa.c" />
     <ClCompile Include="src\main.c" />
-    <ClCompile Include="src\mapa.c" />
-    <ClCompile Include="src\renderizadorea.c" />
-    <ClCompile Include="src\tropa.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\baldosa.h" />
-    <ClInclude Include="src\include.h" />
-    <ClInclude Include="src\mapa.h" />
-    <ClInclude Include="src\renderizadorea.h" />
-    <ClInclude Include="src\tropa.h" />
+    <ClInclude Include="src\jokoa.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="res\mapak\mapa_1" />
