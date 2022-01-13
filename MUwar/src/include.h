@@ -21,4 +21,12 @@
 #include <SDL2/SDL_image.h>
 
 
+/* Estruktura erabilgarriak */
+
+typedef struct
+{
+	int x;
+	int y;
+} Bekt2D;
+
 #endif // !MAIN_H

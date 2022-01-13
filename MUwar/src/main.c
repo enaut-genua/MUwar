@@ -15,14 +15,24 @@ int main(void)
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 #endif // _DEBUG
 
+	TerrenoMotak mapa_1[] = {
+	Larrea, Larrea, Larrea, Larrea, Larrea,
+	Larrea, Mendia, Mendia, Ibaia, Larrea,
+	Larrea, Larrea, Ibaia, Ibaia, Mendia,
+	Mendia, Larrea, Mendia, Mendia, Mendia
+	};
+
 	jokoaMartxan = render_sortu("MUwar", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1000, 700, false);
+
+	Mapa* map = mapa_sortu(mapa_1, 5, 4);
 
 	while (jokoaMartxan)
 	{
+		render_marraztu(map);
 		ebentoakGestionatu();
-		render_marraztu();
 	}
 
+	mapa_borratu(&map);
 	render_garbitu();
 	return 0;
 }

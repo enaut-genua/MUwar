@@ -3,6 +3,8 @@
 
 #include "include.h"
 
+#include "mapa.h"
+
 /* Renderizadorea sortzen du */
 bool render_sortu(char* titulo, int xpos, int ypos, int width, int height, bool fullscreen);
 
@@ -10,6 +12,6 @@ bool render_sortu(char* titulo, int xpos, int ypos, int width, int height, bool 
 void render_garbitu(void);
 
 /* Funtzio honek Behin eta berriz marraztuko du */
-bool render_marraztu(void);
+bool render_marraztu(Mapa* mapa);
 
 #endif // !RENDERIZADOREA_H
