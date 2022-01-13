@@ -1,6 +1,6 @@
 #include "tropa.h"
 
-/* Funtzio laguntzaileak */
+/* Funtzio laguntzaileak (funtzio hauek pribatuak dira)*/
 static void EraikiInfanteria(TropaStat* trp);
 static void EraikiInfanteriaMek(TropaStat* trp);
 static void EraikiErrekonozimentua(TropaStat* trp);
