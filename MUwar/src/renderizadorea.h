@@ -1,7 +1,7 @@
 #ifndef RENDERIZADOREA_H
 #define RENDERIZADOREA_H
 
-#include "main.h"
+#include "include.h"
 
 /* Renderizadorea sortzen du */
 bool render_sortu(char* titulo, int xpos, int ypos, int width, int height, bool fullscreen);

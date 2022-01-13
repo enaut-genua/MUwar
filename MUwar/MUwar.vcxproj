@@ -160,7 +160,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\baldosa.h" />
-    <ClInclude Include="src\main.h" />
+    <ClInclude Include="src\include.h" />
     <ClInclude Include="src\mapa.h" />
     <ClInclude Include="src\renderizadorea.h" />
     <ClInclude Include="src\tropa.h" />

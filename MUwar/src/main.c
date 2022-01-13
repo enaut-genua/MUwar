@@ -1,4 +1,4 @@
-#include "main.h"
+#include "include.h"
 
 #include "renderizadorea.h"
 #include "tropa.h"

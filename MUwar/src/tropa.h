@@ -1,7 +1,7 @@
 #ifndef TROPA_H
 #define TROPA_H
 
-#include "main.h"
+#include "include.h"
 
 /* Jokuan erabiliko diren tropa motak. */
 typedef enum

@@ -38,7 +38,7 @@
     <ClInclude Include="src\mapa.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\main.h">
+    <ClInclude Include="src\include.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\renderizadorea.h">
