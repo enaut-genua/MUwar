@@ -16,15 +16,24 @@ int main(void)
 #endif // _DEBUG
 
 	TerrenoMotak mapa_1[] = {
-	Larrea, Larrea, Larrea, Larrea, Larrea,
-	Larrea, Mendia, Mendia, Ibaia, Larrea,
-	Larrea, Larrea, Ibaia, Ibaia, Mendia,
-	Mendia, Larrea, Mendia, Mendia, Mendia
+	Larrea, Larrea, Larrea, Larrea, Larrea, Larrea, Larrea, Larrea, Larrea, Larrea,
+	Larrea, Larrea, Larrea, Larrea, Larrea, Larrea, Larrea, Larrea, Larrea, Larrea,
+	Larrea, Larrea, Larrea, Larrea, Larrea, Larrea, Larrea, Larrea, Larrea, Larrea,
+	Larrea, Larrea, Larrea, Larrea, Larrea, Larrea, Larrea, Larrea, Larrea, Larrea,
+	Larrea, Larrea, Larrea, Larrea, Larrea, Larrea, Larrea, Larrea, Larrea, Larrea,
+	Larrea, Larrea, Larrea, Larrea, Ibaia, Larrea, Larrea, Larrea, Larrea, Larrea,
+	Larrea, Larrea, Larrea, Larrea, Larrea, Larrea, Larrea, Larrea, Larrea, Larrea,
+	Larrea, Larrea, Larrea, Larrea, Larrea, Larrea, Larrea, Larrea, Larrea, Larrea,
+	Larrea, Larrea, Larrea, Larrea, Larrea, Larrea, Larrea, Larrea, Larrea, Larrea,
+	Larrea, Larrea, Larrea, Larrea, Larrea, Larrea, Larrea, Larrea, Larrea, Larrea,
+	Larrea, Larrea, Larrea, Larrea, Mendia, Mendia, Larrea, Larrea, Larrea, Larrea,
+	Larrea, Larrea, Larrea, Larrea, Larrea, Larrea, Larrea, Larrea, Larrea, Larrea,
+	Larrea, Larrea, Larrea, Larrea, Larrea, Larrea, Larrea, Larrea, Larrea, Larrea,
 	};
 
-	jokoaMartxan = render_sortu("MUwar", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1000, 700, false);
+	jokoaMartxan = render_sortu("MUwar", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1200, 700, false);
 
-	Mapa* map = mapa_sortu(mapa_1, 5, 4);
+	Mapa* map = mapa_sortu(mapa_1, 10, 13);
 
 	while (jokoaMartxan)
 	{

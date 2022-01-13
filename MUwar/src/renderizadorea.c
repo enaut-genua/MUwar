@@ -60,7 +60,7 @@ static void kalkulatu_iso(float x, float y);
 SDL_Window* window = NULL;
 SDL_Renderer* renderer = NULL;
 ElementuenTexturak* elem_text = NULL;
-Bekt2D mapa_pos = { 50, 200 };
+Bekt2D mapa_pos = { 100, 300 };
 Bekt2D iso_pos = { 0 };
 int argazki_tamaina = 100;
 
@@ -288,7 +288,7 @@ bool marraztu_mapa(Mapa* mapa)
 			}
 			case Mendia:
 			{
-				if (SDL_RenderCopy(renderer, elem_text->larrea.aurrea, NULL, &laukia) < 0)
+				if (SDL_RenderCopy(renderer, elem_text->mendia.aurrea, NULL, &laukia) < 0)
 				{
 					fprintf(stderr, "Errorea: %s.\n", SDL_GetError());
 					dena_ondo = false;
@@ -298,7 +298,7 @@ bool marraztu_mapa(Mapa* mapa)
 			}
 			case Ibaia:
 			{
-				if (SDL_RenderCopy(renderer, elem_text->larrea.aurrea, NULL, &laukia) < 0)
+				if (SDL_RenderCopy(renderer, elem_text->ibaia.aurrea, NULL, &laukia) < 0)
 				{
 					fprintf(stderr, "Errorea: %s.\n", SDL_GetError());
 					dena_ondo = false;
@@ -319,7 +319,7 @@ atera:
 void kalkulatu_iso(float x, float y)
 {
 	iso_pos.x = (int)(x - y);
-	iso_pos.y = (int)((x - y) * 0.5);
+	iso_pos.y = (int)((x + y) * 0.5);
 }
 
  /*
