@@ -4,13 +4,35 @@
  *	START: Estruktura pribatuak
  */
 
-typedef struct Textura
+typedef struct
 {
-	SDL_Texture* txt_1;
-	SDL_Texture* txt_2;
-	SDL_Texture* txt_3;
-	SDL_Texture* txt_4;
-};
+	SDL_Texture* aurrea;
+	SDL_Texture* atzea;
+	SDL_Texture* ezker;
+	SDL_Texture* eskubi;
+} Textura;
+
+typedef struct
+{
+	/* Terrenoak */
+	Textura larrea;
+	Textura ibaia;
+	Textura karretera;
+	Textura basoa;
+	Textura baso_moztua;
+	Textura mendia;
+	Textura mendi_hautsia;
+	Textura hiria;
+	Textura fabrika;
+	Textura basea;
+
+	/* Tropak */
+	Textura infanteria;
+	Textura infanteria_mek;
+	Textura errekonozimentua;
+	Textura tankea;
+
+} ElementuenTexturak;
 
 /*
  *	END: Estruktura pribatuak
