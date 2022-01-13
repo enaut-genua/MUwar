@@ -45,8 +45,4 @@
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
-  <ItemGroup>
-    <Text Include="res\mapak\mapa_1" />
-    <Text Include="res\mapak\mapa_adibidea.txt" />
-  </ItemGroup>
 </Project>

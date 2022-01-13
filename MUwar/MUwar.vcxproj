@@ -165,10 +165,6 @@
     <ClInclude Include="src\renderizadorea.h" />
     <ClInclude Include="src\tropa.h" />
   </ItemGroup>
-  <ItemGroup>
-    <Text Include="res\mapak\mapa_1" />
-    <Text Include="res\mapak\mapa_adibidea.txt" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
