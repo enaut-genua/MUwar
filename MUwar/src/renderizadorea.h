@@ -12,5 +12,4 @@ void render_garbitu(void);
 /* Funtzio honek Behin eta berriz marraztuko du */
 bool render_marraztu(void);
 
-
 #endif // !RENDERIZADOREA_H

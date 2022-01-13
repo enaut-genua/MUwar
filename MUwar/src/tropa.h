@@ -27,9 +27,9 @@ typedef struct
 } TropaStat;
 
 /* Sortu tropak memorian */
-TropaStat* Tropa_SortuTropa(TropaMota mota, int id);
+TropaStat* tropa_sortu(TropaMota mota, int id);
 
 /* Borratu tropa */
-void Tropa_BorratuTropa(TropaStat** tropa);
+void tropa_borratu(TropaStat** tropa);
 
 #endif // TROPAK_H

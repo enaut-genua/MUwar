@@ -6,7 +6,7 @@ static void EraikiInfanteriaMek(TropaStat* trp);
 static void EraikiErrekonozimentua(TropaStat* trp);
 static void EraikiTanke(TropaStat* trp);
 
-TropaStat* Tropa_SortuTropa(TropaMota mota, int id)
+TropaStat* tropa_sortu(TropaMota mota, int id)
 {
 	TropaStat* ret = (TropaStat*)malloc(sizeof(TropaStat));
 	
@@ -28,14 +28,14 @@ TropaStat* Tropa_SortuTropa(TropaMota mota, int id)
 			EraikiTanke(ret);
 			break;
 		default:
-			Tropa_BorratuTropa(&ret);
+			tropa_borratu(&ret);
 		}
 	}
 
 	return ret;
 }
 
-void Tropa_BorratuTropa(TropaStat** tropa)
+void tropa_borratu(TropaStat** tropa)
 {
 	free(*tropa);
 	*tropa = NULL;

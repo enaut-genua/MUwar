@@ -46,7 +46,8 @@ void ebentoakGestionatu(void)
 			switch (event.key.keysym.sym)
 			{
 			case SDLK_ESCAPE:
-				jokoaMartxan = false; break;
+				jokoaMartxan = false; 
+				break;
 			}
 			break;
 		}

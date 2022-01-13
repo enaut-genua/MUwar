@@ -1,5 +1,9 @@
 #include "renderizadorea.h"
 
+/*  */
+/* Imaginak kargatzen ditu */
+static SDL_Texture* argazkiak_kargatu(SDL_Renderer* renderer);
+
 /* Globalak (tenporalki) */
 SDL_Window* window = NULL;
 SDL_Renderer* renderer = NULL;
