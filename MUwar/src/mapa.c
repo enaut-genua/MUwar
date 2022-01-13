@@ -3,7 +3,7 @@
 #include "mapa.h"
 
 
-Mapa* mapa_sortu(BaldosaMota mapa_array[], int tamaina)
+Mapa* mapa_sortu(TerrenoMotak mapa_array[], int tamaina)
 {
 	Mapa* mapa = (Mapa*)malloc(sizeof(Mapa));
 	mapa->mapa = (Baldosa*)malloc(sizeof(Baldosa) * tamaina);

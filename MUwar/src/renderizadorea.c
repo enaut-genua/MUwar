@@ -1,10 +1,34 @@
 #include "renderizadorea.h"
 
-/*  */
-/* Imaginak kargatzen ditu */
-static SDL_Texture* argazkiak_kargatu(SDL_Renderer* renderer);
+/*
+ *	START: Estruktura pribatuak
+ */
 
-/* Globalak (tenporalki) */
+typedef struct Textura
+{
+	SDL_Texture* txt_1;
+	SDL_Texture* txt_2;
+	SDL_Texture* txt_3;
+	SDL_Texture* txt_4;
+};
+
+/*
+ *	END: Estruktura pribatuak
+ */
+
+ /*
+  *	START: Funtzio pribatuak
+  */
+
+static SDL_Texture* argazkiak_kargatu(SDL_Renderer* renderer);						/* Argazkiak memoriara kargatzen ditu */
+static void argazkiak_garbitu();													/* Argazkiak memoriatik garbitzen ditu */
+
+/*
+ *	END: Funtzio pribatuak
+ */
+
+
+ /* Globalak (tenporalki) */
 SDL_Window* window = NULL;
 SDL_Renderer* renderer = NULL;
 
@@ -71,3 +95,11 @@ bool render_marraztu(void)
 atera:
 	return dena_ondo;
 }
+
+/*
+ *	START: Funtzio pribatuen inplementazioa
+ */
+
+ /*
+  *	END: Funtzio pribatuen inplementazioa
+  */

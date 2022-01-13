@@ -15,7 +15,7 @@ typedef enum
 	Hiria,
 	Fabrika,
 	Basea
-} BaldosaMota;
+} TerrenoMotak;
 
 typedef enum
 {
@@ -28,7 +28,7 @@ typedef enum
 typedef struct
 {
 	BaldosaNoranzkoa noranzkoa;			/* Baldosaren noranzkoa, erabilagarria adibidez karreterak ondo lotzeko */
-	BaldosaMota mota;
+	TerrenoMotak mota;
 	TropaStat* tropa;					/* Baldosa honetan dagoen tropa bati apuntatzen dio */
 } Baldosa;
 

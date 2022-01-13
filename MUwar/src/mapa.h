@@ -3,7 +3,7 @@
 
 #include "baldosa.h"
 
-BaldosaMota mapa_1[] = {
+TerrenoMotak mapa_1[] = {
 	Larrea, Larrea, Larrea, Larrea, Larrea,
 	Larrea, Mendia, Mendia, Ibaia, Larrea,
 	Larrea, Larrea, Ibaia, Ibaia, Mendia,
@@ -15,7 +15,7 @@ typedef struct
 	Baldosa* mapa;		/* 1D-n errepresentatutako matrizea */
 } Mapa;
 
-Mapa* mapa_sortu(BaldosaMota mapa[], int tamaina);
+Mapa* mapa_sortu(TerrenoMotak mapa[], int tamaina);
 void mapa_borratu(Mapa** mapa);
 
 #endif // !MAPA_H

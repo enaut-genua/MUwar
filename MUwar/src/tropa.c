@@ -1,10 +1,18 @@
 #include "tropa.h"
 
-/* Funtzio laguntzaileak (funtzio hauek pribatuak dira)*/
-static void EraikiInfanteria(TropaStat* trp);
-static void EraikiInfanteriaMek(TropaStat* trp);
-static void EraikiErrekonozimentua(TropaStat* trp);
-static void EraikiTanke(TropaStat* trp);
+
+/*
+ *	START: Funtzio pribatuen deklarazioa
+ */
+
+static void eraiki_infanteria(TropaStat* trp);
+static void eraiki_infanteria_mek(TropaStat* trp);
+static void eraiki_errekonozimentua(TropaStat* trp);
+static void eraiki_tanke(TropaStat* trp);
+
+/*
+ *	END: Funtzio pribatuen deklarazioa
+ */
 
 TropaStat* tropa_sortu(TropaMota mota, int id)
 {
@@ -16,16 +24,16 @@ TropaStat* tropa_sortu(TropaMota mota, int id)
 		switch (mota)
 		{
 		case Infanteria:
-			EraikiInfanteria(ret);
+			eraiki_infanteria(ret);
 			break;
 		case InfanteriaMek:
-			EraikiInfanteriaMek(ret);
+			eraiki_infanteria_mek(ret);
 			break;
 		case Errekonozimentu:
-			EraikiErrekonozimentua(ret);
+			eraiki_errekonozimentua(ret);
 			break;
 		case Tanke:
-			EraikiTanke(ret);
+			eraiki_tanke(ret);
 			break;
 		default:
 			tropa_borratu(&ret);
@@ -41,7 +49,12 @@ void tropa_borratu(TropaStat** tropa)
 	*tropa = NULL;
 }
 
-void EraikiInfanteria(TropaStat* trp)
+
+/*
+ *	START: Funtzio pribatuen inplementazioa
+ */
+
+void eraiki_infanteria(TropaStat* trp)
 {
 	trp->bizitza = 100;
 	trp->atakea = 10;
@@ -53,7 +66,7 @@ void EraikiInfanteria(TropaStat* trp)
 	trp->hiriak_hartu = true;
 }
 
-void EraikiInfanteriaMek(TropaStat* trp)
+void eraiki_infanteria_mek(TropaStat* trp)
 {
 	trp->bizitza = 100;
 	trp->atakea = 20;
@@ -65,7 +78,7 @@ void EraikiInfanteriaMek(TropaStat* trp)
 	trp->hiriak_hartu = true;
 }
 
-void EraikiErrekonozimentua(TropaStat* trp)
+void eraiki_errekonozimentua(TropaStat* trp)
 {
 	trp->bizitza = 150;
 	trp->atakea = 15;
@@ -77,7 +90,7 @@ void EraikiErrekonozimentua(TropaStat* trp)
 	trp->hiriak_hartu = false;
 }
 
-void EraikiTanke(TropaStat* trp)
+void eraiki_tanke(TropaStat* trp)
 {
 	trp->bizitza = 250;
 	trp->atakea = 30;
@@ -88,3 +101,7 @@ void EraikiTanke(TropaStat* trp)
 	trp->terrenoa_puskatu = true;
 	trp->hiriak_hartu = false;
 }
+
+/*
+ *	END: Funtzio pribatuen inplementazioa
+ */
