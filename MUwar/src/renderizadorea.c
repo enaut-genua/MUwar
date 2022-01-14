@@ -345,12 +345,36 @@ bool marraztu_tropa(Baldosa* baldosa, SDL_Rect* rect)
 			switch (tropa->orientazioa)
 			{
 			case Aurrea:
+				if (SDL_RenderCopy(RENDERER, ELEM_TEXT->infanteria.aurrea, NULL, rect) < 0)
+				{
+					fprintf(stderr, "Errorea: %s.\n", SDL_GetError());
+					dena_ondo = false;
+					goto atera;
+				}
 				break;
 			case Atzea:
+				if (SDL_RenderCopy(RENDERER, ELEM_TEXT->infanteria.atzea, NULL, rect) < 0)
+				{
+					fprintf(stderr, "Errorea: %s.\n", SDL_GetError());
+					dena_ondo = false;
+					goto atera;
+				}
 				break;
 			case Eskubi:
+				if (SDL_RenderCopy(RENDERER, ELEM_TEXT->infanteria.eskubi, NULL, rect) < 0)
+				{
+					fprintf(stderr, "Errorea: %s.\n", SDL_GetError());
+					dena_ondo = false;
+					goto atera;
+				}
 				break;
 			case Ezker:
+				if (SDL_RenderCopy(RENDERER, ELEM_TEXT->infanteria.ezker, NULL, rect) < 0)
+				{
+					fprintf(stderr, "Errorea: %s.\n", SDL_GetError());
+					dena_ondo = false;
+					goto atera;
+				}
 				break;
 			default:
 				break;
