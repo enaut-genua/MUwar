@@ -65,11 +65,16 @@ void iso(int x0, int y0);
 void cartesian(int isoY, int isoX);
 void erakutsiTale(int xmouse, int ymouse);
 void irudiakKargatu(SDL_Texture* gotorlekua[], char** link);
-void Desplazatu(int x, int y, int orientazioa);
+void Desplazatu( int x, int y, int orientazioa);
 bool running();
 SDL_Texture* loadImage(char* file, SDL_Renderer* renderer);
 void RangoaIpini(int rango);
 void RangoaEzabatu();
 #pragma endregion
+
+
+
+
+
 
 #endif // !JOKOA_H
