@@ -39,18 +39,17 @@ void handleEvents() {
 				DetektatutakoTropa = PERTSONAK[infoPos.y][infoPos.x];
 				tmpposx = infoPos.x;
 				tmpposy = infoPos.y;
-				printf(" PERTSONA AUKERATU DA\n");
+				printf("\nTROPA AUKERATU DA\n");
 				RangoaIpini(rango);
 			}
 			else if (editMap) {
-				if (RANGO_JOKALARIARENA[infoPos.y][infoPos.x] == DetektatutakoTropa) {
+				if (RANGO_JOKALARIARENA[infoPos.y][infoPos.x] == 1) {
 					PERTSONAK[tmpposy][tmpposx] = 0;
 					persona.x = infoPos.x;
 					persona.y = infoPos.y;
 					PERTSONAK[persona.y][persona.x] = DetektatutakoTropa;
-					printf(" PERTSONA mugitu DA\n");
+					printf("\nTROPA MUGITU DA DA\n");
 				}
-				printf(" rangoa ezabatu da\n");
 				RangoaEzabatu();
 				editMap = false;
 			}
@@ -103,7 +102,7 @@ void RangoaIpini(int rango) {
 			for (int x = 0; x < (rango * 2) + 1; x++)
 			{
 				if (TERRENO[infoPos.y + y - rango][infoPos.x + x - rango] <= 1 && infoPos.y + y - rango >= 0 && infoPos.x + x - rango >= 0 && infoPos.y + y - rango < TALE_Y && infoPos.x + x - rango < TALE_X)
-					RANGO_JOKALARIARENA[infoPos.y + y - rango][infoPos.x + x - rango] = DetektatutakoTropa;
+					RANGO_JOKALARIARENA[infoPos.y + y - rango][infoPos.x + x - rango] = 1;
 			}
 		}
 	}
@@ -162,6 +161,7 @@ void Mapa() {
 			}
 			switch (PERTSONAK[yy][xx]) {
 			case 1:SDL_RenderCopy(renderer, soldado.irudiak[soldado.orientazioa], NULL, &laukiakk); break;
+			case 2:SDL_RenderCopy(renderer, orco.irudiak[orco.orientazioa], NULL, &laukiakk); break;
 			}
 			switch (INFO_BALDOSAK[yy][xx]) {
 			case 1:SDL_RenderCopy(renderer, cubo.irudiak[0], NULL, &laukiakk); break;
