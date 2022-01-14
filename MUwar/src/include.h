@@ -29,4 +29,14 @@ typedef struct
 	int y;
 } Bekt2D;
 
+/* Enumerazio erabilgarriak */
+
+typedef enum
+{
+	Aurrea,
+	Atzea,
+	Ezker,
+	Eskubi
+} Orientazioa;
+
 #endif // !MAIN_H

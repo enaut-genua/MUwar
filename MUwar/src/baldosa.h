@@ -17,17 +17,9 @@ typedef enum
 	Basea
 } TerrenoMotak;
 
-typedef enum
-{
-	Iparra,
-	Hegoa,
-	Ekialdea,
-	Mendebaldea
-} BaldosaNoranzkoa;
-
 typedef struct
 {
-	BaldosaNoranzkoa noranzkoa;			/* Baldosaren noranzkoa, erabilagarria adibidez karreterak ondo lotzeko */
+	Orientazioa noranzkoa;			/* Baldosaren noranzkoa, erabilagarria adibidez karreterak ondo lotzeko */
 	TerrenoMotak mota;
 	TropaStat* tropa;					/* Baldosa honetan dagoen tropa bati apuntatzen dio */
 } Baldosa;

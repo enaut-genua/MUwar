@@ -22,6 +22,7 @@ TropaStat* tropa_sortu(TropaMota mota, int id)
 	if (ret != NULL)
 	{
 		ret->id = id;
+		ret->orientazioa = Aurrea;
 		switch (mota)
 		{
 		case Infanteria:

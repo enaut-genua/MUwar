@@ -35,6 +35,8 @@ int main(void)
 
 	Mapa* map = mapa_sortu(mapa_1, 10, 13);
 
+	mapa_lortu_pos(map, 4, 9)->tropa = tropa_sortu(Infanteria, 2);
+
 	while (jokoaMartxan)
 	{
 		render_marraztu(map);
