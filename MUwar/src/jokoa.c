@@ -109,20 +109,7 @@ void RangoaIpini(int rango) {
 }
 void Desplazatu(int x, int y, int orientazioa) {
 	if (editPeople == true) {
-		persona.x += x;
-		persona.y += y;
-		if (TERRENO[persona.y][persona.x] > 1 || persona.x<0 || persona.y < 0 || persona.x >TALE_X - 1 || persona.y >TALE_Y - 1)
-		{
-			persona.x -= x;
-			persona.y -= y;
-		}
-		if (TERRENO[persona.y][persona.x] <= 1 && (persona.y >= 0 && persona.y <= TALE_Y - 1 && persona.x >= 0 && persona.x <= TALE_Y - 1))
-		{
-			
-			PERTSONAK[persona.y][persona.x] = DetektatutakoTropa;
-			soldado.orientazioa = orientazioa;
-			PERTSONAK[persona.y - y][persona.x - x] = 0;
-		}
+
 	}
 }
 void MousePos(void) {
@@ -221,4 +208,6 @@ void clean() {
 bool running() {
 	return isRunning;
 }
-void update() {}
+void update() {
+	
+}
