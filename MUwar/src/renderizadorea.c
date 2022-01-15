@@ -250,7 +250,7 @@ ElementuenTexturak* argazkiak_kargatu(SDL_Renderer* render)
 	 * Kargatu Punteroaren Textura
 	 */
 
-	if ((texturak->punteroa.aurrea = textura_sortu(render, "res\\img\\ISOTILE1.png")) == NULL)
+	if ((texturak->punteroa.aurrea = textura_sortu(render, "res\\img\\ISOTILE.png")) == NULL)
 	{
 		fprintf(stderr, "Errorea: Ezin izan da larrearen textura sortu.\n");
 		goto errorea;
