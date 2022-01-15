@@ -6,7 +6,7 @@
  */
 
 static Bekt2D XAGU_POS = { 0 };
-static bool JOKOA_MARTXAN = true;
+static bool* JOKOA_MARTXAN = NULL;
 
 /*
  *	END: Aldagai global pribatuak
@@ -23,14 +23,14 @@ void ebentuak_kudeatu(void)
 		switch (event.type)
 		{
 		case SDL_QUIT:
-			JOKOA_MARTXAN = false;
+			*JOKOA_MARTXAN = false;
 			break;
 		case SDL_KEYDOWN:
 		{
 			switch (event.key.keysym.sym)
 			{
 			case SDLK_ESCAPE:
-				JOKOA_MARTXAN = false;
+				*JOKOA_MARTXAN = false;
 				break;
 			case SDLK_w:
 				render_mugitu_mapa_gora();
@@ -74,9 +74,9 @@ void ebentuak_kudeatu(void)
 	}
 }
 
-bool ebentuak_martxan_jokoa(void)
+void ebentuak_martxan_jokoa(bool* interruptorea)
 {
-	return JOKOA_MARTXAN;
+	JOKOA_MARTXAN = interruptorea;
 }
 
 Bekt2D ebentuak_lortu_xagu_pos(void)

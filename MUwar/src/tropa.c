@@ -51,7 +51,6 @@ void tropa_borratu(TropaStat** tropa)
 	*tropa = NULL;
 }
 
-
 /*
  *	START: Funtzio pribatuen inplementazioa
  */

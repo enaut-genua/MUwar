@@ -5,10 +5,6 @@
 #include "baldosa.h"
 #include "ebentuak.h"
 
-void ebentoakGestionatu(void);
-
-bool jokoaMartxan = false;
-
 int main(void)
 {
 	/* Memoria ondo borratu den ikusteko */
@@ -32,15 +28,21 @@ int main(void)
 	Larrea, Larrea, Larrea, Larrea, Larrea, Larrea, Larrea, Larrea, Larrea, Larrea,
 	};
 
-	jokoaMartxan = render_sortu("MUwar", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1200, 700, false);
+	bool jokoaMartxan = true;
+
+	if (render_sortu("MUwar", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1200, 700, false) == false)
+	{
+		exit(EXIT_FAILURE);
+	}
 
 	Mapa* map = mapa_sortu(mapa_1, 10, 13);
 
+	ebentuak_martxan_jokoa(&jokoaMartxan);
 	mapa_lortu_pos(map, 4, 9)->tropa = tropa_sortu(Infanteria, 2);
 
-	while (ebentuak_martxan_jokoa())
+	while (jokoaMartxan)
 	{
-		render_marraztu(map);
+		jokoaMartxan = render_marraztu(map);
 		ebentuak_kudeatu();
 	}
 

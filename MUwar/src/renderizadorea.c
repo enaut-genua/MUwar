@@ -121,7 +121,11 @@ bool render_sortu(char* titulo, int xpos, int ypos, int width, int height, bool 
 		goto atera;
 	}
 
-	ELEM_TEXT = argazkiak_kargatu(RENDERER);
+	if ((ELEM_TEXT = argazkiak_kargatu(RENDERER)) == NULL)
+	{
+		fprintf(stderr, "Errorea: Ezin izan dira texturak sortu.");
+		dena_ondo = false;
+	};
 
 atera:
 	return dena_ondo;
@@ -252,7 +256,7 @@ ElementuenTexturak* argazkiak_kargatu(SDL_Renderer* render)
 
 	if ((texturak->punteroa.aurrea = textura_sortu(render, "res\\img\\ISOTILE.png")) == NULL)
 	{
-		fprintf(stderr, "Errorea: Ezin izan da larrearen textura sortu.\n");
+		fprintf(stderr, "Errorea: Ezin izan da punteroaren textura sortu.\n");
 		goto errorea;
 	}
 
@@ -313,25 +317,29 @@ ElementuenTexturak* argazkiak_kargatu(SDL_Renderer* render)
 	return texturak;
 
 errorea:
+	argazkiak_garbitu(&texturak);
 	free(texturak);
 	return NULL;
 }
 
 void argazkiak_garbitu(ElementuenTexturak** texturak)
 {
-	/* Terrenoak */
-	SDL_DestroyTexture((*texturak)->larrea.aurrea);
-	SDL_DestroyTexture((*texturak)->ibaia.aurrea);
-	SDL_DestroyTexture((*texturak)->mendia.aurrea);
+	if (*texturak != NULL)
+	{
+		/* Terrenoak */
+		SDL_DestroyTexture((*texturak)->larrea.aurrea);
+		SDL_DestroyTexture((*texturak)->ibaia.aurrea);
+		SDL_DestroyTexture((*texturak)->mendia.aurrea);
 
-	/* Tropak */
-	SDL_DestroyTexture((*texturak)->infanteria.aurrea);
-	SDL_DestroyTexture((*texturak)->infanteria.atzea);
-	SDL_DestroyTexture((*texturak)->infanteria.eskubi);
-	SDL_DestroyTexture((*texturak)->infanteria.ezker);
+		/* Tropak */
+		SDL_DestroyTexture((*texturak)->infanteria.aurrea);
+		SDL_DestroyTexture((*texturak)->infanteria.atzea);
+		SDL_DestroyTexture((*texturak)->infanteria.eskubi);
+		SDL_DestroyTexture((*texturak)->infanteria.ezker);
 
-	free(*texturak);
-	*texturak = NULL;
+		free(*texturak);
+		*texturak = NULL;
+	}
 }
 
 SDL_Texture* textura_sortu(SDL_Renderer* render, const char* path)
@@ -481,10 +489,8 @@ bool marraztu_punteroa(void)
 	{
 		fprintf(stderr, "Errorea: %s.\n", SDL_GetError());
 		dena_ondo = false;
-		goto atera;
 	}
 	
-atera:
 	return dena_ondo;
 }
 
