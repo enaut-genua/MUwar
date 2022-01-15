@@ -3,6 +3,7 @@
 #include "renderizadorea.h"
 #include "tropa.h"
 #include "baldosa.h"
+#include "ebentuak.h"
 
 void ebentoakGestionatu(void);
 
@@ -37,11 +38,13 @@ int main(void)
 
 	mapa_lortu_pos(map, 4, 9)->tropa = tropa_sortu(Infanteria, 2);
 
-	while (jokoaMartxan)
+	while (ebentuak_martxan_jokoa())
 	{
 		render_marraztu(map);
-		ebentoakGestionatu();
+		ebentuak_kudeatu();
 	}
+
+	tropa_borratu(&mapa_lortu_pos(map, 4, 9)->tropa);
 
 	mapa_borratu(&map);
 	render_garbitu();
@@ -54,6 +57,9 @@ Funtzio honek eventuak gestionatzen ditu beraz, ebentoak uneoro errebisatzen joa
 void ebentoakGestionatu(void)
 {
 	SDL_Event event = { 0 };
+
+	/* Lortu xaguaren posizioa */
+
 
 	while (SDL_PollEvent(&event))
 	{
@@ -69,6 +75,39 @@ void ebentoakGestionatu(void)
 			case SDLK_ESCAPE:
 				jokoaMartxan = false; 
 				break;
+			case SDLK_w:
+				render_mugitu_mapa_gora();
+				break;
+			case SDLK_s:
+				render_mugitu_mapa_behera();
+				break;
+			case SDLK_a:
+				render_mugitu_mapa_ezker();
+				break;
+			case SDLK_d:
+				render_mugitu_mapa_eskubi();
+				break;
+			}
+			break;
+		}
+		case SDL_KEYUP:
+		{
+			switch (event.key.keysym.sym)
+			{
+			default:
+				break;
+			}
+			break;
+		}
+		case SDL_MOUSEWHEEL:
+		{
+			if (event.wheel.y > 0)
+			{
+				render_handitu_argazkiak();
+			}
+			else if (event.wheel.y < 0)
+			{
+				render_txikitu_argazkiak();
 			}
 			break;
 		}

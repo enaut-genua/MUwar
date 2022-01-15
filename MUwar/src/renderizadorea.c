@@ -44,10 +44,13 @@ typedef struct
 
 static ElementuenTexturak* argazkiak_kargatu(SDL_Renderer* render);					/* Argazkiak memoriara kargatzen ditu */
 static void argazkiak_garbitu(ElementuenTexturak** texturak);						/* Argazkiak memoriatik garbitzen ditu */
-static SDL_Texture* textura_sortu(SDL_Renderer* render, const char* path);
-static bool marraztu_baldosa(Baldosa* baldosa, SDL_Rect* rect);
-static bool marraztu_tropa(Baldosa* baldosa, SDL_Rect* rect);
-static void kalkulatu_iso(Bekt2D* iso_pos, float x, float y);
+static SDL_Texture* textura_sortu(SDL_Renderer* render, const char* path);			/* Pathean dagoen argazkiaren textura sortzen du */
+static bool marraztu_baldosa(Baldosa* baldosa, SDL_Rect* rect);						/* Pasatzen zaion baldosa marrazten du */
+static bool marraztu_tropa(Baldosa* baldosa, SDL_Rect* rect);						/* Baldosan dagoen tropa marrazten du */
+static bool marraztu_orientazioa(TropaStat* tropa, SDL_Rect* rect);					/* marraztu_tropa(2) funtziotik deitzen da, orientazioaren arabera tropa marrazten du */
+static bool marraztu_punteroa();
+static void kalkulatu_isometriko(Bekt2D* iso_pos, float x, float y);				/* Koordenada isometrikoak kalkulatzen ditu */
+static void kalkulatu_kartesiarrak(Bekt2D* kartes_pos, int x, int y);				/* Koordenada kartesiarrak kalkulatzen ditu */
 
 /*
  *	END: Funtzio pribatuak
@@ -55,24 +58,23 @@ static void kalkulatu_iso(Bekt2D* iso_pos, float x, float y);
 
 
 /*
- *	START: Aldagai globalak
+ *	START: Aldagai global pribatuak
  */
 
-SDL_Window* WINDOW = NULL;
-SDL_Renderer* RENDERER = NULL;
-ElementuenTexturak* ELEM_TEXT = NULL;
-Bekt2D mapa_pos = { 100, 300 };
-int ARGAZKI_TAMAINA = 100;
-
+static SDL_Window* WINDOW = NULL;
+static SDL_Renderer* RENDERER = NULL;
+static ElementuenTexturak* ELEM_TEXT = NULL;
+static Bekt2D MAPA_HASIERA = { 100, 300 };
+static int ARGAZKI_TAMAINA = 100;
 
 /*
- *	END: Aldagai globalak
+ *	END: Aldagai global pribatuak
  */
 
 bool render_sortu(char* titulo, int xpos, int ypos, int width, int height, bool fullscreen)
 {
 	bool dena_ondo = true;
-	int flags = fullscreen ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0;
+	int banderak = fullscreen ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0;
 
 	/* SDL libreria guztiak hasieratzen ditu, hala ezean errore bat emango du */
 	if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
@@ -83,7 +85,7 @@ bool render_sortu(char* titulo, int xpos, int ypos, int width, int height, bool 
 	}
 
 	/* Lehio bat sortzen du, hala ezean errore bat emango du */
-	if ((WINDOW = SDL_CreateWindow(titulo, xpos, ypos, width, height, flags | SDL_WINDOW_RESIZABLE | SDL_WINDOW_FOREIGN)) == NULL)
+	if ((WINDOW = SDL_CreateWindow(titulo, xpos, ypos, width, height, banderak | SDL_WINDOW_RESIZABLE | SDL_WINDOW_FOREIGN)) == NULL)
 	{
 		fprintf(stderr, "Errorea: %s\n", SDL_GetError());
 		dena_ondo = false;
@@ -148,7 +150,7 @@ bool render_marraztu(Mapa *mapa)
 	{
 		for (int j = 0; j < mapa->tamaina_y; ++j)
 		{
-			kalkulatu_iso(&iso_pos, (ARGAZKI_TAMAINA * 0.5f) * i + mapa_pos.x, (ARGAZKI_TAMAINA * 0.5f) * j - mapa_pos.y);
+			kalkulatu_isometriko(&iso_pos, (ARGAZKI_TAMAINA * 0.5f) * i + MAPA_HASIERA.x, (ARGAZKI_TAMAINA * 0.5f) * j - MAPA_HASIERA.y);
 
 			laukia.x = iso_pos.x;
 			laukia.y = iso_pos.y;
@@ -176,6 +178,46 @@ bool render_marraztu(Mapa *mapa)
 
 atera:
 	return dena_ondo;
+}
+
+void render_handitu_argazkiak(void)
+{
+	if (ARGAZKI_TAMAINA < 500)
+	{
+		ARGAZKI_TAMAINA += 5;
+	}
+}
+
+void render_txikitu_argazkiak(void)
+{
+	if (ARGAZKI_TAMAINA > 70)
+	{
+		ARGAZKI_TAMAINA -= 5;
+	}
+}
+
+void render_mugitu_mapa_gora(void)
+{
+	MAPA_HASIERA.x += (int)(ARGAZKI_TAMAINA * 0.5f);
+	MAPA_HASIERA.y -= (int)(ARGAZKI_TAMAINA * 0.5f);
+}
+
+void render_mugitu_mapa_behera(void)
+{
+	MAPA_HASIERA.x -= (int)(ARGAZKI_TAMAINA * 0.5f);
+	MAPA_HASIERA.y += (int)(ARGAZKI_TAMAINA * 0.5f);
+}
+
+void render_mugitu_mapa_eskubi(void)
+{
+	MAPA_HASIERA.x -= (int)(ARGAZKI_TAMAINA * 0.5f);
+	MAPA_HASIERA.y -= (int)(ARGAZKI_TAMAINA * 0.5f);
+}
+
+void render_mugitu_mapa_ezker(void)
+{
+	MAPA_HASIERA.x += (int)(ARGAZKI_TAMAINA * 0.5f);
+	MAPA_HASIERA.y += (int)(ARGAZKI_TAMAINA * 0.5f);
 }
 
 /*
@@ -279,7 +321,6 @@ SDL_Texture* textura_sortu(SDL_Renderer* render, const char* path)
 	if ((textura = SDL_CreateTextureFromSurface(render, srfc)) == NULL)
 	{
 		fprintf(stderr, "Errorea: %s\n", IMG_GetError());
-		goto atera;
 	}
 
 atera:
@@ -299,7 +340,6 @@ bool marraztu_baldosa(Baldosa* baldosa, SDL_Rect* rect)
 		{
 			fprintf(stderr, "Errorea: %s.\n", SDL_GetError());
 			dena_ondo = false;
-			goto atera;
 		}
 		break;
 	}
@@ -309,7 +349,6 @@ bool marraztu_baldosa(Baldosa* baldosa, SDL_Rect* rect)
 		{
 			fprintf(stderr, "Errorea: %s.\n", SDL_GetError());
 			dena_ondo = false;
-			goto atera;
 		}
 		break;
 	}
@@ -319,7 +358,6 @@ bool marraztu_baldosa(Baldosa* baldosa, SDL_Rect* rect)
 		{
 			fprintf(stderr, "Errorea: %s.\n", SDL_GetError());
 			dena_ondo = false;
-			goto atera;
 		}
 		break;
 	}
@@ -327,7 +365,6 @@ bool marraztu_baldosa(Baldosa* baldosa, SDL_Rect* rect)
 		break;
 	}
 
-atera:
 	return dena_ondo;
 }
 
@@ -342,43 +379,7 @@ bool marraztu_tropa(Baldosa* baldosa, SDL_Rect* rect)
 		{
 		case Infanteria:
 		{
-			switch (tropa->orientazioa)
-			{
-			case Aurrea:
-				if (SDL_RenderCopy(RENDERER, ELEM_TEXT->infanteria.aurrea, NULL, rect) < 0)
-				{
-					fprintf(stderr, "Errorea: %s.\n", SDL_GetError());
-					dena_ondo = false;
-					goto atera;
-				}
-				break;
-			case Atzea:
-				if (SDL_RenderCopy(RENDERER, ELEM_TEXT->infanteria.atzea, NULL, rect) < 0)
-				{
-					fprintf(stderr, "Errorea: %s.\n", SDL_GetError());
-					dena_ondo = false;
-					goto atera;
-				}
-				break;
-			case Eskubi:
-				if (SDL_RenderCopy(RENDERER, ELEM_TEXT->infanteria.eskubi, NULL, rect) < 0)
-				{
-					fprintf(stderr, "Errorea: %s.\n", SDL_GetError());
-					dena_ondo = false;
-					goto atera;
-				}
-				break;
-			case Ezker:
-				if (SDL_RenderCopy(RENDERER, ELEM_TEXT->infanteria.ezker, NULL, rect) < 0)
-				{
-					fprintf(stderr, "Errorea: %s.\n", SDL_GetError());
-					dena_ondo = false;
-					goto atera;
-				}
-				break;
-			default:
-				break;
-			}
+			dena_ondo = marraztu_orientazioa(tropa, rect);
 			break;
 		}
 		default:
@@ -386,14 +387,60 @@ bool marraztu_tropa(Baldosa* baldosa, SDL_Rect* rect)
 		}
 	}
 
-atera:
 	return dena_ondo;
 }
 
-void kalkulatu_iso(Bekt2D* iso_pos, float x, float y)
+bool marraztu_orientazioa(TropaStat* tropa, SDL_Rect* rect)
+{
+	bool dena_ondo = true;
+
+	switch (tropa->orientazioa)
+	{
+	case Aurrea:
+		if (SDL_RenderCopy(RENDERER, ELEM_TEXT->infanteria.aurrea, NULL, rect) < 0)
+		{
+			fprintf(stderr, "Errorea: %s.\n", SDL_GetError());
+			dena_ondo = false;
+		}
+		break;
+	case Atzea:
+		if (SDL_RenderCopy(RENDERER, ELEM_TEXT->infanteria.atzea, NULL, rect) < 0)
+		{
+			fprintf(stderr, "Errorea: %s.\n", SDL_GetError());
+			dena_ondo = false;
+		}
+		break;
+	case Eskubi:
+		if (SDL_RenderCopy(RENDERER, ELEM_TEXT->infanteria.eskubi, NULL, rect) < 0)
+		{
+			fprintf(stderr, "Errorea: %s.\n", SDL_GetError());
+			dena_ondo = false;
+		}
+		break;
+	case Ezker:
+		if (SDL_RenderCopy(RENDERER, ELEM_TEXT->infanteria.ezker, NULL, rect) < 0)
+		{
+			fprintf(stderr, "Errorea: %s.\n", SDL_GetError());
+			dena_ondo = false;
+		}
+		break;
+	default:
+		break;
+	}
+
+	return dena_ondo;
+}
+
+void kalkulatu_isometriko(Bekt2D* iso_pos, float x, float y)
 {
 	iso_pos->x = (int)(x - y);
 	iso_pos->y = (int)((x + y) * 0.5);
+}
+
+void kalkulatu_kartesiarrak(Bekt2D* kartes_pos, int x, int y)
+{
+	kartes_pos->x = (int)((2 * y + x) / 2);
+	kartes_pos->y = (int)((2 * y - x) / 2);
 }
 
  /*
