@@ -24,6 +24,7 @@ SDL_Texture* irudiak[20];
 #define TALE_X 30
 #define TALE_Y 30
 #define GORA 0
+#define EZER 0
 #define BEHERA 1
 #define ESKUBI 2
 #define EZKERRA 3
@@ -32,7 +33,7 @@ SDL_Texture* irudiak[20];
 
 #pragma region ENUM
 typedef enum { aurrera, atzera, eskubi, ezker }ORIENTAZIOAK;
-typedef enum { belarzaria, ura, mendia }TERRENOAK;
+typedef enum { belarzaria, ura, mendia,basea }TERRENOAK;
 #pragma endregion
 ORIENTAZIOAK orientazioak;
 TERRENOAK terrenoak;
@@ -65,13 +66,11 @@ void iso(int x0, int y0);
 void cartesian(int isoY, int isoX);
 void erakutsiTale(int xmouse, int ymouse);
 void irudiakKargatu(SDL_Texture* gotorlekua[], char** link);
-void Desplazatu();
-void desplazamenduDinamikoa();
-void iritsiDa(int orgX, int destX, int orgY, int destY);
 bool running();
 SDL_Texture* loadImage(char* file, SDL_Renderer* renderer);
 void RangoaIpini(int rango);
 void RangoaEzabatu();
+int Tropa_Org_Aukeratu();
 #pragma endregion
 
 
