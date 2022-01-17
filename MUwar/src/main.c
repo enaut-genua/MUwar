@@ -39,6 +39,7 @@ int main(void)
 
 	ebentuak_martxan_jokoa(&jokoaMartxan);
 	mapa_lortu_pos(map, 4, 9)->tropa = tropa_sortu(Infanteria, 2);
+	mapa_lortu_pos(map, 5, 11)->aukeratuta = true;
 
 	while (jokoaMartxan)
 	{

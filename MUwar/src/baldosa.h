@@ -19,9 +19,11 @@ typedef enum
 
 typedef struct
 {
-	Orientazioa noranzkoa;			/* Baldosaren noranzkoa, erabilagarria adibidez karreterak ondo lotzeko */
-	TerrenoMotak mota;
 	TropaStat* tropa;					/* Baldosa honetan dagoen tropa bati apuntatzen dio */
+	Orientazioa noranzkoa;				/* Baldosaren noranzkoa, erabilagarria adibidez karreterak ondo lotzeko */
+	TerrenoMotak mota;
+	bool aukeratuta;					/* Baldosa aukeratuta dagoen ala ez */
 } Baldosa;
+
 
 #endif // !BALDOSA_H
