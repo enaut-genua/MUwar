@@ -33,7 +33,7 @@ SDL_Texture* irudiak[20];
 
 #pragma region ENUM
 typedef enum { aurrera, atzera, eskubi, ezker }ORIENTAZIOAK;
-typedef enum { belarzaria, ura, mendia,basea }TERRENOAK;
+typedef enum { belarzaria, ura, mendia,basea=4 }TERRENOAK;
 #pragma endregion
 ORIENTAZIOAK orientazioak;
 TERRENOAK terrenoak;

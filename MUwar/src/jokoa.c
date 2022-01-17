@@ -11,6 +11,7 @@ int Tropa_desplazamendua_X=0, Tropa_desplazamendua_Y=0;
 int tropa_dest_X, tropa_dest_Y;
 bool mugitu = false;
 bool XiritsiDa;
+bool Basetik_sortu_tropa;
 void init(char* titulo, int xpos, int ypos, int width, int height, bool fullscreen) {
 	int flags = 0;
 	if (fullscreen)flags = SDL_WINDOW_FULLSCREEN_DESKTOP;
@@ -53,6 +54,12 @@ void handleEvents() {
 		switch (event.button.type)
 		{
 		case SDL_MOUSEBUTTONDOWN:
+			if (TERRENO[infoPos.y][infoPos.x]==basea)
+			{
+				printf("AUKERATU TROPA BAT:\n 1=soldado\n 2=tanke\n");
+				Basetik_sortu_tropa = true;
+				
+			}
 			if (Tropa_Mugitzeko_Aukera) {
 				if (!tropaAukeratuta) {
 					Detektatutako_Tropa =Tropa_Org_Aukeratu();
@@ -88,8 +95,9 @@ void handleEvents() {
 			case SDLK_s:mapPos.x -= (int)(TAMAÑOIMAGEN * 0.5); mapPos.y += (int)(TAMAÑOIMAGEN * 0.5); break;
 			case SDLK_d:mapPos.x -= (int)(TAMAÑOIMAGEN * 0.5); mapPos.y -= (int)(TAMAÑOIMAGEN * 0.5); break;
 			case SDLK_a:mapPos.x += (int)(TAMAÑOIMAGEN * 0.5); mapPos.y += (int)(TAMAÑOIMAGEN * 0.5); break;
-			case SDLK_e:
-
+			case SDLK_1: if (Basetik_sortu_tropa == true) PERTSONAK[infoPos.y][infoPos.x]=1 ; break;
+			case SDLK_2: if (Basetik_sortu_tropa == true) PERTSONAK[infoPos.y][infoPos.x] = 2; break; 
+			case SDLK_q: Basetik_sortu_tropa =false; break;
 				break;
 			}
 		}
