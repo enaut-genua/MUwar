@@ -2,7 +2,7 @@
 int main(int argc, char* argv[])
 {
 	char* link[20][20] = {
-							{"res/img/GRASS.png","res/img/WATER.png","res/MUwartextures/1superficies/montana.png","res/MUwartextures/1superficies/baseazul.png"},
+							{"res/img/GRASS.png","res/img/WATER.png","res/MUwartextures/1superficies/montana.png","res/aa.png"},
 							{"res/MUwartextures/heavysoldierazul/SOL_AZUL_esk1.png","res/MUwartextures/heavysoldierazul/SOL_AZUL_esk1.png","res/MUwartextures/heavysoldierazul/SOL_AZUL_esk1.png","res/MUwartextures/heavysoldierazul/SOL_AZUL_esk1.png"},
 							{"res/MUwartextures/tanqueazul/tanqueazulderecha1.png","res/MUwartextures/tanqueazul/tanqueazulderecha1.png","res/MUwartextures/tanqueazul/tanqueazulderecha1.png","res/MUwartextures/tanqueazul/tanqueazulderecha1.png"},
 							{"res/img/ISOTILE_NEO.png","res/img/ISOTILE1.png","res/img/RANGO.png","\0"}
