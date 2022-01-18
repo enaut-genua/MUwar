@@ -7,8 +7,8 @@ int main(int argc, char* argv[])
 							{"res/MUwartextures/tanqueazul/tanqueazulderecha1.png","res/MUwartextures/tanqueazul/tanqueazulderecha1.png","res/MUwartextures/tanqueazul/tanqueazulderecha1.png","res/MUwartextures/tanqueazul/tanqueazulderecha1.png"},
 							{"res/img/ISOTILE_NEO.png","res/img/ISOTILE1.png","res/img/RANGO.png","\0"}
 	};
-	mapPos.x = 500;
-	mapPos.y = 1000;
+	mapPos.x = 200;
+	mapPos.y = 700;
 	persona.x = 0;
 	persona.y = 0;
 	soldado.orientazioa = 0;

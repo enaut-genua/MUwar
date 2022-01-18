@@ -6,7 +6,6 @@ int aurrekotale = 0, azkenLehentale = 0;
 int TAMAÑOIMAGEN = 100;
 int rango = 2;
 int Detektatutako_Tropa;
-int tropa_org_X, tropa_org_Y;
 int Tropa_desplazamendua_X=0, Tropa_desplazamendua_Y=0;
 int tropa_dest_X, tropa_dest_Y;
 bool mugitu = false;
@@ -23,22 +22,19 @@ void init(char* titulo, int xpos, int ypos, int width, int height, bool fullscre
 	}
 }
 SDL_Rect laukiakkk;
-
-int Tropa_Org_Aukeratu() {
-	tropa_org_X = infoPos.x;
-	tropa_org_Y = infoPos.y;
-	Detektatutako_Tropa = PERTSONAK[infoPos.y][infoPos.x];
-	printf("\n%d\n", Detektatutako_Tropa);
+int Tropa_Org_Aukeratu(int* Xorg, int* Yorg) {
+	*Xorg = infoPos.x;
+	*Yorg = infoPos.y;
 	return (PERTSONAK[infoPos.y][infoPos.x]);
 }
 void Tropa_Dest_Aukeratu(int DestX,int DestY,int TerrenoDondePuedeAndar) {
-	if (TERRENO[DestY][DestX] <= TerrenoDondePuedeAndar) {
-		PERTSONAK[tropa_org_Y][tropa_org_X] = 0;
+	if (TERRENO[DestY][DestX] <= TerrenoDondePuedeAndar && RANGO_JOKALARIARENA[DestY][DestX]==1) {
+		PERTSONAK[tropa_org.y][tropa_org.x] = 0;
+
 		PERTSONAK[DestY][DestX] = Detektatutako_Tropa;
-		printf("\n DEST AUKERATU DA\n");
+		printf("\n DEST AUKERATU DA=%d\n", PERTSONAK[tropa_org.y][tropa_org.x]);
 	}
 }
-
 void handleEvents() {
 	MousePos();
 
@@ -54,15 +50,10 @@ void handleEvents() {
 		switch (event.button.type)
 		{
 		case SDL_MOUSEBUTTONDOWN:
-			if (TERRENO[infoPos.y][infoPos.x]==basea)
-			{
-				printf("AUKERATU TROPA BAT:\n 1=soldado\n 2=tanke\n");
-				Basetik_sortu_tropa = true;
-				
-			}
-			if (Tropa_Mugitzeko_Aukera) {
+
+			 if (Tropa_Mugitzeko_Aukera) {
 				if (!tropaAukeratuta) {
-					Detektatutako_Tropa =Tropa_Org_Aukeratu();
+					Detektatutako_Tropa =Tropa_Org_Aukeratu(&tropa_org.x, &tropa_org.y);
 					if (Detektatutako_Tropa >EZER)
 					{
 						printf("\nTROPA AUKERATU DA\n");
@@ -74,8 +65,16 @@ void handleEvents() {
 					Tropa_Dest_Aukeratu(infoPos.x, infoPos.y,1);
 					RangoaEzabatu();
 					tropaAukeratuta = false;
+					printf("HOLA");
 				}
-			}		
+			 }	
+			 if (TERRENO[infoPos.y][infoPos.x] == basea && !tropaAukeratuta)
+			 {
+				 printf("AUKERATU TROPA BAT:\n 1=soldado\n 2=tanke\n");
+				 Basetik_sortu_tropa = true;
+				 tropa_org.x = infoPos.x;
+				 tropa_org.y = infoPos.y;
+			 }
 			break;
 		}
 		switch (event.key.type) {
@@ -95,14 +94,13 @@ void handleEvents() {
 			case SDLK_s:mapPos.x -= (int)(TAMAÑOIMAGEN * 0.5); mapPos.y += (int)(TAMAÑOIMAGEN * 0.5); break;
 			case SDLK_d:mapPos.x -= (int)(TAMAÑOIMAGEN * 0.5); mapPos.y -= (int)(TAMAÑOIMAGEN * 0.5); break;
 			case SDLK_a:mapPos.x += (int)(TAMAÑOIMAGEN * 0.5); mapPos.y += (int)(TAMAÑOIMAGEN * 0.5); break;
-			case SDLK_1: if (Basetik_sortu_tropa == true) PERTSONAK[infoPos.y][infoPos.x]=1 ; break;
-			case SDLK_2: if (Basetik_sortu_tropa == true) PERTSONAK[infoPos.y][infoPos.x] = 2; break; 
-			case SDLK_q: Basetik_sortu_tropa =false; break;
+			case SDLK_1: if (Basetik_sortu_tropa == true) PERTSONAK[tropa_org.y][tropa_org.x] = 1; Basetik_sortu_tropa = false; break;
+			case SDLK_2: if (Basetik_sortu_tropa == true) PERTSONAK[tropa_org.y][tropa_org.x] = 2; Basetik_sortu_tropa = false; break;
+			case SDLK_q: Basetik_sortu_tropa =true; break;
 				break;
 			}
 		}
-	}
-	
+	}	
 }
 void RangoaEzabatu() {
 	for (int y = 0; y <= TALE_Y - 1; y++)

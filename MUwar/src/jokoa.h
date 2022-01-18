@@ -50,7 +50,7 @@ typedef struct IRUDIAK {
 
 } ORIENTAZIOA;
 #pragma endregion
-BI_D_KOORDENADAK mapPos, mousePos, infoPos, isometric, cart, persona;
+BI_D_KOORDENADAK mapPos, mousePos, infoPos, isometric, cart, persona, tropa_org;
 ORIENTAZIOA soldado, orco, terreno, cubo;
 
 #pragma region FUNCTIONS
