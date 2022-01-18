@@ -19,7 +19,7 @@ void ebentuak_kudeatu(void)
 	while (SDL_PollEvent(&event))
 	{
 		SDL_GetMouseState(&XAGU_POS.x, &XAGU_POS.y);
-	
+
 		switch (event.type)
 		{
 		case SDL_QUIT:

@@ -49,9 +49,9 @@ typedef struct
   *	START: Funtzio pribatuak
   */
 
-static ElementuenTexturak* argazkiak_kargatu(SDL_Renderer* render);								/* Argazkiak memoriara kargatzen ditu */
+static ElementuenTexturak* argazkiak_kargatu(void);												/* Argazkiak memoriara kargatzen ditu */
 static void argazkiak_garbitu(ElementuenTexturak** texturak);									/* Argazkiak memoriatik garbitzen ditu */
-static SDL_Texture* textura_sortu(SDL_Renderer* render, const char* path, uint8_t alpha);		/* Pathean dagoen argazkiaren textura sortzen du */
+static SDL_Texture* textura_sortu(const char* path, uint8_t alpha);								/* Pathean dagoen argazkiaren textura sortzen du */
 static bool marraztu_baldosa(Baldosa* baldosa, SDL_Rect* rect);									/* Pasatzen zaion baldosa marrazten du */
 static bool marraztu_tropa(Baldosa* baldosa, SDL_Rect* rect);									/* Baldosan dagoen tropa marrazten du */
 static bool marraztu_orientazioa(TropaStat* tropa, SDL_Rect* rect);								/* marraztu_tropa(2) funtziotik deitzen da, orientazioaren arabera tropa marrazten du */
@@ -125,7 +125,7 @@ bool render_sortu(char* titulo, int xpos, int ypos, int width, int height, bool 
 		goto atera;
 	}
 
-	if ((ELEM_TEXT = argazkiak_kargatu(RENDERER)) == NULL)
+	if ((ELEM_TEXT = argazkiak_kargatu()) == NULL)
 	{
 		fprintf(stderr, "Errorea: Ezin izan dira texturak sortu.");
 		dena_ondo = false;
@@ -256,7 +256,7 @@ void render_mugitu_mapa_ezker(void)
  *	START: Funtzio pribatuen inplementazioa
  */
 
-ElementuenTexturak* argazkiak_kargatu(SDL_Renderer* render)
+ElementuenTexturak* argazkiak_kargatu(void)
 {
 	/* Sortu ElementuTexturak structa */
 	ElementuenTexturak* texturak = (ElementuenTexturak*)calloc(1, sizeof(ElementuenTexturak));
@@ -265,7 +265,7 @@ ElementuenTexturak* argazkiak_kargatu(SDL_Renderer* render)
 	 * Kargatu Aukeratutakoaren Textura
 	 */
 
-	if ((texturak->aukeratutakoa.aurrea = textura_sortu(render, "res\\img\\TILEROSE.png", 50)) == NULL)
+	if ((texturak->aukeratutakoa.aurrea = textura_sortu("res\\img\\TILEROSE.png", 50)) == NULL)
 	{
 		fprintf(stderr, "Errorea: Ezin izan da aukeratutakoaren textura sortu.\n");
 		goto errorea;
@@ -275,7 +275,7 @@ ElementuenTexturak* argazkiak_kargatu(SDL_Renderer* render)
 	 * Kargatu Punteroaren Textura
 	 */
 
-	if ((texturak->punteroa.aurrea = textura_sortu(render, "res\\img\\ISOTILE.png", SDL_ALPHA_OPAQUE)) == NULL)
+	if ((texturak->punteroa.aurrea = textura_sortu("res\\img\\ISOTILE.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		fprintf(stderr, "Errorea: Ezin izan da punteroaren textura sortu.\n");
 		goto errorea;
@@ -286,21 +286,21 @@ ElementuenTexturak* argazkiak_kargatu(SDL_Renderer* render)
 	 */
 
 	 /* Larrea */
-	if ((texturak->larrea.aurrea = textura_sortu(render, "res\\img\\GRASS.png", SDL_ALPHA_OPAQUE)) == NULL)
+	if ((texturak->larrea.aurrea = textura_sortu("res\\img\\GRASS.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		fprintf(stderr, "Errorea: Ezin izan da larrearen textura sortu.\n");
 		goto errorea;
 	}
 
 	/* Mendia */
-	if ((texturak->mendia.aurrea = textura_sortu(render, "res\\img\\MOUNTAIN.png", SDL_ALPHA_OPAQUE)) == NULL)
+	if ((texturak->mendia.aurrea = textura_sortu("res\\img\\MOUNTAIN.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		fprintf(stderr, "Errorea: Ezin izan da mendiaren textura sortu.\n");
 		goto errorea;
 	}
 
 	/* Ibaia */
-	if ((texturak->ibaia.aurrea = textura_sortu(render, "res\\img\\WATER.png", SDL_ALPHA_OPAQUE)) == NULL)
+	if ((texturak->ibaia.aurrea = textura_sortu("res\\img\\WATER.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		fprintf(stderr, "Errorea: Ezin izan da ibaiaren textura sortu.\n");
 		goto errorea;
@@ -311,25 +311,25 @@ ElementuenTexturak* argazkiak_kargatu(SDL_Renderer* render)
 	 */
 
 	 /* Infanteria */
-	if ((texturak->infanteria.aurrea = textura_sortu(render, "res\\img\\PERTSONA.png", SDL_ALPHA_OPAQUE)) == NULL)
+	if ((texturak->infanteria.aurrea = textura_sortu("res\\img\\PERTSONA.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		fprintf(stderr, "Errorea: Ezin izan da infanteriaren aurreko textura sortu.\n");
 		goto errorea;
 	}
 
-	if ((texturak->infanteria.atzea = textura_sortu(render, "res\\img\\PERTSONA4.png", SDL_ALPHA_OPAQUE)) == NULL)
+	if ((texturak->infanteria.atzea = textura_sortu("res\\img\\PERTSONA4.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		fprintf(stderr, "Errorea: Ezin izan da infanteriaren aurreko textura sortu.\n");
 		goto errorea;
 	}
 
-	if ((texturak->infanteria.ezker = textura_sortu(render, "res\\img\\PERTSONA2.png", SDL_ALPHA_OPAQUE)) == NULL)
+	if ((texturak->infanteria.ezker = textura_sortu("res\\img\\PERTSONA2.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		fprintf(stderr, "Errorea: Ezin izan da infanteriaren aurreko textura sortu.\n");
 		goto errorea;
 	}
 
-	if ((texturak->infanteria.eskubi = textura_sortu(render, "res\\img\\PERTSONA3.png", SDL_ALPHA_OPAQUE)) == NULL)
+	if ((texturak->infanteria.eskubi = textura_sortu("res\\img\\PERTSONA3.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		fprintf(stderr, "Errorea: Ezin izan da infanteriaren aurreko textura sortu.\n");
 		goto errorea;
@@ -363,7 +363,7 @@ void argazkiak_garbitu(ElementuenTexturak** texturak)
 	}
 }
 
-SDL_Texture* textura_sortu(SDL_Renderer* render, const char* path, uint8_t alpha)
+SDL_Texture* textura_sortu(const char* path, uint8_t alpha)
 {
 	SDL_Texture* textura = NULL;
 	SDL_Surface* srfc = NULL;
@@ -374,7 +374,7 @@ SDL_Texture* textura_sortu(SDL_Renderer* render, const char* path, uint8_t alpha
 		goto atera;
 	}
 
-	if ((textura = SDL_CreateTextureFromSurface(render, srfc)) == NULL)
+	if ((textura = SDL_CreateTextureFromSurface(RENDERER, srfc)) == NULL)
 	{
 		fprintf(stderr, "Errorea: %s\n", SDL_GetError());
 		goto atera;

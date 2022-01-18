@@ -1,11 +1,11 @@
-#ifndef RENDERIZADOREA_H
-#define RENDERIZADOREA_H
+#ifndef renderIZADOREA_H
+#define renderIZADOREA_H
 
 #include "include.h"
 
 #include "mapa.h"
 
-/* Renderizadorea sortzen du */
+/* renderizadorea sortzen du */
 bool render_sortu(char* titulo, int xpos, int ypos, int width, int height, bool fullscreen);
 
 /* Memoria garbitzen du */
@@ -26,4 +26,4 @@ void render_mugitu_mapa_behera(void);
 void render_mugitu_mapa_eskubi(void);
 void render_mugitu_mapa_ezker(void);
 
-#endif // !RENDERIZADOREA_H
+#endif // !renderIZADOREA_H
