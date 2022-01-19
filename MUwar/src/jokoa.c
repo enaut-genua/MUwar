@@ -2,44 +2,71 @@
 #include"mapa.h"
 bool tropaAukeratuta = false;
 bool Tropa_Mugitzeko_Aukera = false;
-int aurrekotale = 0, azkenLehentale = 0;
-int TAMAÑOIMAGEN = 100;
-int rango = 2;
-int Detektatutako_Tropa;
-int Tropa_desplazamendua_X=0, Tropa_desplazamendua_Y=0;
-int tropa_dest_X, tropa_dest_Y;
-bool mugitu = false;
+bool mugituX = false, mugituY = false;
 bool XiritsiDa;
 bool Basetik_sortu_tropa;
-void init(char* titulo, int xpos, int ypos, int width, int height, bool fullscreen) {
-	int flags = 0;
-	if (fullscreen)flags = SDL_WINDOW_FULLSCREEN_DESKTOP;
-	if (SDL_Init(SDL_INIT_EVERYTHING) == 0) {
-		window = SDL_CreateWindow(titulo, xpos, ypos, width, height, flags | SDL_WINDOW_RESIZABLE | SDL_WINDOW_FOREIGN);
-		renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_TARGETTEXTURE | SDL_RENDERER_PRESENTVSYNC);
-		SDL_SetRenderDrawColor(renderer, 0xaa, 0xaa, 0x3b, 0x00);
-		isRunning = true;
-	}
-}
-SDL_Rect laukiakkk;
-int Tropa_Org_Aukeratu(int* Xorg, int* Yorg) {
-	*Xorg = infoPos.x;
-	*Yorg = infoPos.y;
-	return (PERTSONAK[infoPos.y][infoPos.x]);
-}
-void Tropa_Dest_Aukeratu(int DestX,int DestY,int TerrenoDondePuedeAndar) {
-	if (TERRENO[DestY][DestX] <= TerrenoDondePuedeAndar && RANGO_JOKALARIARENA[DestY][DestX]==1) {
-		PERTSONAK[tropa_org.y][tropa_org.x] = 0;
+int TAMAÑOIMAGEN = 100;
+int rango = 5;
+int Detektatutako_Tropa;
+int Dif_destOrg_X_abs, Dif_destOrg_Y_abs;
+int Dif_destOrg_X, Dif_destOrg_Y;
+int orientazioaX, orientazioaY;
 
-		PERTSONAK[DestY][DestX] = Detektatutako_Tropa;
-		printf("\n DEST AUKERATU DA=%d\n", PERTSONAK[tropa_org.y][tropa_org.x]);
+SDL_Rect laukiakk;
+void Dinamic_Move(int Tale_OrgX, int Tale_OrgY,int dinamicX, int dinamicY,int difdestorgx,int difdestorgy) {
+	int orgx, orgy;
+	int difx, dify;
+	int diftmpx, diftmpy;
+	if (mugituX ==true)
+	{
+		iso((TAMAÑOIMAGEN * 0.5) * (Tale_OrgX)+mapPos.x, (TAMAÑOIMAGEN * 0.5) * (Tale_OrgY)-mapPos.y);
+		orgx = isometric.x;
+		orgy = isometric.y;
+		difx = (TAMAÑOIMAGEN * 0.5) * (difdestorgx * orientazioaX);
+		dify = (TAMAÑOIMAGEN * 0.5) * (difdestorgy * orientazioaY);
+
+		iso((TAMAÑOIMAGEN * 0.5) * (Tale_OrgX)+mapPos.x + dinamicX, (TAMAÑOIMAGEN * 0.5) * (Tale_OrgY)-mapPos.y);
+		laukia(isometric.x, isometric.y, TAMAÑOIMAGEN, TAMAÑOIMAGEN, &laukiakk);
+		SDL_RenderCopy(renderer, cubo.irudiak[1], NULL, &laukiakk);
+		printf("\ndifX=%d\n", difx);
+		if ((isometric.x - orgx) * orientazioaX >= difx) {
+			mugituX = false; 
+			mugituY = true;
+			diftmpx = isometric.x;
+			diftmpy = isometric.y;
+			
+		}
 	}
+
+	if (mugituY == true&& mugituX == false)
+	{
+		iso((TAMAÑOIMAGEN * 0.5) * (Tale_OrgX+ difdestorgx)+mapPos.x, (TAMAÑOIMAGEN * 0.5) * (Tale_OrgY)-mapPos.y);
+		orgx = isometric.x;
+		orgy = isometric.y;
+		difx = (TAMAÑOIMAGEN * 0.5) * (difdestorgx * orientazioaX);
+		dify = ((TAMAÑOIMAGEN * 0.5) * (difdestorgy * orientazioaY)/2);
+
+		iso((TAMAÑOIMAGEN * 0.5) * (Tale_OrgX + difdestorgx)+mapPos.x , (TAMAÑOIMAGEN * 0.5) * (Tale_OrgY)-mapPos.y + dinamicY);
+		laukia(isometric.x, isometric.y, TAMAÑOIMAGEN, TAMAÑOIMAGEN, &laukiakk);
+		SDL_RenderCopy(renderer, cubo.irudiak[1], NULL, &laukiakk);
+		printf("\nisometric.y =%d\n", isometric.y);
+		if ((isometric.y - orgy) * orientazioaY >= dify)mugituY = false;
+	}
+		
+}
+
+void Zenbat_eta_nora_desplazatu_en_Baldosas(int *orientazioa,int org,int dest,int *dif,int* difAbs) {
+	*dif = dest - org;
+	if (dest - org > 0)*orientazioa = 1;
+	else if (dest - org < 0)*orientazioa = -1;
+	else if (dest - org == 0)*orientazioa = 0;
+	*difAbs = *dif * *orientazioa;
 }
 void handleEvents() {
 	MousePos();
 
 	SDL_Event event;
-	
+
 	while (SDL_PollEvent(&event))
 	{
 		if (event.type == SDL_MOUSEWHEEL)
@@ -51,30 +78,39 @@ void handleEvents() {
 		{
 		case SDL_MOUSEBUTTONDOWN:
 
-			 if (Tropa_Mugitzeko_Aukera) {
+			if (Tropa_Mugitzeko_Aukera) {
 				if (!tropaAukeratuta) {
-					Detektatutako_Tropa =Tropa_Org_Aukeratu(&tropa_org.x, &tropa_org.y);
-					if (Detektatutako_Tropa >EZER)
+					Detektatutako_Tropa = Tropa_Org_Aukeratu(&tropa_org.x, &tropa_org.y, &infoPos.x, &infoPos.y);
+					if (Detektatutako_Tropa > EZER)
 					{
+						Tropa_desplazamendua.x = 0;
+						Tropa_desplazamendua.y = 0;
 						printf("\nTROPA AUKERATU DA\n");
 						tropaAukeratuta = true;
-						RangoaIpini(rango);
+						Rangoa(rango, EZABATU,&tropa_org.x,&tropa_org.y);
+						Rangoa(rango,MARRAZTU,&tropa_org.x,&tropa_org.y);
+						mugituY = false;
+						mugituX = false;
 					}
 				}
 				else if (tropaAukeratuta) {
-					Tropa_Dest_Aukeratu(infoPos.x, infoPos.y,1);
-					RangoaEzabatu();
+					if (TERRENO[infoPos.y][infoPos.x] <= 1 && RANGO_JOKALARIARENA[infoPos.y][infoPos.x] == 1)
+						Tropa_Dest_Aukeratu(infoPos.x, infoPos.y, tropa_org.x, tropa_org.y, 1, Detektatutako_Tropa);
+						Rangoa(rango, EZABATU, &tropa_org.x, &tropa_org.y);
 					tropaAukeratuta = false;
-					printf("HOLA");
+					mugituX = true;
+					Zenbat_eta_nora_desplazatu_en_Baldosas(&orientazioaX, tropa_org.x, infoPos.x, &Dif_destOrg_X, &Dif_destOrg_X_abs);
+					Zenbat_eta_nora_desplazatu_en_Baldosas(&orientazioaY, tropa_org.y, infoPos.y, &Dif_destOrg_Y, &Dif_destOrg_Y_abs);
+
 				}
-			 }	
-			 if (TERRENO[infoPos.y][infoPos.x] == basea && !tropaAukeratuta)
-			 {
-				 printf("AUKERATU TROPA BAT:\n 1=soldado\n 2=tanke\n");
-				 Basetik_sortu_tropa = true;
-				 tropa_org.x = infoPos.x;
-				 tropa_org.y = infoPos.y;
-			 }
+			}
+			if (TERRENO[infoPos.y][infoPos.x] == basea && !tropaAukeratuta)
+			{
+				printf("AUKERATU TROPA BAT:\n 1=soldado\n 2=tanke\n");
+				Basetik_sortu_tropa = true;
+				tropa_org.x = infoPos.x;
+				tropa_org.y = infoPos.y;
+			}
 			break;
 		}
 		switch (event.key.type) {
@@ -83,7 +119,7 @@ void handleEvents() {
 			switch (event.key.keysym.sym) {
 
 			case SDLK_ESCAPE:
-				isRunning = false; 
+				isRunning = false;
 				break;
 			case SDLK_p:
 				printf("\nMUGITU DAITEKE TROPA BAT\n");
@@ -96,34 +132,46 @@ void handleEvents() {
 			case SDLK_a:mapPos.x += (int)(TAMAÑOIMAGEN * 0.5); mapPos.y += (int)(TAMAÑOIMAGEN * 0.5); break;
 			case SDLK_1: if (Basetik_sortu_tropa == true) PERTSONAK[tropa_org.y][tropa_org.x] = 1; Basetik_sortu_tropa = false; break;
 			case SDLK_2: if (Basetik_sortu_tropa == true) PERTSONAK[tropa_org.y][tropa_org.x] = 2; Basetik_sortu_tropa = false; break;
-			case SDLK_q: Basetik_sortu_tropa =true; break;
+			case SDLK_q: mugituX = false; mugituY = false; break;
+			case SDLK_x: mugituX = true; break;
+			case SDLK_y: mugituY = true; break;
 				break;
 			}
 		}
-	}	
-}
-void RangoaEzabatu() {
-	for (int y = 0; y <= TALE_Y - 1; y++)
-	{
-		for (int x = 0; x <= TALE_X - 1; x++)
-		{
-			RANGO_JOKALARIARENA[y][x] = 0;
-		}
 	}
 }
-void RangoaIpini(int rango) {
+void init(char* titulo, int xpos, int ypos, int width, int height, bool fullscreen) {
+	int flags = 0;
+	if (fullscreen)flags = SDL_WINDOW_FULLSCREEN_DESKTOP;
+	if (SDL_Init(SDL_INIT_EVERYTHING) == 0) {
+		window = SDL_CreateWindow(titulo, xpos, ypos, width, height, flags | SDL_WINDOW_RESIZABLE | SDL_WINDOW_FOREIGN);
+		renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_TARGETTEXTURE | SDL_RENDERER_PRESENTVSYNC);
+		SDL_SetRenderDrawColor(renderer, 0xaa, 0xaa, 0x3b, 0x00);
+		isRunning = true;
+	}
+}
+int Tropa_Org_Aukeratu(int* Xorg, int* Yorg,int* XCuboInfo, int* YCuboInfo) { 
+	//funtzio honek tropa baten ubikazioa esatean ze tropa aukeratu den esaten du eta bere posizioa gordetzen du
 	
-		RangoaEzabatu();
-		printf(" RANGOA MARRAZTU DA\n");
-		for (int y = 0; y < (rango * 2) + 1; y++)
+	*Xorg = *XCuboInfo; 
+	*Yorg = *YCuboInfo;
+	return (PERTSONAK[*YCuboInfo][*XCuboInfo]);
+}
+void Tropa_Dest_Aukeratu(int  TropaDestX,int TropaDestY, int tropaOrgX, int TropaOrgY, int TerrenoDondePuedeAndar,int IpiniNahiDenTropa) {
+	//funtzio honek Tropa_Org_Aukeratu funtzioak detektatu duen tropa ipintzen du ubikazio batean 
+	
+	PERTSONAK[TropaOrgY][tropaOrgX] = 0;
+		PERTSONAK[TropaDestY][TropaDestX] = IpiniNahiDenTropa;
+}
+void Rangoa(int rango,int borratu_edo_marraztu, int* XCuboInfo, int* YCuboInfo) {
+	for (int y = 0; y < (rango * 2) + 1; y++)
+	{
+		for (int x = 0; x < (rango * 2) + 1; x++)
 		{
-			for (int x = 0; x < (rango * 2) + 1; x++)
-			{
-				if (TERRENO[infoPos.y + y - rango][infoPos.x + x - rango] <= 1 && infoPos.y + y - rango >= 0 && infoPos.x + x - rango >= 0 && infoPos.y + y - rango < TALE_Y && infoPos.x + x - rango < TALE_X)
-					RANGO_JOKALARIARENA[infoPos.y + y - rango][infoPos.x + x - rango] = 1;
-			}
+			if (TERRENO[*YCuboInfo + y - rango][*XCuboInfo + x - rango] <= 1 && *YCuboInfo + y - rango >= 0 && *XCuboInfo + x - rango >= 0 && *YCuboInfo + y - rango < TALE_Y && *XCuboInfo + x - rango < TALE_X)
+				RANGO_JOKALARIARENA[*YCuboInfo + y - rango][*XCuboInfo + x - rango] = borratu_edo_marraztu;
 		}
-	
+	}
 }
 void MousePos(void) {
 	int buttons;
@@ -144,7 +192,7 @@ void laukia(int x0, int y0, int w, int h, SDL_Rect* laukia)
 	laukia->y = y0;
 }
 void Mapa() {
-	SDL_Rect laukiakk;
+	
 	for (int yy = 0; yy < TALE_Y; yy++) {
 		for (int xx = 0; xx < TALE_X; xx++) {
 			iso((TAMAÑOIMAGEN * 0.5) * xx + mapPos.x, (TAMAÑOIMAGEN * 0.5) * yy - mapPos.y);
@@ -202,8 +250,8 @@ void render() {
 	SDL_RenderClear(renderer);
 	erakutsiTale(mousePos.x, mousePos.y);
 	Mapa();
+	Dinamic_Move(tropa_org.x, tropa_org.y, Tropa_desplazamendua.x, Tropa_desplazamendua.y, Dif_destOrg_X, Dif_destOrg_Y);
 	SDL_RenderPresent(renderer);
-
 }
 void iso(int x0, int y0) {
 	isometric.x = x0 - y0;
@@ -223,7 +271,7 @@ bool running() {
 	return isRunning;
 }
 void update() {
-
-
+	if (mugituX == true)Tropa_desplazamendua.x += orientazioaX*3;
+	if (mugituY == true)Tropa_desplazamendua.y += orientazioaY*3;
 }
 

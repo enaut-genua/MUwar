@@ -28,6 +28,8 @@ SDL_Texture* irudiak[20];
 #define BEHERA 1
 #define ESKUBI 2
 #define EZKERRA 3
+#define MARRAZTU 1
+#define EZABATU 0
 #pragma endregion
 
 
@@ -50,7 +52,7 @@ typedef struct IRUDIAK {
 
 } ORIENTAZIOA;
 #pragma endregion
-BI_D_KOORDENADAK mapPos, mousePos, infoPos, isometric, cart, persona, tropa_org;
+BI_D_KOORDENADAK mapPos, mousePos, infoPos, isometric, cart, persona, tropa_org, tropa_dest, Tropa_desplazamendua;
 ORIENTAZIOA soldado, orco, terreno, cubo;
 
 #pragma region FUNCTIONS
@@ -67,10 +69,12 @@ void cartesian(int isoY, int isoX);
 void erakutsiTale(int xmouse, int ymouse);
 void irudiakKargatu(SDL_Texture* gotorlekua[], char** link);
 bool running();
+void Dinamic_Move(int Tale_OrgX, int Tale_OrgY, int dinamicX, int dinamicY, int difx, int dify);
 SDL_Texture* loadImage(char* file, SDL_Renderer* renderer);
-void RangoaIpini(int rango);
-void RangoaEzabatu();
-int Tropa_Org_Aukeratu();
+void Rangoa(int rango, int borratu_edo_marraztu, int* XCuboInfo, int* YCuboInfo);
+int Tropa_Org_Aukeratu(int* Xorg, int* Yorg, int* XCuboInfo, int* YCuboInfo);
+void Zenbat_eta_nora_desplazatu_en_Baldosas(int* orientazioa, int org, int dest, int* dif, int* difAbs);
+void Tropa_Dest_Aukeratu(int  TropaDestX, int TropaDestY, int tropaOrgX, int TropaOrgY, int TerrenoDondePuedeAndar, int IpiniNahiDenTropa);
 #pragma endregion
 
 

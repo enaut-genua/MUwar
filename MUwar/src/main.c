@@ -21,7 +21,7 @@ int main(int argc, char* argv[])
 	irudiakKargatu(cubo.irudiak, link[3]);
 	while (isRunning)
 	{
-		handleEvents();
+		handleEvents();		
 		update();
 		render();
 	}
