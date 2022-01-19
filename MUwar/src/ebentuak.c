@@ -48,15 +48,6 @@ void ebentuak_kudeatu(void)
 			}
 			break;
 		}
-		case SDL_KEYUP:
-		{
-			switch (event.key.keysym.sym)
-			{
-			default:
-				break;
-			}
-			break;
-		}
 		case SDL_MOUSEWHEEL:
 		{
 			if (event.wheel.y > 0)
@@ -95,8 +86,6 @@ void ebentuak_kudeatu(void)
 
 			break;
 		}
-		default:
-			break;
 		}
 	}
 }

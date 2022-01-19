@@ -469,8 +469,6 @@ bool marraztu_baldosa(Baldosa* baldosa, SDL_Rect* rect)
 		}
 		break;
 	}
-	default:
-		break;
 	}
 
 	return dena_ondo;
@@ -490,8 +488,6 @@ bool marraztu_tropa(Baldosa* baldosa, SDL_Rect* rect)
 			dena_ondo = marraztu_orientazioa(tropa, rect);
 			break;
 		}
-		default:
-			break;
 		}
 	}
 
@@ -531,8 +527,6 @@ bool marraztu_orientazioa(TropaStat* tropa, SDL_Rect* rect)
 			fprintf(stderr, "Errorea: %s.\n", SDL_GetError());
 			dena_ondo = false;
 		}
-		break;
-	default:
 		break;
 	}
 
