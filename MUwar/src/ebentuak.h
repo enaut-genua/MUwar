@@ -7,7 +7,7 @@
 void ebentuak_kudeatu(void);
 
 /* Erabiltzaileak jokoa gelditu duen ala ez esaten du */
-void ebentuak_martxan_jokoa(bool* interruptorea);
+void ebentuak_konfiguratu(bool* interruptorea);
 
 /* Xaguaren posizioa lortu */
 Bekt2D ebentuak_lortu_xagu_pos(void);

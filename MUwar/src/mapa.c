@@ -1,5 +1,6 @@
 #include <stdlib.h>
 
+#include "ebentuak.h"
 #include "mapa.h"
 
 
@@ -42,6 +43,12 @@ void mapa_borratu(Mapa** mapa)
 	free((*mapa)->mapa);
 	free(*mapa);
 	*mapa = NULL;
+}
+
+Baldosa* mapa_aukeratu_baldosa(Mapa* mapa)
+{
+	Bekt2D pos = ebentuak_lortu_xagu_pos();
+	return mapa_lortu_pos(mapa, pos.x, pos.y);
 }
 
 Baldosa* mapa_lortu_pos(Mapa* mapa, int x, int y)

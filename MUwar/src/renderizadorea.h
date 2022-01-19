@@ -1,5 +1,5 @@
-#ifndef renderIZADOREA_H
-#define renderIZADOREA_H
+#ifndef RENDERIZADOREA_H
+#define RENDERIZADOREA_H
 
 #include "include.h"
 
@@ -26,4 +26,8 @@ void render_mugitu_mapa_behera(void);
 void render_mugitu_mapa_eskubi(void);
 void render_mugitu_mapa_ezker(void);
 
-#endif // !renderIZADOREA_H
+/* Getters/Setters */
+const int render_lortu_argazki_tamaina(void);
+const Bekt2D render_lortu_mapa_nondik_hasi_marrazten(void);
+
+#endif // !RENDERIZADOREA_H

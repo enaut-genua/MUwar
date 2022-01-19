@@ -1,5 +1,6 @@
 #include "ebentuak.h"
 #include "renderizadorea.h"
+#include "kalkuloak.h"
 
 /*
  *	START: Aldagai global pribatuak
@@ -68,19 +69,32 @@ void ebentuak_kudeatu(void)
 			}
 			break;
 		}
+		case SDL_MOUSEBUTTONDOWN:
+			break;
+		case SDL_MOUSEBUTTONUP:
+			break;
 		default:
 			break;
 		}
 	}
 }
 
-void ebentuak_martxan_jokoa(bool* interruptorea)
+void ebentuak_konfiguratu(bool* interruptorea)
 {
 	JOKOA_MARTXAN = interruptorea;
 }
 
 Bekt2D ebentuak_lortu_xagu_pos(void)
 {
-	Bekt2D xagupos = { XAGU_POS.x, XAGU_POS.y };
-	return xagupos;
+	int argazki_tamaina = render_lortu_argazki_tamaina();
+	Bekt2D mapa_hasiera = render_lortu_mapa_nondik_hasi_marrazten();
+	Bekt2D pos_kart = { 0 };
+	Bekt2D aukeratutako_baldosa_pos = { 0 };
+
+	kalkulatu_kartesiarrak(&pos_kart, XAGU_POS.x, XAGU_POS.y);
+
+	aukeratutako_baldosa_pos.x = (int)((pos_kart.x - argazki_tamaina * 0.5 - mapa_hasiera.x) / (argazki_tamaina * 0.5f));
+	aukeratutako_baldosa_pos.y = (int)((pos_kart.y + mapa_hasiera.y) / (argazki_tamaina * 0.5f));
+
+	return aukeratutako_baldosa_pos;
 }

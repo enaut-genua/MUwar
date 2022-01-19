@@ -16,7 +16,12 @@ Mapa* mapa_sortu(TerrenoMotak mapa[], int tamaina_x, int tamaina_y);
 /* Mapa borratu eta punteroa NULL bezala utziko du */
 void mapa_borratu(Mapa** mapa);
 
+/* Lortu Xaguak apuntatutako baldosa */
+Baldosa* mapa_aukeratu_baldosa(Mapa* mapa);
+
 /* Sartzen zaion posizioko baldosa bueltatuko du */
 Baldosa* mapa_lortu_pos(Mapa* mapa, int x, int y);
+
+
 
 #endif // !MAPA_H

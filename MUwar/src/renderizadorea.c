@@ -1,5 +1,6 @@
 #include "renderizadorea.h"
 #include "ebentuak.h"
+#include "kalkuloak.h"
 
 /*
  *	START: Estruktura pribatuak
@@ -61,9 +62,6 @@ static bool marraztu_orientazioa(TropaStat* tropa, SDL_Rect* rect);								/* ma
 static bool marraztu_punteroa(Mapa* mapa, Baldosa* baldosa);									/* Marraztu punteroa */
 static bool marraztu_informazioa(Mapa* mapa);
 static bool marraztu_aukeratuta(Baldosa* baldosa, SDL_Rect* rect);
-static void kalkulatu_isometriko(Bekt2D* iso_pos, float x, float y);							/* Koordenada isometrikoak kalkulatzen ditu */
-static void kalkulatu_kartesiarrak(Bekt2D* kartes_pos, int x, int y);							/* Koordenada kartesiarrak kalkulatzen ditu */
-
 /*
  *	END: Funtzio pribatuak
  */
@@ -76,7 +74,7 @@ static void kalkulatu_kartesiarrak(Bekt2D* kartes_pos, int x, int y);							/* K
 static SDL_Window* WINDOW = NULL;
 static SDL_Renderer* RENDERER = NULL;
 static ElementuenTexturak* ELEM_TEXT = NULL;
-static Bekt2D MAPA_HASIERA = { 100, 300 };
+static Bekt2D MAPA_NONDIK_HASI_MARRAZTEN = { 100, 300 };
 static int ARGAZKI_TAMAINA = 100;
 
 /*
@@ -165,7 +163,7 @@ bool render_marraztu(Mapa* mapa)
 	{
 		for (int j = 0; j < mapa->tamaina_y; ++j)
 		{
-			kalkulatu_isometriko(&iso_pos, (ARGAZKI_TAMAINA * 0.5f) * i + MAPA_HASIERA.x, (ARGAZKI_TAMAINA * 0.5f) * j - MAPA_HASIERA.y);
+			kalkulatu_isometriko(&iso_pos, (ARGAZKI_TAMAINA * 0.5f) * i + MAPA_NONDIK_HASI_MARRAZTEN.x, (ARGAZKI_TAMAINA * 0.5f) * j - MAPA_NONDIK_HASI_MARRAZTEN.y);
 
 			laukia.x = iso_pos.x;
 			laukia.y = iso_pos.y;
@@ -233,26 +231,36 @@ void render_txikitu_argazkiak(void)
 
 void render_mugitu_mapa_gora(void)
 {
-	MAPA_HASIERA.x += (int)(ARGAZKI_TAMAINA * 0.5f);
-	MAPA_HASIERA.y -= (int)(ARGAZKI_TAMAINA * 0.5f);
+	MAPA_NONDIK_HASI_MARRAZTEN.x += (int)(ARGAZKI_TAMAINA * 0.5f);
+	MAPA_NONDIK_HASI_MARRAZTEN.y -= (int)(ARGAZKI_TAMAINA * 0.5f);
 }
 
 void render_mugitu_mapa_behera(void)
 {
-	MAPA_HASIERA.x -= (int)(ARGAZKI_TAMAINA * 0.5f);
-	MAPA_HASIERA.y += (int)(ARGAZKI_TAMAINA * 0.5f);
+	MAPA_NONDIK_HASI_MARRAZTEN.x -= (int)(ARGAZKI_TAMAINA * 0.5f);
+	MAPA_NONDIK_HASI_MARRAZTEN.y += (int)(ARGAZKI_TAMAINA * 0.5f);
 }
 
 void render_mugitu_mapa_eskubi(void)
 {
-	MAPA_HASIERA.x -= (int)(ARGAZKI_TAMAINA * 0.5f);
-	MAPA_HASIERA.y -= (int)(ARGAZKI_TAMAINA * 0.5f);
+	MAPA_NONDIK_HASI_MARRAZTEN.x -= (int)(ARGAZKI_TAMAINA * 0.5f);
+	MAPA_NONDIK_HASI_MARRAZTEN.y -= (int)(ARGAZKI_TAMAINA * 0.5f);
 }
 
 void render_mugitu_mapa_ezker(void)
 {
-	MAPA_HASIERA.x += (int)(ARGAZKI_TAMAINA * 0.5f);
-	MAPA_HASIERA.y += (int)(ARGAZKI_TAMAINA * 0.5f);
+	MAPA_NONDIK_HASI_MARRAZTEN.x += (int)(ARGAZKI_TAMAINA * 0.5f);
+	MAPA_NONDIK_HASI_MARRAZTEN.y += (int)(ARGAZKI_TAMAINA * 0.5f);
+}
+
+const int render_lortu_argazki_tamaina(void)
+{
+	return ARGAZKI_TAMAINA;
+}
+
+const Bekt2D render_lortu_mapa_nondik_hasi_marrazten(void)
+{
+	return MAPA_NONDIK_HASI_MARRAZTEN;
 }
 
 /*
@@ -294,7 +302,7 @@ ElementuenTexturak* argazkiak_kargatu(void)
 	 * Kargatu Terrenoaren Texturak
 	 */
 
-	/* Larrea */
+	 /* Larrea */
 	if ((texturak->larrea.aurrea = textura_sortu("res\\img\\normala.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		fprintf(stderr, "Errorea: Ezin izan da larrearen textura sortu.\n");
@@ -348,25 +356,25 @@ ElementuenTexturak* argazkiak_kargatu(void)
 	 */
 
 	 /* Infanteria */
-	if ((texturak->infanteria.aurrea = textura_sortu("res\\img\\soldadoazulderecha1.png", SDL_ALPHA_OPAQUE)) == NULL)
+	if ((texturak->infanteria.aurrea = textura_sortu("res\\img\\soldadosazulderecha1.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		fprintf(stderr, "Errorea: Ezin izan da infanteriaren aurreko textura sortu.\n");
 		goto errorea;
 	}
 
-	if ((texturak->infanteria.atzea = textura_sortu("res\\img\\soldadoazulizquierda2.png", SDL_ALPHA_OPAQUE)) == NULL)
+	if ((texturak->infanteria.atzea = textura_sortu("res\\img\\soldadosazulizquierda2.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		fprintf(stderr, "Errorea: Ezin izan da infanteriaren aurreko textura sortu.\n");
 		goto errorea;
 	}
 
-	if ((texturak->infanteria.ezker = textura_sortu("res\\img\\soldadoazulizquierda1.png", SDL_ALPHA_OPAQUE)) == NULL)
+	if ((texturak->infanteria.ezker = textura_sortu("res\\img\\soldadosazulizquierda1.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		fprintf(stderr, "Errorea: Ezin izan da infanteriaren aurreko textura sortu.\n");
 		goto errorea;
 	}
 
-	if ((texturak->infanteria.eskubi = textura_sortu("res\\img\\soldadoazulderecha2.png", SDL_ALPHA_OPAQUE)) == NULL)
+	if ((texturak->infanteria.eskubi = textura_sortu("res\\img\\soldadosazulderecha2.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		fprintf(stderr, "Errorea: Ezin izan da infanteriaren aurreko textura sortu.\n");
 		goto errorea;
@@ -535,22 +543,15 @@ bool marraztu_punteroa(Mapa* mapa, Baldosa* baldosa)
 {
 	bool dena_ondo = true;
 	SDL_Rect laukia = { 0, 0, ARGAZKI_TAMAINA, ARGAZKI_TAMAINA };
-	Bekt2D xagu_pos = ebentuak_lortu_xagu_pos();
-	Bekt2D pos_kart = { 0 };
-	Bekt2D aukeratutako_baldosa_pos = { 0 };
-
-	kalkulatu_kartesiarrak(&pos_kart, xagu_pos.x, xagu_pos.y);
-
-	aukeratutako_baldosa_pos.x = (int)((pos_kart.x - ARGAZKI_TAMAINA * 0.5 - MAPA_HASIERA.x) / (ARGAZKI_TAMAINA * 0.5f));
-	aukeratutako_baldosa_pos.y = (int)((pos_kart.y + MAPA_HASIERA.y) / (ARGAZKI_TAMAINA * 0.5f));
+	Bekt2D aukeratutako_baldosa_pos = ebentuak_lortu_xagu_pos();
 
 	if ((mapa_lortu_pos(mapa, aukeratutako_baldosa_pos.x, aukeratutako_baldosa_pos.y) == baldosa)
-		&& (aukeratutako_baldosa_pos.x < mapa->tamaina_x && aukeratutako_baldosa_pos.y < mapa->tamaina_y) 
+		&& (aukeratutako_baldosa_pos.x < mapa->tamaina_x && aukeratutako_baldosa_pos.y < mapa->tamaina_y)
 		&& (aukeratutako_baldosa_pos.x >= 0 && aukeratutako_baldosa_pos.y >= 0))
 	{
 		Bekt2D iso_pos = { 0 };
 
-		kalkulatu_isometriko(&iso_pos, (ARGAZKI_TAMAINA * 0.5f) * aukeratutako_baldosa_pos.x + MAPA_HASIERA.x, (ARGAZKI_TAMAINA * 0.5f) * aukeratutako_baldosa_pos.y - MAPA_HASIERA.y);
+		kalkulatu_isometriko(&iso_pos, (ARGAZKI_TAMAINA * 0.5f) * aukeratutako_baldosa_pos.x + MAPA_NONDIK_HASI_MARRAZTEN.x, (ARGAZKI_TAMAINA * 0.5f) * aukeratutako_baldosa_pos.y - MAPA_NONDIK_HASI_MARRAZTEN.y);
 
 		laukia.x = iso_pos.x;
 		laukia.y = iso_pos.y;
@@ -561,7 +562,7 @@ bool marraztu_punteroa(Mapa* mapa, Baldosa* baldosa)
 			dena_ondo = false;
 		}
 	}
-	
+
 	return dena_ondo;
 }
 
@@ -569,19 +570,11 @@ bool marraztu_informazioa(Mapa* mapa)
 {
 	bool dena_ondo = true;
 	SDL_Rect laukia = { 0, 0, 100, 100 };
-	Bekt2D xagu_pos = ebentuak_lortu_xagu_pos();
-	Bekt2D pos_kart = { 0 };
-	Bekt2D aukeratutako_baldosa_pos = { 0 };
-	Baldosa* aukeratutako_baldosa = NULL;
-
-	kalkulatu_kartesiarrak(&pos_kart, xagu_pos.x, xagu_pos.y);
-
-	aukeratutako_baldosa_pos.x = (int)((pos_kart.x - 50 - MAPA_HASIERA.x) / (ARGAZKI_TAMAINA * 0.5f));
-	aukeratutako_baldosa_pos.y = (int)((pos_kart.y + MAPA_HASIERA.y) / (ARGAZKI_TAMAINA * 0.5f));
+	Bekt2D aukeratutako_baldosa_pos = ebentuak_lortu_xagu_pos();
 
 	if ((aukeratutako_baldosa_pos.x < mapa->tamaina_x && aukeratutako_baldosa_pos.y < mapa->tamaina_y) && (aukeratutako_baldosa_pos.x >= 0 && aukeratutako_baldosa_pos.y >= 0))
 	{
-		aukeratutako_baldosa = mapa_lortu_pos(mapa, aukeratutako_baldosa_pos.x, aukeratutako_baldosa_pos.y);
+		Baldosa* aukeratutako_baldosa = mapa_lortu_pos(mapa, aukeratutako_baldosa_pos.x, aukeratutako_baldosa_pos.y);
 		if (marraztu_baldosa(aukeratutako_baldosa, &laukia) == false)
 		{
 			fprintf(stderr, "Errorea: Ezin izan da info baldosa marraztu.\n");
@@ -615,18 +608,6 @@ bool marraztu_aukeratuta(Baldosa* baldosa, SDL_Rect* rect)
 	}
 
 	return dena_ondo;
-}
-
-void kalkulatu_isometriko(Bekt2D* iso_pos, float x, float y)
-{
-	iso_pos->x = (int)(x - y);
-	iso_pos->y = (int)((x + y) * 0.5);
-}
-
-void kalkulatu_kartesiarrak(Bekt2D* kartes_pos, int x, int y)
-{
-	kartes_pos->x = (int)((2 * y + x) / 2);
-	kartes_pos->y = (int)((2 * y - x) / 2);
 }
 
 /*
