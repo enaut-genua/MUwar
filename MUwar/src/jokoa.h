@@ -74,6 +74,7 @@ SDL_Texture* loadImage(char* file, SDL_Renderer* renderer);
 void Rangoa(int rango, int borratu_edo_marraztu, int* XCuboInfo, int* YCuboInfo);
 int Tropa_Org_Aukeratu(int* Xorg, int* Yorg, int* XCuboInfo, int* YCuboInfo);
 void Zenbat_eta_nora_desplazatu_en_Baldosas(int* orientazioa, int org, int dest, int* dif, int* difAbs);
+void TraiektoriaMarraztu();
 void Tropa_Dest_Aukeratu(int  TropaDestX, int TropaDestY, int tropaOrgX, int TropaOrgY, int TerrenoDondePuedeAndar, int IpiniNahiDenTropa);
 #pragma endregion
 

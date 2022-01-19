@@ -5,7 +5,7 @@ int main(int argc, char* argv[])
 							{"res/img/GRASS.png","res/img/WATER.png","res/MUwartextures/1superficies/montana.png","res/aa.png"},
 							{"res/MUwartextures/heavysoldierazul/SOL_AZUL_esk1.png","res/MUwartextures/heavysoldierazul/SOL_AZUL_esk1.png","res/MUwartextures/heavysoldierazul/SOL_AZUL_esk1.png","res/MUwartextures/heavysoldierazul/SOL_AZUL_esk1.png"},
 							{"res/MUwartextures/tanqueazul/tanqueazulderecha1.png","res/MUwartextures/tanqueazul/tanqueazulderecha1.png","res/MUwartextures/tanqueazul/tanqueazulderecha1.png","res/MUwartextures/tanqueazul/tanqueazulderecha1.png"},
-							{"res/img/ISOTILE_NEO.png","res/img/ISOTILE1.png","res/img/RANGO.png","\0"}
+							{"res/img/ISOTILE_NEO.png","res/img/ISOTILE1.png","res/img/RANGO.png","res/cc.png"}
 	};
 	mapPos.x = 200;
 	mapPos.y = 700;
