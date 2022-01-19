@@ -5,6 +5,9 @@
 
 typedef enum
 {
+	Base_urdina,
+	Base_gorria,
+	Basamortua,
 	Larrea,
 	Ibaia,
 	Karretera,
@@ -12,10 +15,8 @@ typedef enum
 	BasoMoztua,
 	Mendia,
 	MendiHautsia,	
-	Hiria,
+	Herria,
 	Fabrika,
-	Basea,
-	Basamortua
 } TerrenoMotak;
 
 typedef struct
