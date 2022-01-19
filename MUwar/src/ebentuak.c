@@ -19,7 +19,7 @@ void ebentuak_kudeatu(void)
 
 	while (SDL_PollEvent(&event))
 	{
-		SDL_GetMouseState(&XAGUA.posizio_erreala.x, &XAGUA.posizio_erreala.y);
+		uint32_t botoia = SDL_GetMouseState(&XAGUA.posizio_erreala.x, &XAGUA.posizio_erreala.y);
 
 		switch (event.type)
 		{
@@ -70,9 +70,31 @@ void ebentuak_kudeatu(void)
 			break;
 		}
 		case SDL_MOUSEBUTTONDOWN:
+		{
+			if ((botoia & SDL_BUTTON_LMASK) != 0)
+			{
+				XAGUA.ezker_botoia_klikatuta = true;
+			}
+			else if ((botoia & SDL_BUTTON_RMASK) != 0)
+			{
+				XAGUA.eskubi_botoia_klikatuta = true;
+			}
+
 			break;
+		}
 		case SDL_MOUSEBUTTONUP:
+		{
+			if ((botoia & SDL_BUTTON_LMASK) == 0)
+			{
+				XAGUA.ezker_botoia_klikatuta = false;
+			}
+			if ((botoia & SDL_BUTTON_RMASK) == 0)
+			{
+				XAGUA.eskubi_botoia_klikatuta = false;
+			}
+
 			break;
+		}
 		default:
 			break;
 		}
