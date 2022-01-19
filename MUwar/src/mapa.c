@@ -47,7 +47,7 @@ void mapa_borratu(Mapa** mapa)
 
 Baldosa* mapa_aukeratu_baldosa(Mapa* mapa)
 {
-	Bekt2D pos = ebentuak_lortu_xagu_pos();
+	Bekt2D pos = ebentuak_lortu_xaguaren_egoera()->mapako_posizioa;
 	return mapa_lortu_pos(mapa, pos.x, pos.y);
 }
 

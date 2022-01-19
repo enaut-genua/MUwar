@@ -3,14 +3,23 @@
 
 #include "include.h"
 
+/* Xagua errepresentatzen duen estruktura */
+typedef struct
+{
+	bool ezker_botoia_klikatuta;
+	bool eskubi_botoia_klikatuta;
+	Bekt2D posizio_erreala;
+	Bekt2D mapako_posizioa;
+} Xagua;
+
 /* Erabiltzaileak egindako ebentuak kudeatzen ditu */
 void ebentuak_kudeatu(void);
 
 /* Erabiltzaileak jokoa gelditu duen ala ez esaten du */
 void ebentuak_konfiguratu(bool* interruptorea);
 
-/* Xaguaren posizioa lortu */
-Bekt2D ebentuak_lortu_xagu_pos(void);
+/* Xaguaren egoera lortu */
+const Xagua* ebentuak_lortu_xaguaren_egoera(void);
 
 #endif // !EBENTUAK_H
 

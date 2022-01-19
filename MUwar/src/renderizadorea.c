@@ -543,7 +543,7 @@ bool marraztu_punteroa(Mapa* mapa, Baldosa* baldosa)
 {
 	bool dena_ondo = true;
 	SDL_Rect laukia = { 0, 0, ARGAZKI_TAMAINA, ARGAZKI_TAMAINA };
-	Bekt2D aukeratutako_baldosa_pos = ebentuak_lortu_xagu_pos();
+	Bekt2D aukeratutako_baldosa_pos = ebentuak_lortu_xaguaren_egoera()->mapako_posizioa;
 
 	if ((mapa_lortu_pos(mapa, aukeratutako_baldosa_pos.x, aukeratutako_baldosa_pos.y) == baldosa)
 		&& (aukeratutako_baldosa_pos.x < mapa->tamaina_x && aukeratutako_baldosa_pos.y < mapa->tamaina_y)
@@ -570,7 +570,7 @@ bool marraztu_informazioa(Mapa* mapa)
 {
 	bool dena_ondo = true;
 	SDL_Rect laukia = { 0, 0, 100, 100 };
-	Bekt2D aukeratutako_baldosa_pos = ebentuak_lortu_xagu_pos();
+	Bekt2D aukeratutako_baldosa_pos = ebentuak_lortu_xaguaren_egoera()->mapako_posizioa;
 
 	if ((aukeratutako_baldosa_pos.x < mapa->tamaina_x && aukeratutako_baldosa_pos.y < mapa->tamaina_y) && (aukeratutako_baldosa_pos.x >= 0 && aukeratutako_baldosa_pos.y >= 0))
 	{
