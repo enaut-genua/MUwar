@@ -156,6 +156,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\ebentuak.c" />
+    <ClCompile Include="src\jokoa.c" />
     <ClCompile Include="src\main.c" />
     <ClCompile Include="src\mapa.c" />
     <ClCompile Include="src\renderizadorea.c" />
@@ -165,7 +166,9 @@
     <ClInclude Include="src\baldosa.h" />
     <ClInclude Include="src\ebentuak.h" />
     <ClInclude Include="src\include.h" />
+    <ClInclude Include="src\jokoa.h" />
     <ClInclude Include="src\mapa.h" />
+    <ClInclude Include="src\mapa_modeloak.h" />
     <ClInclude Include="src\renderizadorea.h" />
     <ClInclude Include="src\tropa.h" />
   </ItemGroup>

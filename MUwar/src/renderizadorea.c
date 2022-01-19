@@ -258,8 +258,14 @@ void render_mugitu_mapa_ezker(void)
 
 ElementuenTexturak* argazkiak_kargatu(void)
 {
+	ElementuenTexturak* texturak = NULL;
+
 	/* Sortu ElementuTexturak structa */
-	ElementuenTexturak* texturak = (ElementuenTexturak*)calloc(1, sizeof(ElementuenTexturak));
+	if ((texturak = (ElementuenTexturak*)calloc(1, sizeof(ElementuenTexturak))) == NULL)
+	{
+		fprintf(stderr, "Errorea: Ezin izan da ElementuanTexturak estruktura sortu.\n");
+		goto errorea;
+	}
 
 	/*
 	 * Kargatu Aukeratutakoaren Textura

@@ -1,7 +1,11 @@
 #ifndef TROPA_H
 #define TROPA_H
 
+struct Baldosa;
+
 #include "include.h"
+
+#include "baldosa.h"
 
 /* Jokuan erabiliko diren tropa motak. */
 typedef enum
@@ -32,5 +36,8 @@ TropaStat* tropa_sortu(TropaMota mota, int id);
 
 /* Borratu tropa */
 void tropa_borratu(TropaStat** tropa);
+
+/* Tropa mugitu */
+bool tropa_mugitu(Baldosa * baldosa_1);
 
 #endif // TROPAK_H

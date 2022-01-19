@@ -14,7 +14,8 @@ typedef enum
 	MendiHautsia,	
 	Hiria,
 	Fabrika,
-	Basea
+	Basea,
+	Basamortua
 } TerrenoMotak;
 
 typedef struct

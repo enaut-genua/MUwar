@@ -30,6 +30,9 @@
     <ClCompile Include="src\ebentuak.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\jokoa.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\tropa.h">
@@ -48,6 +51,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\ebentuak.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\jokoa.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mapa_modeloak.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
