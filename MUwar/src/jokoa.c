@@ -53,6 +53,8 @@ void Dinamic_Move(int Tale_OrgX, int Tale_OrgY,int dinamicX, int dinamicY,int di
 	}
 		
 }
+
+
 void Zenbat_eta_nora_desplazatu_en_Baldosas(int *orientazioa,int org,int dest,int *dif,int* difAbs) {
 	*dif = dest - org;
 	if (dest - org > 0)*orientazioa = 1;
