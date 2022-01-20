@@ -9,21 +9,20 @@ int main(void)
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 #endif // _DEBUG
 
-	bool errorea = false;
-
+	/* jokoa_garbitu() funtzioa programa bukaeran exekutatzeko erregistratu */
+	atexit(jokoa_garbitu);
+	
 	if (jokoa_prestatu() == false)
 	{
-		fprintf(stderr, "Errorea: Ezin izan da jokoa hasi.\n");
-		errorea = true;
+		ERROREA("Ezin izan da jokoa hasi.");
+		exit(EXIT_FAILURE);
 	}
 
 	if (jokoa_hasi() == false)
 	{
-		fprintf(stderr, "Errorea: Jokoaren exekuzioan errorea.\n");
-		errorea = true;
+		ERROREA("Jokoaren exekuzioan errorea.");
+		exit(EXIT_FAILURE);
 	}
 
-	jokoa_garbitu();
-
-	return (int)(errorea);
+	return EXIT_SUCCESS;
 }

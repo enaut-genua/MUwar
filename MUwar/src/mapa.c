@@ -7,21 +7,21 @@
 Mapa* mapa_sortu(TerrenoMotak mapa_array[], int tamaina_x, int tamaina_y)
 {
 	Mapa* mapa = NULL;
-	
+
 	/* Kalkulatu tamaina totala */
 	int tamaina = tamaina_x * tamaina_y;
 
 	/* Sortu mapa eta begiratu errorerik gertatu den */
 	if ((mapa = (Mapa*)calloc(1, sizeof(Mapa))) == NULL)
 	{
-		fprintf(stderr, "Errorea mapa sortzean!\n");
+		ERROREA("Mapa ez da sortu.");
 		goto atera;
 	}
 
 	/* Sortu mapa barruko Baldosa* bektorea eta begiratu ea errorerik gertatu den */
 	if ((mapa->mapa = (Baldosa*)calloc(tamaina, sizeof(Baldosa))) == NULL)
 	{
-		fprintf(stderr, "Errorea 'baldosa*' bektorea sortzean\n");
+		ERROREA("Baldosa* bektorea ez da sortu.");
 		mapa_borratu(&mapa);
 		goto atera;
 	}
@@ -34,15 +34,20 @@ Mapa* mapa_sortu(TerrenoMotak mapa_array[], int tamaina_x, int tamaina_y)
 		mapa->mapa[i].mota = mapa_array[i];
 	}
 
+	OHARRA("Mapa sortu da");
+
 atera:
 	return mapa;
 }
 
 void mapa_borratu(Mapa** mapa)
 {
-	free((*mapa)->mapa);
-	free(*mapa);
-	*mapa = NULL;
+	if (*mapa != NULL)
+	{
+		free((*mapa)->mapa);
+		free(*mapa);
+		*mapa = NULL;
+	}
 }
 
 Baldosa* mapa_aukeratu_baldosa(Mapa* mapa)
@@ -53,6 +58,50 @@ Baldosa* mapa_aukeratu_baldosa(Mapa* mapa)
 
 Baldosa* mapa_lortu_pos(Mapa* mapa, int x, int y)
 {
+	Baldosa* baldosa = NULL;
 	int pos = x + mapa->tamaina_x * y;
-	return &(mapa->mapa[pos]);
+
+	if ((x >= 0 && x < mapa->tamaina_x) && (y >= 0 && x < mapa->tamaina_y))
+	{
+		baldosa = &(mapa->mapa[pos]);
+	}
+	else
+	{
+		/* Hau DEBUG denean bakarrik exekutatuko da, programa pixkat moteltzen duelako. */
+#ifdef _DEBUG
+		ABISUA("Maparen mugetatik kanpoko baldosa bat lortzen saiatu da.\r");
+#endif // _DEBUG
+	}
+
+	return baldosa;
+}
+
+void mapa_rangoa_jarri(Mapa* mapa, int rangoa, int x_pos, int y_pos)
+{
+	for (int i = x_pos - rangoa; i < x_pos + rangoa; i++)
+	{
+		for (int j = y_pos - rangoa; j < y_pos + rangoa; j++)
+		{
+			Baldosa* baldosa = mapa_lortu_pos(mapa, i, j);
+			if (baldosa != NULL)
+			{
+				baldosa->markatuta = true;
+			}
+		}
+	}
+}
+
+void mapa_rangoa_kendu(Mapa* mapa, int rangoa, int x_pos, int y_pos)
+{
+	for (int i = x_pos - rangoa; i < x_pos + rangoa; i++)
+	{
+		for (int j = y_pos - rangoa; j < y_pos + rangoa; j++)
+		{
+			Baldosa* baldosa = mapa_lortu_pos(mapa, i, j);
+			if (baldosa != NULL)
+			{
+				baldosa->markatuta = false;
+			}
+		}
+	}
 }

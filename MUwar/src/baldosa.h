@@ -24,7 +24,7 @@ typedef struct
 	TropaStat* tropa;					/* Baldosa honetan dagoen tropa bati apuntatzen dio */
 	Orientazioa noranzkoa;				/* Baldosaren noranzkoa, erabilagarria adibidez karreterak ondo lotzeko */
 	TerrenoMotak mota;
-	bool aukeratuta;					/* Baldosa aukeratuta dagoen ala ez */
+	bool markatuta;					/* Baldosa aukeratuta dagoen ala ez */
 } Baldosa;
 
 

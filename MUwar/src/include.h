@@ -21,6 +21,13 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
+/* Erroreak, abisuak eta oharrak printeatzeko makroak */
+#define ERROREA(X)		(fprintf(stderr, "Errorea: %s\n", X))
+#define OHARRA(X)		(fprintf(stdout, "Oharra: %s\n", X))
+#define ABISUA(X)		(fprintf(stderr, "Abisua: %s\n", X));
+
+/* Erabili ez diren bariableak definitzeko */
+#define ERABILI_GABE(X)	((void)(X))
 
 /* Estruktura erabilgarriak */
 

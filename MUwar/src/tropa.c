@@ -38,6 +38,7 @@ TropaStat* tropa_sortu(TropaMota mota, int id)
 			eraiki_tanke(ret);
 			break;
 		default:
+			ABISUA("Errekonozitzen ez den tropa bat sortzen saiatu da.");
 			tropa_borratu(&ret);
 		}
 	}

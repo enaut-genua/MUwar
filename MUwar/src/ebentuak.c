@@ -66,7 +66,7 @@ void ebentuak_kudeatu(void)
 			{
 				XAGUA.ezker_botoia_klikatuta = true;
 			}
-			else if ((botoia & SDL_BUTTON_RMASK) != 0)
+			if ((botoia & SDL_BUTTON_RMASK) != 0)
 			{
 				XAGUA.eskubi_botoia_klikatuta = true;
 			}
@@ -83,7 +83,6 @@ void ebentuak_kudeatu(void)
 			{
 				XAGUA.eskubi_botoia_klikatuta = false;
 			}
-
 			break;
 		}
 		}

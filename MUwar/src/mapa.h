@@ -22,6 +22,10 @@ Baldosa* mapa_aukeratu_baldosa(Mapa* mapa);
 /* Sartzen zaion posizioko baldosa bueltatuko du */
 Baldosa* mapa_lortu_pos(Mapa* mapa, int x, int y);
 
+/* Sartzen zaion rangoa jarri */
+void mapa_rangoa_jarri(Mapa* mapa, int rangoa, int x_pos, int y_pos);
 
+/* Sartzen zaion rangoa kendu */
+void mapa_rangoa_kendu(Mapa* mapa, int rangoa, int x_pos, int y_pos);
 
 #endif // !MAPA_H
