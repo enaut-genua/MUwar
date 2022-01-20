@@ -13,8 +13,8 @@ int Dif_destOrg_X, Dif_destOrg_Y;
 int orientazioaX, orientazioaY;
 int infoPosx_tmp=NULL, infoPosy_tmp=NULL;
 SDL_Rect laukiakk;
-bool zapalduta = false,OSTIA=false;
-int aa=0;
+bool zapalduta = false,OSTIA=false, tmp = false;
+int aa=0,tmp_x,tmp_y;
 
 void Dinamic_Move(int Tale_OrgX, int Tale_OrgY,int dinamicX, int dinamicY,int difdestorgx,int difdestorgy) {
 	int orgx, orgy;
@@ -77,13 +77,23 @@ void handleEvents() {
 		{
 		case SDL_MOUSEBUTTONUP: 
 			
-			for (int yy = 0; yy < TALE_Y; yy++) {
+			for (int yy = 0; yy < TALE_Y; yy++) { //pa borrar trayectoria de mierda
 				for (int xx = 0; xx < TALE_X; xx++) {
 					TRAYECTORIA[yy][xx] = 0;
 				}
 			}
 			aa = 0;
 			OSTIA = false;
+			if (tropaAukeratuta) {
+				if (TERRENO[infoPos.y][infoPos.x] <= 1 && RANGO_JOKALARIARENA[infoPos.y][infoPos.x] == 1)
+					Tropa_Dest_Aukeratu(infoPos.x, infoPos.y, tropa_org.x, tropa_org.y, 1, Detektatutako_Tropa);
+				Rangoa(rango, EZABATU, &tropa_org.x, &tropa_org.y);
+				tropaAukeratuta = false;
+				mugituX = true;
+				Zenbat_eta_nora_desplazatu_en_Baldosas(&orientazioaX, tropa_org.x, infoPos.x, &Dif_destOrg_X, &Dif_destOrg_X_abs);
+				Zenbat_eta_nora_desplazatu_en_Baldosas(&orientazioaY, tropa_org.y, infoPos.y, &Dif_destOrg_Y, &Dif_destOrg_Y_abs);
+				if (TERRENO[infoPos.y][infoPos.x] > 1)mugituX = false;
+			}
 			break;
 		case SDL_MOUSEBUTTONDOWN:
 
@@ -102,16 +112,7 @@ void handleEvents() {
 						mugituX = false;
 					}
 				}
-				else if (tropaAukeratuta) {
-					if (TERRENO[infoPos.y][infoPos.x] <= 1 && RANGO_JOKALARIARENA[infoPos.y][infoPos.x] == 1)
-						Tropa_Dest_Aukeratu(infoPos.x, infoPos.y, tropa_org.x, tropa_org.y, 1, Detektatutako_Tropa);
-						Rangoa(rango, EZABATU, &tropa_org.x, &tropa_org.y);
-					tropaAukeratuta = false;
-					mugituX = true;
-					Zenbat_eta_nora_desplazatu_en_Baldosas(&orientazioaX, tropa_org.x, infoPos.x, &Dif_destOrg_X, &Dif_destOrg_X_abs);
-					Zenbat_eta_nora_desplazatu_en_Baldosas(&orientazioaY, tropa_org.y, infoPos.y, &Dif_destOrg_Y, &Dif_destOrg_Y_abs);
-					if (TERRENO[infoPos.y][infoPos.x]>1)mugituX = false;
-				}
+					
 			}
 			if (TERRENO[infoPos.y][infoPos.x] == basea && !tropaAukeratuta)
 			{
@@ -190,20 +191,48 @@ void MousePos(void) {
 	//SDL_Log("Mouse cursor is at %d, %d", mousePos.x, mousePos.y);
 	if ((buttons & SDL_BUTTON_LMASK) != 0) {
 		zapalduta = true;
-		if (OSTIA==false)//lehen puntua ez marrazteko txapuza bat
-		{
-			infoPosx_tmp = infoPos.x;
+		
+		if (OSTIA==false) {
 			infoPosy_tmp = infoPos.y;
+			infoPosx_tmp = infoPos.x;
 			OSTIA = true;
+			
+		}
+		
+
+		if ( (infoPosy_tmp != infoPos.y || infoPosx_tmp != infoPos.x) && (0 <= aa &&aa<rango ) && (TRAYECTORIA[infoPos.y][infoPos.x]!=1)  ) {
+			
+			infoPosy_tmp = infoPos.y;
+			infoPosx_tmp = infoPos.x;
+			TRAYECTORIA[infoPos.y][infoPos.x] = 1;
+			TRAYECTORIA_EN_ORDEN[aa][0] = infoPos.y;
+			TRAYECTORIA_EN_ORDEN[aa][1] = infoPos.x;
+			aa++;
+			tmp = false;
+			printf("\naa= %d", aa);
 		}
 
-		if ((infoPosy_tmp != infoPos.y || infoPosx_tmp != infoPos.x)&&aa<rango&& TRAYECTORIA[infoPos.y][infoPos.x]!=1) {
-			infoPosy_tmp = infoPos.y;
-			infoPosx_tmp = infoPos.x;
-			TRAYECTORIA[infoPos.y][infoPos.x] =1;
-			//printf("\n %d %d %d\n", TRAYECTORIA[aa][1], TRAYECTORIA[aa][0], aa);
-			aa++;
+		
+		if ((infoPosy_tmp != infoPos.y || infoPosx_tmp != infoPos.x) && 0 < aa && aa <= rango && TRAYECTORIA[infoPos.y][infoPos.x] == 1) {
+			
+			for (int i = 0; i < TALE_Y; i++)
+			{
+				if (tmp==false&&TRAYECTORIA_EN_ORDEN[i][0] == infoPos.y && TRAYECTORIA_EN_ORDEN[i][1] == infoPos.x) {
+					
+					tmp = true;
+				
+					if (tmp == true) aa = i;	
+				}
+				if (tmp == true) {
+					TRAYECTORIA[TRAYECTORIA_EN_ORDEN[i][0]][TRAYECTORIA_EN_ORDEN[i][1]] = 0;
+					TRAYECTORIA_EN_ORDEN[i][1] = 0;
+					TRAYECTORIA_EN_ORDEN[i][0] = 0;
+				}
+			}
+			printf("\naa= %d", aa);
 		}
+		
+		
 	}
 }
 SDL_Texture* loadImage(char* file, SDL_Renderer* render) {
@@ -283,7 +312,6 @@ void render() {
 	SDL_RenderClear(renderer);
 	erakutsiTale(mousePos.x, mousePos.y);
 	Mapa();
-	TraiektoriaMarraztu();
 	Dinamic_Move(tropa_org.x, tropa_org.y, Tropa_desplazamendua.x, Tropa_desplazamendua.y, Dif_destOrg_X, Dif_destOrg_Y);
 	SDL_RenderPresent(renderer);
 }
