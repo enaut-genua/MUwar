@@ -90,12 +90,20 @@ bool aktualizatu_da = false;
 //	}
 
 
-void Zenbat_eta_nora_desplazatu_en_Baldosas(int *_orientazioa,int org,int dest,int *_dif,int* _difAbs) {
-	*_dif = dest - org;
-	if (dest - org > 0)*_orientazioa = 1;
-	else if (dest - org < 0)*_orientazioa = -1;
-	else if (dest - org == 0)*_orientazioa = 0;
-	*_difAbs = *_dif * *_orientazioa;
+		iso((TAMAÑOIMAGEN * 0.5) * (Tale_OrgX + difdestorgx)+mapPos.x , (TAMAÑOIMAGEN * 0.5) * (Tale_OrgY)-mapPos.y + dinamicY);
+		laukia(isometric.x, isometric.y, TAMAÑOIMAGEN, TAMAÑOIMAGEN, &laukiakk);
+		SDL_RenderCopy(renderer, cubo.irudiak[1], NULL, &laukiakk);
+		printf("\nisometric.y =%d\n", isometric.y);
+		if ((isometric.y - orgy) * orientazioaY >= dify)mugituY = false;
+	}
+		
+}
+void Zenbat_eta_nora_desplazatu_en_Baldosas(int *orientazioa,int org,int dest,int *dif,int* difAbs) {
+	*dif = dest - org;
+	if (dest - org > 0)*orientazioa = 1;
+	else if (dest - org < 0)*orientazioa = -1;
+	else if (dest - org == 0)*orientazioa = 0;
+	*difAbs = *dif * *orientazioa;
 }
 
 void handleEvents() {
