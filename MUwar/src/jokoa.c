@@ -76,7 +76,6 @@ bool jokoa_hasi(void)
 	bool dena_ondo = true;
 
 	mapa_lortu_pos(MAPA, 4, 9)->tropa = tropa_sortu(Infanteria, 2);
-	mapa_lortu_pos(MAPA, 5, 11)->markatuta = true;
 
 	OHARRA("Jokoa hasi da.");
 
@@ -103,7 +102,7 @@ bool jokoa_mugitu_tropa(Baldosa* hasiera, Baldosa* bukaera)
 {
 	bool dena_ondo = false;
 
-	if (bukaera->tropa == NULL && hasiera->tropa != NULL && bukaera->markatuta == true)
+	if (bukaera != NULL && bukaera->tropa == NULL && hasiera->tropa != NULL && bukaera->markatuta == true)
 	{
 		TropaStat* tmp = NULL;
 		tmp = hasiera->tropa;
