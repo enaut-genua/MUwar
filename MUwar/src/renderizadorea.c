@@ -319,7 +319,7 @@ ElementuenTexturak* argazkiak_kargatu(void)
 	 * Kargatu Aukeratutakoaren Textura
 	 */
 
-	if ((texturak->aukeratutakoa.aurrea = textura_sortu("res\\img\\bloke_laranja.png", 50)) == NULL)
+	if ((texturak->aukeratutakoa.aurrea = textura_sortu("res\\img\\bloke_laranja.png", 80)) == NULL)
 	{
 		ERROREA("Ezin izan da aukeratutakoaren textura sortu.");
 		goto errorea;
@@ -367,6 +367,13 @@ ElementuenTexturak* argazkiak_kargatu(void)
 		goto errorea;
 	}
 
+	/* Basoa */
+	if ((texturak->basoa.aurrea = textura_sortu("res\\img\\basoa.png", SDL_ALPHA_OPAQUE)) == NULL)
+	{
+		ERROREA("Ezin izan da basamortuaren textura sortu.");
+		goto errorea;
+	}
+
 	/* Herria */
 	if ((texturak->herria.aurrea = textura_sortu("res\\img\\herria.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
@@ -393,25 +400,25 @@ ElementuenTexturak* argazkiak_kargatu(void)
 	 */
 
 	 /* Infanteria */
-	if ((texturak->infanteria.aurrea = textura_sortu("res\\img\\soldadosazulderecha1.png", SDL_ALPHA_OPAQUE)) == NULL)
+	if ((texturak->infanteria.aurrea = textura_sortu("res\\img\\soldadu_urdina_aurrea.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		ERROREA("Ezin izan da infanteriaren aurreko textura sortu.");
 		goto errorea;
 	}
 
-	if ((texturak->infanteria.atzea = textura_sortu("res\\img\\soldadosazulizquierda2.png", SDL_ALPHA_OPAQUE)) == NULL)
+	if ((texturak->infanteria.atzea = textura_sortu("res\\img\\soldadu_urdina_atzea.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		ERROREA("Ezin izan da infanteriaren atzeko textura sortu.");
 		goto errorea;
 	}
 
-	if ((texturak->infanteria.ezker = textura_sortu("res\\img\\soldadosazulizquierda1.png", SDL_ALPHA_OPAQUE)) == NULL)
+	if ((texturak->infanteria.ezker = textura_sortu("res\\img\\soldadu_urdina_ezkerra.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		ERROREA("Ezin izan da infanteriaren ezkerreko textura sortu.");
 		goto errorea;
 	}
 
-	if ((texturak->infanteria.eskubi = textura_sortu("res\\img\\soldadosazulderecha2.png", SDL_ALPHA_OPAQUE)) == NULL)
+	if ((texturak->infanteria.eskubi = textura_sortu("res\\img\\soldadu_urdina_eskubi.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		ERROREA("Ezin izan da infanteriaren eskubiko textura sortu.");
 		goto errorea;
@@ -500,6 +507,52 @@ bool marraztu_baldosa(Baldosa* baldosa, SDL_Rect* rect)
 	case Ibaia:
 	{
 		if (SDL_RenderCopy(RENDERER, ELEM_TEXT->ibaia.aurrea, NULL, rect) < 0)
+		{
+			ERROREA(SDL_GetError());
+			dena_ondo = false;
+		}
+		break;
+	}
+	case Basamortua:
+	{
+		if (SDL_RenderCopy(RENDERER, ELEM_TEXT->basamortua.aurrea, NULL, rect) < 0)
+		{
+			ERROREA(SDL_GetError());
+			dena_ondo = false;
+		}
+		break;
+	}
+	case Basoa:
+	{
+		if (SDL_RenderCopy(RENDERER, ELEM_TEXT->basoa.aurrea, NULL, rect) < 0)
+		{
+			ERROREA(SDL_GetError());
+			dena_ondo = false;
+		}
+		break;
+	}
+	case Base_gorria:
+	{
+		if (SDL_RenderCopy(RENDERER, ELEM_TEXT->base_gorria.aurrea, NULL, rect) < 0)
+		{
+			ERROREA(SDL_GetError());
+			dena_ondo = false;
+		}
+		break;
+	}
+
+	case Base_urdina:
+	{
+		if (SDL_RenderCopy(RENDERER, ELEM_TEXT->base_urdina.aurrea, NULL, rect) < 0)
+		{
+			ERROREA(SDL_GetError());
+			dena_ondo = false;
+		}
+		break;
+	}
+	case Herria:
+	{
+		if (SDL_RenderCopy(RENDERER, ELEM_TEXT->herria.aurrea, NULL, rect) < 0)
 		{
 			ERROREA(SDL_GetError());
 			dena_ondo = false;
