@@ -6,7 +6,7 @@ bool mugituX = false, mugituY = false, mugituGeneral = false;
 bool XiritsiDa;
 bool Basetik_sortu_tropa;
 int TAMAÑOIMAGEN = 100;
-int rango = 5;
+int rango = 2;
 int Detektatutako_Tropa;
 int Dif_destOrg_X_abs, Dif_destOrg_Y_abs;
 int Dif_destOrg_X, Dif_destOrg_Y;
@@ -221,7 +221,7 @@ void MousePos(void) {
 		if ((TERRENO[infoPos.y][infoPos.x] == 1 || TERRENO[infoPos.y][infoPos.x] == 4))
 		{
 			zapalduta = true;
-			if ((infoPosy_tmp != infoPos.y || infoPosx_tmp != infoPos.x) && (0 <= aa && aa <= rango) && (TRAYECTORIA[infoPos.y][infoPos.x] != 1)) {
+			if ((infoPosy_tmp != infoPos.y || infoPosx_tmp != infoPos.x) && (0 <= aa && aa <= TALE_Y) && (TRAYECTORIA[infoPos.y][infoPos.x] != 1)) {
 
 				infoPosy_tmp = infoPos.y;
 				infoPosx_tmp = infoPos.x;
@@ -233,7 +233,7 @@ void MousePos(void) {
 				tmp = false;
 				//printf("\naa= %d", aa);
 			}
-			if ((infoPosy_tmp != infoPos.y || infoPosx_tmp != infoPos.x) && 0 <= aa && aa <= rango + 1 && TRAYECTORIA[infoPos.y][infoPos.x] == 1) {
+			if ((infoPosy_tmp != infoPos.y || infoPosx_tmp != infoPos.x) && 0 <= aa && aa <= TALE_Y + 1 && TRAYECTORIA[infoPos.y][infoPos.x] == 1) {
 
 				for (int i = 0; i < TALE_Y; i++)
 				{

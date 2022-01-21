@@ -13,6 +13,7 @@ int main(int argc, char* argv[])
 	persona.y = 0;
 	soldado.orientazioa = 0;
 	orco.orientazioa = 0;
+	printf("\n SAKATU P TROPAK SORTU EDO MUGITZEKO\n");
 	init("tutorial", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 800, false);
 
 	irudiakKargatu(terreno.irudiak, link[0]);
