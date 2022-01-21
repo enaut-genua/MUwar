@@ -89,15 +89,6 @@ bool aktualizatu_da = false;
 //		if ((isometric.y - orgy) * orientazioaY >= dify)mugituY = false;
 //	}
 
-
-		iso((TAMAÑOIMAGEN * 0.5) * (Tale_OrgX + difdestorgx)+mapPos.x , (TAMAÑOIMAGEN * 0.5) * (Tale_OrgY)-mapPos.y + dinamicY);
-		laukia(isometric.x, isometric.y, TAMAÑOIMAGEN, TAMAÑOIMAGEN, &laukiakk);
-		SDL_RenderCopy(renderer, cubo.irudiak[1], NULL, &laukiakk);
-		printf("\nisometric.y =%d\n", isometric.y);
-		if ((isometric.y - orgy) * orientazioaY >= dify)mugituY = false;
-	}
-		
-}
 void Zenbat_eta_nora_desplazatu_en_Baldosas(int *orientazioa,int org,int dest,int *dif,int* difAbs) {
 	*dif = dest - org;
 	if (dest - org > 0)*orientazioa = 1;
@@ -159,13 +150,14 @@ void handleEvents() {
 					}
 				}
 					
-			}
+			
 			if (TERRENO[infoPos.y][infoPos.x] == basea && !tropaAukeratuta)
 			{
 				printf("AUKERATU TROPA BAT:\n 1=soldado\n 2=tanke\n");
 				Basetik_sortu_tropa = true;
 				tropa_org.x = infoPos.x;
 				tropa_org.y = infoPos.y;
+			}
 			}
 			break;
 		}
