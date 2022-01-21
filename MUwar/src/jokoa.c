@@ -20,7 +20,7 @@ static Mapa* MAPA = NULL;
   *	START: Funtzio pribatuak
   */
 
-static void ikusi_jokaldia(void);
+static void egin_jokaldia(void);
 
 /*
  *	END: Funtzio pribatuak
@@ -30,7 +30,7 @@ bool jokoa_prestatu(void)
 {
 	bool dena_ondo = true;
 
-	if (render_sortu("MUwar", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1200, 700, false) == false)
+	if (render_sortu(SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1200, 700, false) == false)
 	{
 		ERROREA("Ezin izan da renderizadorea sortu.");
 		dena_ondo = false;
@@ -82,9 +82,16 @@ bool jokoa_hasi(void)
 
 	while (JOKOA_MARTXAN && dena_ondo)
 	{
+		uint64_t hasiera = SDL_GetPerformanceCounter();
 		dena_ondo = render_marraztu(MAPA);
-		ERABILI_GABE(ikusi_jokaldia());
+		ERABILI_GABE(egin_jokaldia());
 		ebentuak_kudeatu();
+
+		uint64_t bukaera = SDL_GetPerformanceCounter();
+
+		float dt = (bukaera - hasiera) / (float)SDL_GetPerformanceFrequency();
+
+		render_erakutsi_fps(dt);
 	}
 
 	OHARRA("Jokoa bukatu da.");
@@ -96,7 +103,7 @@ bool jokoa_mugitu_tropa(Baldosa* hasiera, Baldosa* bukaera)
 {
 	bool dena_ondo = false;
 
-	if (bukaera->tropa == NULL && hasiera->tropa != NULL)
+	if (bukaera->tropa == NULL && hasiera->tropa != NULL && bukaera->markatuta == true)
 	{
 		TropaStat* tmp = NULL;
 		tmp = hasiera->tropa;
@@ -108,7 +115,7 @@ bool jokoa_mugitu_tropa(Baldosa* hasiera, Baldosa* bukaera)
 	return dena_ondo;
 }
 
-void ikusi_jokaldia(void)
+void egin_jokaldia(void)
 {
 	static Baldosa* klikatutako_baldosa = NULL;
 	static Bekt2D klikatutako_baldosa_pos = { 0 };
@@ -122,9 +129,12 @@ void ikusi_jokaldia(void)
 		klikatutako_baldosa_pos = xagua->mapako_posizioa;
 		mapa_rangoa_jarri(MAPA, aukeratutako_baldosa->tropa->mug_max, xagua->mapako_posizioa.x, xagua->mapako_posizioa.y);
 	}
+
 	if (xagua->ezker_botoia_klikatuta == false && klikatutako_baldosa != NULL)
 	{
-		mapa_rangoa_kendu(MAPA, klikatutako_baldosa->tropa->mug_max, klikatutako_baldosa_pos.x, klikatutako_baldosa_pos.y);
+		int tropa_rango = klikatutako_baldosa->tropa->mug_max;
+		jokoa_mugitu_tropa(klikatutako_baldosa, aukeratutako_baldosa);
+		mapa_rangoa_kendu(MAPA, tropa_rango, klikatutako_baldosa_pos.x, klikatutako_baldosa_pos.y);
 		klikatutako_baldosa = NULL;
 	}
 }

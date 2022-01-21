@@ -1,3 +1,5 @@
+#define _CRT_SECURE_NO_WARNINGS
+
 #include "renderizadorea.h"
 #include "ebentuak.h"
 #include "kalkuloak.h"
@@ -81,7 +83,17 @@ static int ARGAZKI_TAMAINA = 100;
  *	END: Aldagai global pribatuak
  */
 
-bool render_sortu(char* titulo, int xpos, int ypos, int width, int height, bool fullscreen)
+/*
+ *	START: Konstanteak
+ */
+
+const char* LEHIOAREN_IZENA = "MUwar";
+
+/*
+ *	END: Konstanteak
+ */
+
+bool render_sortu(int xpos, int ypos, int width, int height, bool fullscreen)
 {
 	bool dena_ondo = true;
 	int banderak = fullscreen ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0;
@@ -95,7 +107,7 @@ bool render_sortu(char* titulo, int xpos, int ypos, int width, int height, bool 
 	}
 
 	/* Lehio bat sortzen du, hala ezean errore bat emango du */
-	if ((WINDOW = SDL_CreateWindow(titulo, xpos, ypos, width, height, banderak | SDL_WINDOW_RESIZABLE | SDL_WINDOW_FOREIGN)) == NULL)
+	if ((WINDOW = SDL_CreateWindow(LEHIOAREN_IZENA, xpos, ypos, width, height, banderak | SDL_WINDOW_RESIZABLE | SDL_WINDOW_FOREIGN)) == NULL)
 	{
 		ERROREA(SDL_GetError());
 		dena_ondo = false;
@@ -103,7 +115,7 @@ bool render_sortu(char* titulo, int xpos, int ypos, int width, int height, bool 
 	}
 
 	/* Renderizadore bat sortzen du, hala ezean errore bat emango du */
-	if ((RENDERER = SDL_CreateRenderer(WINDOW, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_TARGETTEXTURE | SDL_RENDERER_PRESENTVSYNC)) == NULL)
+	if ((RENDERER = SDL_CreateRenderer(WINDOW, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_TARGETTEXTURE /*| SDL_RENDERER_PRESENTVSYNC*/)) == NULL)
 	{
 		ERROREA(SDL_GetError());
 		dena_ondo = false;
@@ -256,6 +268,26 @@ void render_mugitu_mapa_ezker(void)
 {
 	MAPA_NONDIK_HASI_MARRAZTEN.x += (int)(ARGAZKI_TAMAINA * 0.5f);
 	MAPA_NONDIK_HASI_MARRAZTEN.y += (int)(ARGAZKI_TAMAINA * 0.5f);
+}
+
+void render_erakutsi_fps(float dt)
+{
+	static float tenporizadorea = 0;
+	static int fotogramak = 0;
+
+	char str[20] = { 0 };
+	
+	tenporizadorea += dt;
+	++fotogramak;
+
+	if (tenporizadorea >= 1.0f)
+	{
+		sprintf(str, "%s - FPS: %d", LEHIOAREN_IZENA, fotogramak);
+		SDL_SetWindowTitle(WINDOW, str);
+		--tenporizadorea;
+		fotogramak = 0;
+	}
+
 }
 
 const int render_lortu_argazki_tamaina(void)

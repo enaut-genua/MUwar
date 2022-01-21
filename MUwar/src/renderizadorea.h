@@ -6,7 +6,7 @@
 #include "mapa.h"
 
 /* renderizadorea sortzen du */
-bool render_sortu(char* titulo, int xpos, int ypos, int width, int height, bool fullscreen);
+bool render_sortu(int xpos, int ypos, int width, int height, bool fullscreen);
 
 /* Memoria garbitzen du */
 void render_garbitu(void);
@@ -25,6 +25,9 @@ void render_mugitu_mapa_gora(void);
 void render_mugitu_mapa_behera(void);
 void render_mugitu_mapa_eskubi(void);
 void render_mugitu_mapa_ezker(void);
+
+/* Funtzio honek FPSak erakutsiko ditu */
+void render_erakutsi_fps(float dt);
 
 /* Getters/Setters */
 const int render_lortu_argazki_tamaina(void);

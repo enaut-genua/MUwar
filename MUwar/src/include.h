@@ -1,5 +1,5 @@
-#ifndef MAIN_H
-#define MAIN_H
+#ifndef INCLUDE_H
+#define INCLUDE_H
 
 /* Memoria ondo borratu den ikusteko */
 #ifdef _DEBUG
@@ -14,7 +14,6 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
-
 
 /* SDL2 */
 #define SDL_MAIN_HANDLED
@@ -47,4 +46,4 @@ typedef enum
 	Eskubi
 } Orientazioa;
 
-#endif // !MAIN_H
+#endif // !INCLUDE_H
