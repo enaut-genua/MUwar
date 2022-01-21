@@ -22,22 +22,22 @@ typedef struct
 	Textura punteroa;
 
 	/* Aukeratutakoa markatzeko */
-	Textura aukeratutakoa;
+	Textura rangoa;
 
 	/* Terrenoak */
 	Textura basamortua;
-	Textura base_urdina;
 	Textura base_gorria;
-	Textura larrea;
+	Textura base_urdina;
+	Textura baso_moztua;
+	Textura basoa;
+	Textura fabrika;
+	Textura herri_hautsia;
+	Textura herria;
 	Textura ibaia;
 	Textura karretera;
-	Textura basoa;
-	Textura baso_moztua;
-	Textura mendia;
+	Textura larrea;
 	Textura mendi_hautsia;
-	Textura herria;
-	Textura fabrika;
-	Textura basea;
+	Textura mendia;
 
 	/* Tropak */
 	Textura infanteria;
@@ -63,7 +63,7 @@ static bool marraztu_tropa(Baldosa* baldosa, SDL_Rect* rect);									/* Baldosa
 static bool marraztu_orientazioa(TropaStat* tropa, SDL_Rect* rect);								/* marraztu_tropa(2) funtziotik deitzen da, orientazioaren arabera tropa marrazten du */
 static bool marraztu_punteroa(Mapa* mapa, Baldosa* baldosa);									/* Marraztu punteroa */
 static bool marraztu_informazioa(Mapa* mapa);
-static bool marraztu_aukeratuta(Baldosa* baldosa, SDL_Rect* rect);
+static bool marraztu_markatua(Baldosa* baldosa, SDL_Rect* rect);
 /*
  *	END: Funtzio pribatuak
  */
@@ -83,9 +83,9 @@ static int ARGAZKI_TAMAINA = 100;
  *	END: Aldagai global pribatuak
  */
 
-/*
- *	START: Konstanteak
- */
+ /*
+  *	START: Konstanteak
+  */
 
 const char* LEHIOAREN_IZENA = "MUwar";
 
@@ -208,7 +208,7 @@ bool render_marraztu(Mapa* mapa)
 				goto atera;
 			}
 
-			if (marraztu_aukeratuta(baldosa, &laukia) == false)
+			if (marraztu_markatua(baldosa, &laukia) == false)
 			{
 				ERROREA("Ezin izan da aukeratutakoa marraztu.");
 				dena_ondo = false;
@@ -276,7 +276,7 @@ void render_erakutsi_fps(float dt)
 	static int fotogramak = 0;
 
 	char str[20] = { 0 };
-	
+
 	tenporizadorea += dt;
 	++fotogramak;
 
@@ -319,7 +319,7 @@ ElementuenTexturak* argazkiak_kargatu(void)
 	 * Kargatu Aukeratutakoaren Textura
 	 */
 
-	if ((texturak->aukeratutakoa.aurrea = textura_sortu("res\\img\\bloke_laranja.png", 80)) == NULL)
+	if ((texturak->rangoa.aurrea = textura_sortu("res\\img\\bloke_laranja.png", 80)) == NULL)
 	{
 		ERROREA("Ezin izan da aukeratutakoaren textura sortu.");
 		goto errorea;
@@ -339,38 +339,45 @@ ElementuenTexturak* argazkiak_kargatu(void)
 	 * Kargatu Terrenoaren Texturak
 	 */
 
-	 /* Larrea */
-	if ((texturak->larrea.aurrea = textura_sortu("res\\img\\larrea.png", SDL_ALPHA_OPAQUE)) == NULL)
-	{
-		ERROREA("Ezin izan da larrearen textura sortu.");
-		goto errorea;
-	}
-
-	/* Mendia */
-	if ((texturak->mendia.aurrea = textura_sortu("res\\img\\mendia.png", SDL_ALPHA_OPAQUE)) == NULL)
-	{
-		ERROREA("Ezin izan da mendiaren textura sortu.");
-		goto errorea;
-	}
-
-	/* Ibaia */
-	if ((texturak->ibaia.aurrea = textura_sortu("res\\img\\ura.png", SDL_ALPHA_OPAQUE)) == NULL)
-	{
-		ERROREA("Ezin izan da ibaiaren textura sortu.");
-		goto errorea;
-	}
-
-	/* Basamortua */
+	 /* Basamortua */
 	if ((texturak->basamortua.aurrea = textura_sortu("res\\img\\basamortua.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		ERROREA("Ezin izan da basamortuaren textura sortu.");
 		goto errorea;
 	}
 
+	/* Base gorria */
+	if ((texturak->base_gorria.aurrea = textura_sortu("res\\img\\base_gorria.png", SDL_ALPHA_OPAQUE)) == NULL)
+	{
+		ERROREA("Ezin izan base gorriaren textura sortu.");
+		goto errorea;
+	}
+
+	/* Base urdina */
+	if ((texturak->base_urdina.aurrea = textura_sortu("res\\img\\base_urdina.png", SDL_ALPHA_OPAQUE)) == NULL)
+	{
+		fprintf(stderr, "Errorea: Ezin izan da base urdinaren textura sortu.\n");
+		goto errorea;
+	}
+
+	///* Baso moztua */
+	//if ((texturak->baso_moztua.aurrea = textura_sortu("res\\img\\baso_moztua.png", SDL_ALPHA_OPAQUE)) == NULL)
+	//{
+	//	fprintf(stderr, "Errorea: Ezin izan da base urdinaren textura sortu.\n");
+	//	goto errorea;
+	//}
+
 	/* Basoa */
 	if ((texturak->basoa.aurrea = textura_sortu("res\\img\\basoa.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
-		ERROREA("Ezin izan da basamortuaren textura sortu.");
+		ERROREA("Ezin izan da basoaren textura sortu.");
+		goto errorea;
+	}
+
+	/* Herri hautsia */
+	if ((texturak->herri_hautsia.aurrea = textura_sortu("res\\img\\herri_hautsia.png", SDL_ALPHA_OPAQUE)) == NULL)
+	{
+		ERROREA("Ezin izan da herri hautsiaren textura sortu.");
 		goto errorea;
 	}
 
@@ -381,17 +388,38 @@ ElementuenTexturak* argazkiak_kargatu(void)
 		goto errorea;
 	}
 
-	/* Base azul */
-	if ((texturak->base_urdina.aurrea = textura_sortu("res\\img\\base_urdina.png", SDL_ALPHA_OPAQUE)) == NULL)
+	/* Ibaia */
+	if ((texturak->ibaia.aurrea = textura_sortu("res\\img\\ura.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
-		fprintf(stderr, "Errorea: Ezin izan da base urdinaren textura sortu.\n");
+		ERROREA("Ezin izan da ibaiaren textura sortu.");
 		goto errorea;
 	}
 
-	/* Base roja */
-	if ((texturak->base_gorria.aurrea = textura_sortu("res\\img\\base_gorria.png", SDL_ALPHA_OPAQUE)) == NULL)
+	/* Karretera */
+	if ((texturak->karretera.aurrea = textura_sortu("res\\img\\karretera.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
-		ERROREA("Ezin izan base gorriaren textura sortu.");
+		ERROREA("Ezin izan da karreteraren textura sortu.");
+		goto errorea;
+	}
+
+	/* Larrea */
+	if ((texturak->larrea.aurrea = textura_sortu("res\\img\\larrea.png", SDL_ALPHA_OPAQUE)) == NULL)
+	{
+		ERROREA("Ezin izan da larrearen textura sortu.");
+		goto errorea;
+	}
+
+	/* Mendi hautsia */
+	if ((texturak->mendi_hautsia.aurrea = textura_sortu("res\\img\\mendia.png", SDL_ALPHA_OPAQUE)) == NULL)
+	{
+		ERROREA("Ezin izan da mendiaren textura sortu.");
+		goto errorea;
+	}
+
+	/* Mendia */
+	if ((texturak->mendia.aurrea = textura_sortu("res\\img\\mendia.png", SDL_ALPHA_OPAQUE)) == NULL)
+	{
+		ERROREA("Ezin izan da mendiaren textura sortu.");
 		goto errorea;
 	}
 
@@ -676,13 +704,13 @@ atera:
 	return dena_ondo;
 }
 
-bool marraztu_aukeratuta(Baldosa* baldosa, SDL_Rect* rect)
+bool marraztu_markatua(Baldosa* baldosa, SDL_Rect* rect)
 {
 	bool dena_ondo = true;
 
 	if (baldosa->markatuta == true)
 	{
-		if (SDL_RenderCopy(RENDERER, ELEM_TEXT->aukeratutakoa.aurrea, NULL, rect) < 0)
+		if (SDL_RenderCopy(RENDERER, ELEM_TEXT->rangoa.aurrea, NULL, rect) < 0)
 		{
 			ERROREA(SDL_GetError());
 			dena_ondo = false;
