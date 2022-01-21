@@ -153,21 +153,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\main.c" />
-    <ClCompile Include="src\mapa.c" />
-    <ClCompile Include="src\renderizadorea.c" />
-    <ClCompile Include="src\tropa.c" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="src\baldosa.h" />
-    <ClInclude Include="src\include.h" />
-    <ClInclude Include="src\mapa.h" />
-    <ClInclude Include="src\renderizadorea.h" />
-    <ClInclude Include="src\tropa.h" />
-  </ItemGroup>
-  <ItemGroup>
     <Text Include="res\mapak\mapa_1" />
     <Text Include="res\mapak\mapa_adibidea.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Utils.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Main.c" />
+    <ClCompile Include="src\Menua.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

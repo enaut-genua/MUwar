@@ -1,57 +1,45 @@
-#include "include.h"
+#include "Utils.h"
 
-#include "renderizadorea.h"
-#include "tropa.h"
-#include "baldosa.h"
 
-void ebentoakGestionatu(void);
+int poh = 500, paow = 500;
+SDL_Event event;
 
-bool jokoaMartxan = false;
-
-int main(void)
+int main(int argc, char* argv[])
 {
-	/* Memoria ondo borratu den ikusteko */
-#ifdef _DEBUG
-	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-#endif // _DEBUG
+	(void)(argc);
+	(void)(argv);
+	SDL_Init(SDL_INIT_EVERYTHING);
+	SDL_Window *window = SDL_CreateWindow("title", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, heigth, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
+	SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_TARGETTEXTURE);
+	IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG);
 
-	jokoaMartxan = render_sortu("MUwar", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1000, 700, false);
 
-	while (jokoaMartxan)
+	bool running = true;
+
+	int step = 0;
+
+	hartu_running(&running); 
+
+
+	while (running)
 	{
-		ebentoakGestionatu();
-		render_marraztu();
+		
+		while (SDL_PollEvent(&event))
+		{
+			if (event.type == SDL_QUIT)
+			{
+				running = false;
+			}
+		}
+		menu(window, renderer, paow, poh, step);
+		menuFinala(renderer, paow, poh);
+
 	}
 
-	render_garbitu();
+	SDL_DestroyRenderer(renderer);
+	SDL_DestroyWindow(window);
+	SDL_Quit();	
 	return 0;
 }
 
-/*-----------------------------------------------------------------------------------------------
-Funtzio honek eventuak gestionatzen ditu beraz, ebentoak uneoro errebisatzen joango dira jokoa martxan dabilen bitartean
------------------------------------------------------------------------------------------------*/
-void ebentoakGestionatu(void)
-{
-	SDL_Event event = { 0 };
 
-	while (SDL_PollEvent(&event))
-	{
-		switch (event.type)
-		{
-		case SDL_QUIT:
-			jokoaMartxan = false;
-			break;
-		case SDL_KEYDOWN:
-		{
-			switch (event.key.keysym.sym)
-			{
-			case SDLK_ESCAPE:
-				jokoaMartxan = false; break;
-			}
-			break;
-		}
-		default:
-			break;
-		}
-	}
-}
