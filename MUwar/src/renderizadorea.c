@@ -319,7 +319,7 @@ ElementuenTexturak* argazkiak_kargatu(void)
 	 * Kargatu Aukeratutakoaren Textura
 	 */
 
-	if ((texturak->aukeratutakoa.aurrea = textura_sortu("res\\img\\TILEROSE.png", 50)) == NULL)
+	if ((texturak->aukeratutakoa.aurrea = textura_sortu("res\\img\\bloke_laranja.png", 50)) == NULL)
 	{
 		ERROREA("Ezin izan da aukeratutakoaren textura sortu.");
 		goto errorea;
@@ -329,7 +329,7 @@ ElementuenTexturak* argazkiak_kargatu(void)
 	 * Kargatu Punteroaren Textura
 	 */
 
-	if ((texturak->punteroa.aurrea = textura_sortu("res\\img\\ISOTILE.png", SDL_ALPHA_OPAQUE)) == NULL)
+	if ((texturak->punteroa.aurrea = textura_sortu("res\\img\\punteroa.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		ERROREA("Ezin izan da punteroraren textura sortu.");
 		goto errorea;
@@ -340,49 +340,49 @@ ElementuenTexturak* argazkiak_kargatu(void)
 	 */
 
 	 /* Larrea */
-	if ((texturak->larrea.aurrea = textura_sortu("res\\img\\normala.png", SDL_ALPHA_OPAQUE)) == NULL)
+	if ((texturak->larrea.aurrea = textura_sortu("res\\img\\larrea.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		ERROREA("Ezin izan da larrearen textura sortu.");
 		goto errorea;
 	}
 
 	/* Mendia */
-	if ((texturak->mendia.aurrea = textura_sortu("res\\img\\montaña.png", SDL_ALPHA_OPAQUE)) == NULL)
+	if ((texturak->mendia.aurrea = textura_sortu("res\\img\\mendia.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		ERROREA("Ezin izan da mendiaren textura sortu.");
 		goto errorea;
 	}
 
 	/* Ibaia */
-	if ((texturak->ibaia.aurrea = textura_sortu("res\\img\\WATER.png", SDL_ALPHA_OPAQUE)) == NULL)
+	if ((texturak->ibaia.aurrea = textura_sortu("res\\img\\ura.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		ERROREA("Ezin izan da ibaiaren textura sortu.");
 		goto errorea;
 	}
 
 	/* Basamortua */
-	if ((texturak->basamortua.aurrea = textura_sortu("res\\img\\desierto.png", SDL_ALPHA_OPAQUE)) == NULL)
+	if ((texturak->basamortua.aurrea = textura_sortu("res\\img\\basamortua.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		ERROREA("Ezin izan da basamortuaren textura sortu.");
 		goto errorea;
 	}
 
 	/* Herria */
-	if ((texturak->herria.aurrea = textura_sortu("res\\img\\poblado.png", SDL_ALPHA_OPAQUE)) == NULL)
+	if ((texturak->herria.aurrea = textura_sortu("res\\img\\herria.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		ERROREA("Ezin izan da herriaren textura sortu.");
 		goto errorea;
 	}
 
 	/* Base azul */
-	if ((texturak->base_urdina.aurrea = textura_sortu("res\\img\\baseazul.png", SDL_ALPHA_OPAQUE)) == NULL)
+	if ((texturak->base_urdina.aurrea = textura_sortu("res\\img\\base_urdina.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		fprintf(stderr, "Errorea: Ezin izan da base urdinaren textura sortu.\n");
 		goto errorea;
 	}
 
 	/* Base roja */
-	if ((texturak->base_gorria.aurrea = textura_sortu("res\\img\\baseroja.png", SDL_ALPHA_OPAQUE)) == NULL)
+	if ((texturak->base_gorria.aurrea = textura_sortu("res\\img\\base_gorria.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		ERROREA("Ezin izan base gorriaren textura sortu.");
 		goto errorea;
