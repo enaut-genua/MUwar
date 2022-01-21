@@ -12,53 +12,90 @@ int Dif_destOrg_X_abs, Dif_destOrg_Y_abs;
 int Dif_destOrg_X, Dif_destOrg_Y;
 int orientazioaX, orientazioaY;
 int infoPosx_tmp=NULL, infoPosy_tmp=NULL;
+int hasierako_pos_x= NULL, hasierako_pos_y = NULL;
 SDL_Rect laukiakk;
 bool zapalduta = false,OSTIA=false, tmp = false;
-int aa=0,tmp_x,tmp_y;
+int aa=0, ZenbatMugitu=0, tmp_x,tmp_y;
+int ñ = -1;
+bool aktualizatu_da = false;
+//Dinamic_Move(tropa_org.x, tropa_org.y, Tropa_desplazamendua.x, Tropa_desplazamendua.y, Dif_destOrg_X, Dif_destOrg_Y);
+//void Dinamic_Move() {
+//int orgx, orgy;
+//int difx, dify;
+//	if (mugituX ==true)
+//	{
+//		if (aktualizatu_da==false&&ñ+1<aa)
+//		{
+//			Tropa_desplazamendua.x = 0;
+//			ñ++;
+//			Zenbat_eta_nora_desplazatu_en_Baldosas(&orientazioaX, TRAYECTORIA_EN_ORDEN[ñ][1], TRAYECTORIA_EN_ORDEN[ñ + 1][1], &Dif_destOrg_X, &Dif_destOrg_X_abs);
+//			Zenbat_eta_nora_desplazatu_en_Baldosas(&orientazioaY, TRAYECTORIA_EN_ORDEN[ñ][0], TRAYECTORIA_EN_ORDEN[ñ + 1][0], &Dif_destOrg_Y, &Dif_destOrg_Y_abs);
+//			
+//			printf("\n XXXXXXXXX %d", TRAYECTORIA_EN_ORDEN[ñ][1]);
+//			aktualizatu_da = true;
+//		}
+//		iso((TAMAÑOIMAGEN * 0.5) * (TRAYECTORIA_EN_ORDEN[ñ][1])+mapPos.x, (TAMAÑOIMAGEN * 0.5) * (TRAYECTORIA_EN_ORDEN[ñ][0])-mapPos.y);
+//		orgx = isometric.x;
+//		orgy = isometric.y;
+// 		difx = (TAMAÑOIMAGEN * 0.5) * (Dif_destOrg_X * orientazioaX);
+//		dify = (TAMAÑOIMAGEN * 0.5) * (Dif_destOrg_Y * orientazioaY);
+//		
+//		iso((TAMAÑOIMAGEN * 0.5) * (TRAYECTORIA_EN_ORDEN[ñ][1])+mapPos.x + Tropa_desplazamendua.x, (TAMAÑOIMAGEN * 0.5) * (TRAYECTORIA_EN_ORDEN[ñ][0])-mapPos.y);
+//		laukia(isometric.x, isometric.y, TAMAÑOIMAGEN, TAMAÑOIMAGEN, &laukiakk);
+//		SDL_RenderCopy(renderer, cubo.irudiak[1], NULL, &laukiakk);
+//		//if ((isometric.x - orgx) * orientazioaX >= difx) {
+//		//	if (4 == ñ) { mugituX = false; ñ = -1; printf("\n BUKATU DA\n"); aktualizatu_da = false;}
+//		//	
+//		//	//mugituY = true;
+//		//	aktualizatu_da = false;
+//		// }
+//
+//	}		
+//}
 
-void Dinamic_Move(int Tale_OrgX, int Tale_OrgY,int dinamicX, int dinamicY,int difdestorgx,int difdestorgy) {
-	int orgx, orgy;
-	int difx, dify;
-	if (mugituX ==true)
-	{
-		iso((TAMAÑOIMAGEN * 0.5) * (Tale_OrgX)+mapPos.x, (TAMAÑOIMAGEN * 0.5) * (Tale_OrgY)-mapPos.y);
-		orgx = isometric.x;
-		orgy = isometric.y;
-		difx = (TAMAÑOIMAGEN * 0.5) * (difdestorgx * orientazioaX);
-		dify = (TAMAÑOIMAGEN * 0.5) * (difdestorgy * orientazioaY);
+//void Dinamic_Move(int Tale_OrgX, int Tale_OrgY, int dinamicX, int dinamicY, int difdestorgx, int difdestorgy) {
+//	int orgx, orgy;
+//	int difx, dify;
+//	if (mugituX == true)
+//	{
+//		iso((TAMAÑOIMAGEN * 0.5) * (Tale_OrgX)+mapPos.x, (TAMAÑOIMAGEN * 0.5) * (Tale_OrgY)-mapPos.y);
+//		orgx = isometric.x;
+//		orgy = isometric.y;
+//		difx = (TAMAÑOIMAGEN * 0.5) * (difdestorgx * orientazioaX);
+//		dify = (TAMAÑOIMAGEN * 0.5) * (difdestorgy * orientazioaY);
+//
+//		iso((TAMAÑOIMAGEN * 0.5) * (Tale_OrgX)+mapPos.x + dinamicX, (TAMAÑOIMAGEN * 0.5) * (Tale_OrgY)-mapPos.y);
+//		laukia(isometric.x, isometric.y, TAMAÑOIMAGEN, TAMAÑOIMAGEN, &laukiakk);
+//		SDL_RenderCopy(renderer, cubo.irudiak[1], NULL, &laukiakk);
+//		printf("\ndifX=%d\n", difx);
+//		if ((isometric.x - orgx) * orientazioaX >= difx) {
+//			mugituX = false;
+//			mugituY = true;
+//		}
+//	}
+//
+//	if (mugituY == true && mugituX == false)
+//	{
+//		iso((TAMAÑOIMAGEN * 0.5) * (Tale_OrgX + difdestorgx) + mapPos.x, (TAMAÑOIMAGEN * 0.5) * (Tale_OrgY)-mapPos.y);
+//		orgx = isometric.x;
+//		orgy = isometric.y;
+//		difx = (TAMAÑOIMAGEN * 0.5) * (difdestorgx * orientazioaX);
+//		dify = ((TAMAÑOIMAGEN * 0.5) * (difdestorgy * orientazioaY) / 2);
+//
+//		iso((TAMAÑOIMAGEN * 0.5) * (Tale_OrgX + difdestorgx) + mapPos.x, (TAMAÑOIMAGEN * 0.5) * (Tale_OrgY)-mapPos.y + dinamicY);
+//		laukia(isometric.x, isometric.y, TAMAÑOIMAGEN, TAMAÑOIMAGEN, &laukiakk);
+//		SDL_RenderCopy(renderer, cubo.irudiak[1], NULL, &laukiakk);
+//		printf("\nisometric.y =%d\n", isometric.y);
+//		if ((isometric.y - orgy) * orientazioaY >= dify)mugituY = false;
+//	}
 
-		iso((TAMAÑOIMAGEN * 0.5) * (Tale_OrgX)+mapPos.x + dinamicX, (TAMAÑOIMAGEN * 0.5) * (Tale_OrgY)-mapPos.y);
-		laukia(isometric.x, isometric.y, TAMAÑOIMAGEN, TAMAÑOIMAGEN, &laukiakk);
-		SDL_RenderCopy(renderer, cubo.irudiak[1], NULL, &laukiakk);
-		printf("\ndifX=%d\n", difx);
-		if ((isometric.x - orgx) * orientazioaX >= difx) {
-			mugituX = false; 
-			mugituY = true;	
-		}
-	}
 
-	if (mugituY == true&& mugituX == false)
-	{
-		iso((TAMAÑOIMAGEN * 0.5) * (Tale_OrgX+ difdestorgx)+mapPos.x, (TAMAÑOIMAGEN * 0.5) * (Tale_OrgY)-mapPos.y);
-		orgx = isometric.x;
-		orgy = isometric.y;
-		difx = (TAMAÑOIMAGEN * 0.5) * (difdestorgx * orientazioaX);
-		dify = ((TAMAÑOIMAGEN * 0.5) * (difdestorgy * orientazioaY)/2);
-
-		iso((TAMAÑOIMAGEN * 0.5) * (Tale_OrgX + difdestorgx)+mapPos.x , (TAMAÑOIMAGEN * 0.5) * (Tale_OrgY)-mapPos.y + dinamicY);
-		laukia(isometric.x, isometric.y, TAMAÑOIMAGEN, TAMAÑOIMAGEN, &laukiakk);
-		SDL_RenderCopy(renderer, cubo.irudiak[1], NULL, &laukiakk);
-		printf("\nisometric.y =%d\n", isometric.y);
-		if ((isometric.y - orgy) * orientazioaY >= dify)mugituY = false;
-	}
-		
-}
-void Zenbat_eta_nora_desplazatu_en_Baldosas(int *orientazioa,int org,int dest,int *dif,int* difAbs) {
-	*dif = dest - org;
-	if (dest - org > 0)*orientazioa = 1;
-	else if (dest - org < 0)*orientazioa = -1;
-	else if (dest - org == 0)*orientazioa = 0;
-	*difAbs = *dif * *orientazioa;
+void Zenbat_eta_nora_desplazatu_en_Baldosas(int *_orientazioa,int org,int dest,int *_dif,int* _difAbs) {
+	*_dif = dest - org;
+	if (dest - org > 0)*_orientazioa = 1;
+	else if (dest - org < 0)*_orientazioa = -1;
+	else if (dest - org == 0)*_orientazioa = 0;
+	*_difAbs = *_dif * *_orientazioa;
 }
 
 void handleEvents() {
@@ -82,16 +119,17 @@ void handleEvents() {
 					TRAYECTORIA[yy][xx] = 0;
 				}
 			}
+			ZenbatMugitu = aa;
 			aa = 0;
 			OSTIA = false;
+			infoPosy_tmp = 0; infoPosx_tmp = 0;
 			if (tropaAukeratuta) {
 				if (TERRENO[infoPos.y][infoPos.x] <= 1 && RANGO_JOKALARIARENA[infoPos.y][infoPos.x] == 1)
 					Tropa_Dest_Aukeratu(infoPos.x, infoPos.y, tropa_org.x, tropa_org.y, 1, Detektatutako_Tropa);
 				Rangoa(rango, EZABATU, &tropa_org.x, &tropa_org.y);
 				tropaAukeratuta = false;
 				mugituX = true;
-				Zenbat_eta_nora_desplazatu_en_Baldosas(&orientazioaX, tropa_org.x, infoPos.x, &Dif_destOrg_X, &Dif_destOrg_X_abs);
-				Zenbat_eta_nora_desplazatu_en_Baldosas(&orientazioaY, tropa_org.y, infoPos.y, &Dif_destOrg_Y, &Dif_destOrg_Y_abs);
+
 				if (TERRENO[infoPos.y][infoPos.x] > 1)mugituX = false;
 			}
 			break;
@@ -189,31 +227,21 @@ void MousePos(void) {
 	SDL_PumpEvents();  // make sure we have the latest mouse state.
 	buttons = SDL_GetMouseState(&mousePos.x, &mousePos.y);
 	//SDL_Log("Mouse cursor is at %d, %d", mousePos.x, mousePos.y);
-	if ((buttons & SDL_BUTTON_LMASK) != 0) {
+	if ((buttons & SDL_BUTTON_LMASK) != 0&& tropaAukeratuta) {
 		zapalduta = true;
-		
-		if (OSTIA==false) {
-			infoPosy_tmp = infoPos.y;
-			infoPosx_tmp = infoPos.x;
-			OSTIA = true;
-			
-		}
-		
+		if ( (infoPosy_tmp != infoPos.y || infoPosx_tmp != infoPos.x) && (0 <= aa &&aa<=rango ) && (TRAYECTORIA[infoPos.y][infoPos.x]!=1)  ) {
 
-		if ( (infoPosy_tmp != infoPos.y || infoPosx_tmp != infoPos.x) && (0 <= aa &&aa<rango ) && (TRAYECTORIA[infoPos.y][infoPos.x]!=1)  ) {
-			
 			infoPosy_tmp = infoPos.y;
 			infoPosx_tmp = infoPos.x;
 			TRAYECTORIA[infoPos.y][infoPos.x] = 1;
 			TRAYECTORIA_EN_ORDEN[aa][0] = infoPos.y;
 			TRAYECTORIA_EN_ORDEN[aa][1] = infoPos.x;
+			
 			aa++;
 			tmp = false;
-			printf("\naa= %d", aa);
+			//printf("\naa= %d", aa);
 		}
-
-		
-		if ((infoPosy_tmp != infoPos.y || infoPosx_tmp != infoPos.x) && 0 < aa && aa <= rango && TRAYECTORIA[infoPos.y][infoPos.x] == 1) {
+		if ((infoPosy_tmp != infoPos.y || infoPosx_tmp != infoPos.x) && 0 <= aa && aa <= rango+1 && TRAYECTORIA[infoPos.y][infoPos.x] == 1) {
 			
 			for (int i = 0; i < TALE_Y; i++)
 			{
@@ -229,9 +257,27 @@ void MousePos(void) {
 					TRAYECTORIA_EN_ORDEN[i][0] = 0;
 				}
 			}
-			printf("\naa= %d", aa);
+			
 		}
-		
+		printf("\n  %d  %d", TRAYECTORIA_EN_ORDEN[0][1], TRAYECTORIA_EN_ORDEN[0][0]);
+		if (!OSTIA)
+		{
+			hasierako_pos_x = infoPos.x;
+			hasierako_pos_y = infoPos.y;
+			OSTIA = true;
+		}
+		if ((hasierako_pos_y == infoPos.y && hasierako_pos_x == infoPos.x))
+		{
+			for (int yy = 0; yy < TALE_Y; yy++) { //pa borrar trayectoria de mierda
+				for (int xx = 0; xx < TALE_X; xx++) {
+					TRAYECTORIA[yy][xx] = 0;
+				}
+			}
+			TRAYECTORIA_EN_ORDEN[0][1] = hasierako_pos_x;
+			TRAYECTORIA_EN_ORDEN[0][0] = hasierako_pos_y;
+			aa = 1;
+		}
+		//printf("\naa= %d   %d", aa, rango);
 		
 	}
 }
@@ -312,7 +358,7 @@ void render() {
 	SDL_RenderClear(renderer);
 	erakutsiTale(mousePos.x, mousePos.y);
 	Mapa();
-	Dinamic_Move(tropa_org.x, tropa_org.y, Tropa_desplazamendua.x, Tropa_desplazamendua.y, Dif_destOrg_X, Dif_destOrg_Y);
+	//Dinamic_Move(TRAYECTORIA_EN_ORDEN, Tropa_desplazamendua.x, Tropa_desplazamendua.y, Dif_destOrg_X, Dif_destOrg_Y);
 	SDL_RenderPresent(renderer);
 }
 void iso(int x0, int y0) {
@@ -333,7 +379,7 @@ bool running() {
 	return isRunning;
 }
 void update() {
-	if (mugituX == true)Tropa_desplazamendua.x += orientazioaX*3;
-	if (mugituY == true)Tropa_desplazamendua.y += orientazioaY*3;
+	if (mugituX == true)Tropa_desplazamendua.x += orientazioaX*1;
+	if (mugituY == true)Tropa_desplazamendua.y += orientazioaY*1;
 }
 

@@ -7,13 +7,13 @@ int main(int argc, char* argv[])
 							{"res/MUwartextures/tanqueazul/tanqueazulderecha1.png","res/MUwartextures/tanqueazul/tanqueazulderecha1.png","res/MUwartextures/tanqueazul/tanqueazulderecha1.png","res/MUwartextures/tanqueazul/tanqueazulderecha1.png"},
 							{"res/img/ISOTILE_NEO.png","res/img/ISOTILE1.png","res/img/RANGO.png","res/cc.png"}
 	};
-	mapPos.x = 200;
-	mapPos.y = 700;
+	mapPos.x = 400;
+	mapPos.y = 900;
 	persona.x = 0;
 	persona.y = 0;
 	soldado.orientazioa = 0;
 	orco.orientazioa = 0;
-	init("tutorial", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1300, 800, false);
+	init("tutorial", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 800, false);
 
 	irudiakKargatu(terreno.irudiak, link[0]);
 	irudiakKargatu(soldado.irudiak, link[1]);
