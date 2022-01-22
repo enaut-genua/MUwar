@@ -12,14 +12,6 @@ typedef struct
 	Bekt2D mapako_posizioa;
 } Xagua;
 
-/* Tekla bat errepresentatzen dituen estruktura */
-typedef struct
-{
-	bool sakatu;
-	bool askatu;
-	bool sakatuta;
-} Tekla;
-
 /* Teklatua errepresentatzen duen estruktura */
 typedef struct
 {
