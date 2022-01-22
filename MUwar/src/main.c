@@ -5,7 +5,8 @@ int main(int argc, char* argv[])
 							{"res/img/GRASS.png","res/img/WATER.png","res/MUwartextures/1superficies/montana.png","res/aa.png"},
 							{"res/MUwartextures/heavysoldierazul/SOL_AZUL_esk1.png","res/MUwartextures/heavysoldierazul/SOL_AZUL_esk1.png","res/MUwartextures/heavysoldierazul/SOL_AZUL_esk1.png","res/MUwartextures/heavysoldierazul/SOL_AZUL_esk1.png"},
 							{"res/MUwartextures/tanqueazul/tanqueazulderecha1.png","res/MUwartextures/tanqueazul/tanqueazulderecha1.png","res/MUwartextures/tanqueazul/tanqueazulderecha1.png","res/MUwartextures/tanqueazul/tanqueazulderecha1.png"},
-							{"res/img/ISOTILE_NEO.png","res/img/ISOTILE1.png","res/img/RANGO.png","res/cc.png"}
+							{"res/img/ISOTILE_NEO.png","res/img/ISOTILE1.png","res/img/RANGO.png","res/cc.png"},
+							{"PA.png","TA.png","res/img/RANGO.png","res/cc.png"}
 	};
 	mapPos.x = 400;
 	mapPos.y = 900;
@@ -25,6 +26,7 @@ int main(int argc, char* argv[])
 	irudiakKargatu(soldado.irudiak, link[1]);
 	irudiakKargatu(orco.irudiak, link[2]);
 	irudiakKargatu(cubo.irudiak, link[3]);
+	irudiakKargatu(Tropa_Aukeratu_Urdinak.irudiak, link[4]);
 	while (isRunning)
 	{
 		handleEvents();		

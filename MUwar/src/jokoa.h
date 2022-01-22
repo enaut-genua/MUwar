@@ -22,6 +22,10 @@ bool isRunning;
 
 SDL_Texture* irudiak[20];
 SDL_Renderer* getRenderer(void);
+SDL_Renderer* getRenderer(void);
+void textuaIdatzi(int x, int y, char* str);
+void textuaGaitu(void);
+void textuaDesgaitu(void);
 //______________________________________________TTF_____________________________________________________________________//
 
 
@@ -63,7 +67,7 @@ typedef struct IRUDIAK {
 } ORIENTAZIOA;
 #pragma endregion
 BI_D_KOORDENADAK mapPos, mousePos, infoPos, isometric, cart, persona, tropa_org, tropa_dest, Tropa_desplazamendua;
-ORIENTAZIOA soldado, orco, terreno, cubo;
+ORIENTAZIOA soldado, orco, terreno, cubo,Tropa_Aukeratu_Urdinak;
 
 #pragma region FUNCTIONS
 void init(char* titulo, int xpos, int ypos, int width, int height, bool fullscreen);
@@ -86,9 +90,6 @@ int Tropa_Org_Aukeratu(int* Xorg, int* Yorg, int* XCuboInfo, int* YCuboInfo);
 void Zenbat_eta_nora_desplazatu_en_Baldosas(int* _orientazioa, int org, int dest, int* _dif, int* _difAbs);
 void Tropa_Dest_Aukeratu(int  TropaDestX, int TropaDestY, int tropaOrgX, int TropaOrgY, int TerrenoDondePuedeAndar, int IpiniNahiDenTropa);
 void Desplazamendua();
-void textuaIdatzi(int x, int y, char* str);
-void textuaGaitu(void);
-void textuaDesgaitu(void);
-SDL_Renderer* getRenderer(void);
+void Tropa_Aukeratzeko_barra_sortu();
 #pragma endregion
 #endif // !JOKOA_H
