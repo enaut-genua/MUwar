@@ -65,6 +65,9 @@
     <ClInclude Include="src\kalkuloak.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\jokalaria.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="res\mapak\mapa_1" />

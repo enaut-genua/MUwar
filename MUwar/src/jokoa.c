@@ -75,7 +75,8 @@ bool jokoa_hasi(void)
 {
 	bool dena_ondo = true;
 
-	mapa_lortu_pos(MAPA, 4, 9)->tropa = tropa_sortu(Infanteria, 2);
+	mapa_lortu_pos(MAPA, 5, 6)->tropa = tropa_sortu(Rekon, Urdina);
+	mapa_lortu_pos(MAPA, 4, 9)->tropa = tropa_sortu(Rekon, Gorria);
 
 	OHARRA("Jokoa hasi da.");
 

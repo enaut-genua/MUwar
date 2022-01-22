@@ -16,6 +16,7 @@ typedef enum
 	Mendia,
 	MendiHautsia,	
 	Herria,
+	HerriHautsia,
 	Fabrika,
 } TerrenoMotak;
 

@@ -167,6 +167,7 @@
     <ClInclude Include="src\baldosa.h" />
     <ClInclude Include="src\ebentuak.h" />
     <ClInclude Include="src\include.h" />
+    <ClInclude Include="src\jokalaria.h" />
     <ClInclude Include="src\jokoa.h" />
     <ClInclude Include="src\kalkuloak.h" />
     <ClInclude Include="src\mapa.h" />

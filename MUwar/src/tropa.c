@@ -14,7 +14,7 @@ static void eraiki_tanke(TropaStat* trp);
  *	END: Funtzio pribatuen deklarazioa
  */
 
-TropaStat* tropa_sortu(TropaMota mota, int id)
+TropaStat* tropa_sortu(TropaMota mota, Jokalaria id)
 {
 	/* Sortu TropaStat estruktura bat */
 	TropaStat* ret = (TropaStat*)calloc(1, sizeof(TropaStat));
@@ -31,7 +31,7 @@ TropaStat* tropa_sortu(TropaMota mota, int id)
 		case InfanteriaMek:
 			eraiki_infanteria_mek(ret);
 			break;
-		case Errekonozimentu:
+		case Rekon:
 			eraiki_errekonozimentua(ret);
 			break;
 		case Tanke:
@@ -87,7 +87,7 @@ void eraiki_errekonozimentua(TropaStat* trp)
 	trp->amunizioa = 5;
 	trp->errekurtsoak = 15;
 	trp->mug_max = 10;
-	trp->mota = Errekonozimentu;
+	trp->mota = Rekon;
 	trp->terrenoa_puskatu = false;
 	trp->hiriak_hartu = false;
 }

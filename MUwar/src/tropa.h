@@ -3,19 +3,21 @@
 
 #include "include.h"
 
+#include "jokalaria.h"
+
 /* Jokuan erabiliko diren tropa motak. */
 typedef enum
 {
 	Infanteria,
 	InfanteriaMek,
-	Errekonozimentu,
+	Rekon,
 	Tanke
 } TropaMota;
 
 /* Tropen estatistikak */
 typedef struct
 {
-	int id;						/* Zeinen tropa den */
+	Jokalaria id;				/* Zeinen tropa den */
 	int bizitza;				/* Zenbat bizitza daukaten */
 	int atakea;					/* Zenbat atake daukaten */
 	int amunizioa;				/* Zenbat amunizio daukaten */
@@ -28,7 +30,7 @@ typedef struct
 } TropaStat;
 
 /* Sortu tropak memorian */
-TropaStat* tropa_sortu(TropaMota mota, int id);
+TropaStat* tropa_sortu(TropaMota mota, Jokalaria id);
 
 /* Borratu tropa */
 void tropa_borratu(TropaStat** tropa);
