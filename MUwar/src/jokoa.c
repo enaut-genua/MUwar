@@ -20,7 +20,7 @@ int ñ = -1;
 bool Desplazamendua_erabaki = false;
 int k = 0;
 bool Tropa_Sortu = false;
-
+int cc = 2;
 //______________________________________________TTF_____________________________________________________________________//
 TTF_Font* font = 0;
 void textuaIdatzi(int x, int y, char* str)
@@ -62,18 +62,39 @@ SDL_Renderer* getRenderer(void) { return renderer; }
 void Tropa_Aukeratzeko_barra_sortu() {
 	if (Tropa_Sortu)
 	{
-		for (int i = 0; i < 2; i++)
-		{
-			laukia(100, 100, TAMAÑOIMAGEN, TAMAÑOIMAGEN, &laukiakk);
-			SDL_RenderCopy(renderer, Tropa_Aukeratu_Urdinak.irudiak[i], NULL, &laukiakk);
+			laukia(300, 800-100, 100, 100, &laukiakk);
+			SDL_RenderCopy(renderer, Tropa_Barra_urdina.SOLDADO.irudiak[0], NULL, &laukiakk);
+			Tropa_Barra_urdina.SOLDADO.laukia.x = 300;
+			Tropa_Barra_urdina.SOLDADO.laukia.y = 800 - 100;
+			Tropa_Barra_urdina.SOLDADO.laukia.w = 100;
+			Tropa_Barra_urdina.SOLDADO.laukia.h = 100;
+
+			laukia(300+100, 800 - 100, 100, 100, &laukiakk);
+			SDL_RenderCopy(renderer, Tropa_Barra_urdina.TANKE.irudiak[0], NULL, &laukiakk);
+			Tropa_Barra_urdina.SOLDADO.laukia.x = 300 + 100;
+			Tropa_Barra_urdina.SOLDADO.laukia.y = 800 - 100;
+			Tropa_Barra_urdina.SOLDADO.laukia.w = 100;
+			Tropa_Barra_urdina.SOLDADO.laukia.h = 100;
+	}
+}
+int Barrako_tropa_aukeratu() {
+	int value = 0;
+	if (300 <mousePos.x && mousePos.x < 400)
+	{
+		if (800 - 100 < mousePos.y  && mousePos.y < 800) {
+			value = 1; printf("SOLDADO %d\n",value);
 		}
 	}
-	
+
+	 else if (400 < mousePos.x && mousePos.x < 500)
+	{
+		if (800 - 100 < mousePos.y && mousePos.y < 800) {
+			value = 2; printf("TANKE %d\n",value);
+		}
+	}
+
+	return value;
 }
-
-
-
-
 
 void Desplazamendua(){
 int orgx, orgy;
@@ -155,6 +176,7 @@ void handleEvents() {
 		switch (event.button.type)
 		{
 		case SDL_MOUSEBUTTONUP: 
+			
 			if (tropaAukeratuta) {
 				if (TERRENO[infoPos.y][infoPos.x] <= 1 && RANGO_JOKALARIARENA[infoPos.y][infoPos.x] == 1 && TRAYECTORIA[infoPos.y][infoPos.x] == 1)
 					Tropa_Dest_Aukeratu(infoPos.x, infoPos.y, tropa_org.x, tropa_org.y, 1, Detektatutako_Tropa);
@@ -162,8 +184,10 @@ void handleEvents() {
 				tropaAukeratuta = false;
 				mugituX = true;
 				mugituGeneral = true;
-				if (TERRENO[infoPos.y][infoPos.x] > 1) { mugituX = false; mugituGeneral = true;}
+				if (TERRENO[infoPos.y][infoPos.x] > 1) { mugituX = false; mugituGeneral = true; }
 			}
+			
+
 			for (int yy = 0; yy < TALE_Y; yy++) { //pa borrar trayectoria de mierda
 				for (int xx = 0; xx < TALE_X; xx++) {
 					TRAYECTORIA[yy][xx] = 0;
@@ -173,37 +197,39 @@ void handleEvents() {
 			aa = 0;
 			OSTIA = false;
 			infoPosy_tmp = 0; infoPosx_tmp = 0;
-
 			break;
 		case SDL_MOUSEBUTTONDOWN:
-
-			if (Tropa_Mugitzeko_Aukera) {
-				if (!tropaAukeratuta) {
-					Detektatutako_Tropa = Tropa_Org_Aukeratu(&tropa_org.x, &tropa_org.y, &infoPos.x, &infoPos.y);
-					if (Detektatutako_Tropa > EZER)
+				if (Basetik_sortu_tropa == true) 
+				{
+					cc = Barrako_tropa_aukeratu();
+					PERTSONAK[tropa_org.y][tropa_org.x] =cc ;
+					Basetik_sortu_tropa = false;
+					
+					Tropa_Sortu = false;
+				}	
+				if (Tropa_Mugitzeko_Aukera) {
+					if (!tropaAukeratuta) {
+						Detektatutako_Tropa = Tropa_Org_Aukeratu(&tropa_org.x, &tropa_org.y, &infoPos.x, &infoPos.y);
+						if (Detektatutako_Tropa > EZER)
+						{
+							Tropa_desplazamendua.x = 0;
+							Tropa_desplazamendua.y = 0;
+							printf("\nTROPA AUKERATU DA\n");
+							tropaAukeratuta = true;
+							Rangoa(rango, EZABATU, &tropa_org.x, &tropa_org.y);
+							Rangoa(rango, MARRAZTU, &tropa_org.x, &tropa_org.y);
+							mugituY = false;
+							mugituX = false;
+							mugituGeneral = false;
+							ñ = -1;
+						}
+					}
+					if (TERRENO[infoPos.y][infoPos.x] == basea && !tropaAukeratuta)
 					{
-						Tropa_desplazamendua.x = 0;
-						Tropa_desplazamendua.y = 0;
-						printf("\nTROPA AUKERATU DA\n");
-						tropaAukeratuta = true;
-						Rangoa(rango, EZABATU,&tropa_org.x,&tropa_org.y);
-						Rangoa(rango,MARRAZTU,&tropa_org.x,&tropa_org.y);
-						mugituY = false;
-						mugituX = false;
-						mugituGeneral = false;
-						ñ = -1;
+						if (!Tropa_Sortu)Tropa_Sortu = true;
+						Basetik_sortu_tropa = true;
 					}
 				}
-					
-			
-			if (TERRENO[infoPos.y][infoPos.x] == basea && !tropaAukeratuta)
-			{
-				printf("AUKERATU TROPA BAT:\n 1=soldado\n 2=tanke\n");
-				Basetik_sortu_tropa = true;
-				tropa_org.x = infoPos.x;
-				tropa_org.y = infoPos.y;
-			}
-			}
 			break;
 		}
 		switch (event.key.type) {
@@ -223,8 +249,11 @@ void handleEvents() {
 			case SDLK_s:mapPos.x -= (int)(TAMAÑOIMAGEN * 0.5); mapPos.y += (int)(TAMAÑOIMAGEN * 0.5); break;
 			case SDLK_d:mapPos.x -= (int)(TAMAÑOIMAGEN * 0.5); mapPos.y -= (int)(TAMAÑOIMAGEN * 0.5); break;
 			case SDLK_a:mapPos.x += (int)(TAMAÑOIMAGEN * 0.5); mapPos.y += (int)(TAMAÑOIMAGEN * 0.5); break;
-			case SDLK_1: if (Basetik_sortu_tropa == true) PERTSONAK[tropa_org.y][tropa_org.x] = 1; Basetik_sortu_tropa = false; break;
-			case SDLK_2: if (Basetik_sortu_tropa == true) PERTSONAK[tropa_org.y][tropa_org.x] = 2; Basetik_sortu_tropa = false; break;
+			case SDLK_1:
+				if (Basetik_sortu_tropa == true) PERTSONAK[tropa_org.y][tropa_org.x] = Barrako_tropa_aukeratu();
+				Basetik_sortu_tropa = false; 
+				break;
+			case SDLK_2: if (Basetik_sortu_tropa == true) PERTSONAK[tropa_org.y][tropa_org.x] = Barrako_tropa_aukeratu(); Basetik_sortu_tropa = false; break;
 			case SDLK_q: mugituX = false; mugituY = false;ñ=-1; break;
 			case SDLK_x: mugituX = true; break;
 			case SDLK_y: mugituY = true; break;
@@ -417,6 +446,7 @@ void render() {
 	Mapa();
 	Desplazamendua();
 	Tropa_Aukeratzeko_barra_sortu();
+	textuaIdatzi(90, 70, "Hola");
 	SDL_RenderPresent(renderer);
 }
 void iso(int x0, int y0) {

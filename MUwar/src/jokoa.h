@@ -59,15 +59,29 @@ typedef struct XY
 {
 	int x, y;
 } BI_D_KOORDENADAK;
+BI_D_KOORDENADAK mapPos, mousePos, infoPos, isometric, cart, persona, tropa_org, tropa_dest, Tropa_desplazamendua;
 typedef struct IRUDIAK {
 	SDL_Texture* irudiak[4];
 	int orientazioa;
 	int terrenoMota;
+	
 
 } ORIENTAZIOA;
+ORIENTAZIOA soldado, orco, terreno, cubo ;
+
+typedef struct {
+	SDL_Texture* irudiak[4];
+	SDL_Rect laukia;
+} BARRA;
+BARRA ;
+typedef struct {
+	BARRA SOLDADO;
+	BARRA TANKE;
+
+} TROPA_BARRA;
+
+TROPA_BARRA Tropa_Barra_urdina, Tropa_Barra_gorria;
 #pragma endregion
-BI_D_KOORDENADAK mapPos, mousePos, infoPos, isometric, cart, persona, tropa_org, tropa_dest, Tropa_desplazamendua;
-ORIENTAZIOA soldado, orco, terreno, cubo,Tropa_Aukeratu_Urdinak;
 
 #pragma region FUNCTIONS
 void init(char* titulo, int xpos, int ypos, int width, int height, bool fullscreen);
@@ -91,5 +105,6 @@ void Zenbat_eta_nora_desplazatu_en_Baldosas(int* _orientazioa, int org, int dest
 void Tropa_Dest_Aukeratu(int  TropaDestX, int TropaDestY, int tropaOrgX, int TropaOrgY, int TerrenoDondePuedeAndar, int IpiniNahiDenTropa);
 void Desplazamendua();
 void Tropa_Aukeratzeko_barra_sortu();
+int Barrako_tropa_aukeratu();
 #pragma endregion
 #endif // !JOKOA_H
