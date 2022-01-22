@@ -19,7 +19,7 @@ int aa=0, ZenbatMugitu=0, tmp_x,tmp_y;
 int ñ = -1;
 bool Desplazamendua_erabaki = false;
 int k = 0;
-
+bool Tropa_Sortu = false;
 
 //______________________________________________TTF_____________________________________________________________________//
 TTF_Font* font = 0;
@@ -59,7 +59,17 @@ void textuaDesgaitu(void)
 SDL_Renderer* getRenderer(void) { return renderer; }
 //______________________________________________TTF_____________________________________________________________________//
 
-
+void Tropa_Aukeratzeko_barra_sortu() {
+	if (Tropa_Sortu)
+	{
+		for (int i = 0; i < 2; i++)
+		{
+			laukia(100, 100, TAMAÑOIMAGEN, TAMAÑOIMAGEN, &laukiakk);
+			SDL_RenderCopy(renderer, Tropa_Aukeratu_Urdinak.irudiak[i], NULL, &laukiakk);
+		}
+	}
+	
+}
 
 
 
