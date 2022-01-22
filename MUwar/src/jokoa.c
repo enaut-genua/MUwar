@@ -415,6 +415,7 @@ void render() {
 	erakutsiTale(mousePos.x, mousePos.y);
 	Mapa();
 	Desplazamendua();
+	Tropa_Aukeratzeko_barra_sortu();
 	SDL_RenderPresent(renderer);
 }
 void iso(int x0, int y0) {
