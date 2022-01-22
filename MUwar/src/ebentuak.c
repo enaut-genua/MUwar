@@ -7,6 +7,8 @@
  */
 
 static Xagua XAGUA = { 0 };
+static Teklatua TEKLATUA_ZAHARRA = { 0 };
+static Teklatua TEKLATUA_BERRIA = { 0 };
 static bool* JOKOA_MARTXAN = NULL;
 
 /*
@@ -16,6 +18,8 @@ static bool* JOKOA_MARTXAN = NULL;
 void ebentuak_kudeatu(void)
 {
 	SDL_Event event = { 0 };
+
+	TEKLATUA_ZAHARRA = TEKLATUA_BERRIA;
 
 	while (SDL_PollEvent(&event))
 	{
@@ -44,6 +48,19 @@ void ebentuak_kudeatu(void)
 				break;
 			case SDLK_d:
 				render_mugitu_mapa_eskubi();
+				break;
+			case SDLK_RETURN:
+				TEKLATUA_BERRIA.enter = true;
+				break;
+			}
+			break;
+		}
+		case SDL_KEYUP:
+		{
+			switch (event.key.keysym.sym)
+			{
+			case SDLK_RETURN:
+				TEKLATUA_BERRIA.enter = false;
 				break;
 			}
 			break;
@@ -106,4 +123,14 @@ const Xagua* ebentuak_lortu_xaguaren_egoera(void)
 	XAGUA.mapako_posizioa.y = (int)((pos_kart.y + mapa_hasiera.y) / (argazki_tamaina * 0.5f));
 
 	return &XAGUA;
+}
+
+const Teklatua* ebentuak_lortu_teklatua_zaharra(void)
+{
+	return &TEKLATUA_ZAHARRA;
+}
+
+const Teklatua* ebentuak_lortu_teklatua_berria(void)
+{
+	return &TEKLATUA_BERRIA;
 }

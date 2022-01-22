@@ -4,6 +4,7 @@
 #include "ebentuak.h"
 #include "tropa.h"
 #include "mapa_modeloak.h"
+#include "jokalaria.h"
 
 /*
  *	START: Aldagai global pribatuak
@@ -11,6 +12,7 @@
 
 static bool JOKOA_MARTXAN = true;
 static Mapa* MAPA = NULL;
+static Bandoa NOREN_TXANDA = Gorria;
 
 /*
  *	END: Aldagai global pribatuak
@@ -90,7 +92,7 @@ bool jokoa_hasi(void)
 		uint64_t bukaera = SDL_GetPerformanceCounter();
 
 		float dt = (bukaera - hasiera) / (float)SDL_GetPerformanceFrequency();
-		
+
 		render_erakutsi_fps(dt);
 	}
 
@@ -123,7 +125,21 @@ void egin_jokaldia(void)
 	const Xagua* xagua = ebentuak_lortu_xaguaren_egoera();
 	Baldosa* aukeratutako_baldosa = mapa_lortu_pos(MAPA, xagua->mapako_posizioa.x, xagua->mapako_posizioa.y);
 
-	if (xagua->ezker_botoia_klikatuta && aukeratutako_baldosa != NULL && aukeratutako_baldosa->tropa != NULL && klikatutako_baldosa == NULL)
+	if (ebentuak_lortu_teklatua_berria()->enter == true && ebentuak_lortu_teklatua_zaharra()->enter == false)
+	{
+		if (NOREN_TXANDA == Gorria)
+		{
+			OHARRA("Urdinaren txanda.");
+			NOREN_TXANDA = Urdina;
+		}
+		else if (NOREN_TXANDA == Urdina)
+		{
+			OHARRA("Gorriaren txanda.");
+			NOREN_TXANDA = Gorria;
+		}
+	}
+
+	if (xagua->ezker_botoia_klikatuta && aukeratutako_baldosa != NULL && aukeratutako_baldosa->tropa != NULL && klikatutako_baldosa == NULL && NOREN_TXANDA == aukeratutako_baldosa->tropa->id)
 	{
 		klikatutako_baldosa = aukeratutako_baldosa;
 		klikatutako_baldosa_pos = xagua->mapako_posizioa;

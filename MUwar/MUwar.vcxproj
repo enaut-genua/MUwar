@@ -156,6 +156,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\ebentuak.c" />
+    <ClCompile Include="src\jokalaria.c" />
     <ClCompile Include="src\jokoa.c" />
     <ClCompile Include="src\kalkuloak.c" />
     <ClCompile Include="src\main.c" />

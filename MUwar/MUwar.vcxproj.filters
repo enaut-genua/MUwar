@@ -36,6 +36,9 @@
     <ClCompile Include="src\kalkuloak.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\jokalaria.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\tropa.h">

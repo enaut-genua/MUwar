@@ -12,6 +12,20 @@ typedef struct
 	Bekt2D mapako_posizioa;
 } Xagua;
 
+/* Tekla bat errepresentatzen dituen estruktura */
+typedef struct
+{
+	bool sakatu;
+	bool askatu;
+	bool sakatuta;
+} Tekla;
+
+/* Teklatua errepresentatzen duen estruktura */
+typedef struct
+{
+	bool enter;
+} Teklatua;
+
 /* Erabiltzaileak egindako ebentuak kudeatzen ditu */
 void ebentuak_kudeatu(void);
 
@@ -20,6 +34,12 @@ void ebentuak_konfiguratu(bool* interruptorea);
 
 /* Xaguaren egoera lortu */
 const Xagua* ebentuak_lortu_xaguaren_egoera(void);
+
+/* Teklen egoera zaharra lortu */
+const Teklatua* ebentuak_lortu_teklatua_zaharra(void);
+
+/* Teklen egoera berria lortu */
+const Teklatua* ebentuak_lortu_teklatua_berria(void);
 
 #endif // !EBENTUAK_H
 
