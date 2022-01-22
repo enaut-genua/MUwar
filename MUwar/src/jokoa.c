@@ -83,13 +83,13 @@ bool jokoa_hasi(void)
 	{
 		uint64_t hasiera = SDL_GetPerformanceCounter();
 		dena_ondo = render_marraztu(MAPA);
-		ERABILI_GABE(egin_jokaldia());
+		egin_jokaldia();
 		ebentuak_kudeatu();
 
 		uint64_t bukaera = SDL_GetPerformanceCounter();
 
 		float dt = (bukaera - hasiera) / (float)SDL_GetPerformanceFrequency();
-
+		
 		render_erakutsi_fps(dt);
 	}
 
@@ -122,7 +122,7 @@ void egin_jokaldia(void)
 	const Xagua* xagua = ebentuak_lortu_xaguaren_egoera();
 	Baldosa* aukeratutako_baldosa = mapa_lortu_pos(MAPA, xagua->mapako_posizioa.x, xagua->mapako_posizioa.y);
 
-	if (xagua->ezker_botoia_klikatuta && aukeratutako_baldosa != NULL && aukeratutako_baldosa->tropa != NULL)
+	if (xagua->ezker_botoia_klikatuta && aukeratutako_baldosa != NULL && aukeratutako_baldosa->tropa != NULL && klikatutako_baldosa == NULL)
 	{
 		klikatutako_baldosa = aukeratutako_baldosa;
 		klikatutako_baldosa_pos = xagua->mapako_posizioa;
