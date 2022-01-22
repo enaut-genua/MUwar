@@ -616,18 +616,17 @@ void argazkiak_garbitu(ElementuenTexturak** texturak)
 	if (*texturak != NULL)
 	{
 		/* Terrenoak */
-		SDL_DestroyTexture((*texturak)->larrea.aurrea);
-		SDL_DestroyTexture((*texturak)->ibaia.aurrea);
-		SDL_DestroyTexture((*texturak)->mendia.aurrea);
-		SDL_DestroyTexture((*texturak)->mendi_hautsia.aurrea);
-		SDL_DestroyTexture((*texturak)->base_urdina.aurrea);
-		SDL_DestroyTexture((*texturak)->base_gorria.aurrea);
 		SDL_DestroyTexture((*texturak)->basamortua.aurrea);
+		SDL_DestroyTexture((*texturak)->base_gorria.aurrea);
+		SDL_DestroyTexture((*texturak)->base_urdina.aurrea);
 		SDL_DestroyTexture((*texturak)->basoa.aurrea);
-		SDL_DestroyTexture((*texturak)->karretera.aurrea);
-		SDL_DestroyTexture((*texturak)->herria.aurrea);
 		SDL_DestroyTexture((*texturak)->herri_hautsia.aurrea);
+		SDL_DestroyTexture((*texturak)->herria.aurrea);
+		SDL_DestroyTexture((*texturak)->ibaia.aurrea);
 		SDL_DestroyTexture((*texturak)->karretera.aurrea);
+		SDL_DestroyTexture((*texturak)->larrea.aurrea);
+		SDL_DestroyTexture((*texturak)->mendi_hautsia.aurrea);
+		SDL_DestroyTexture((*texturak)->mendia.aurrea);
 
 		/* Tropak */
 		SDL_DestroyTexture((*texturak)->infanteria_urdina.aurrea);
@@ -673,6 +672,7 @@ void argazkiak_garbitu(ElementuenTexturak** texturak)
 		free(*texturak);
 		*texturak = NULL;
 	}
+	OHARRA("Texturak garbitu dira.");
 }
 
 SDL_Texture* textura_sortu(const char* path, uint8_t alpha)
@@ -682,7 +682,7 @@ SDL_Texture* textura_sortu(const char* path, uint8_t alpha)
 
 	if ((srfc = IMG_Load(path)) == NULL)
 	{
-		fprintf(stderr, "Errorea: %s\n", IMG_GetError());
+		ERROREA(IMG_GetError());
 		goto atera;
 	}
 
