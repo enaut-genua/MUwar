@@ -27,7 +27,7 @@ void textuaIdatzi(int x, int y, char* str)
 {
 	SDL_Surface* textSurface;
 	SDL_Texture* mTexture;
-	SDL_Color textColor = { 0XFF, 0XFF, 0XFF };
+	SDL_Color textColor = { 0xFF, 0xFF, 0xFF };
 	SDL_Rect src, dst;
 	SDL_Renderer* gRenderer;
 
@@ -242,6 +242,7 @@ void init(char* titulo, int xpos, int ypos, int width, int height, bool fullscre
 		SDL_SetRenderDrawColor(renderer, 0xaa, 0xaa, 0x3b, 0x00);
 		isRunning = true;
 	}
+	TTF_Init();
 }
 int Tropa_Org_Aukeratu(int* Xorg, int* Yorg,int* XCuboInfo, int* YCuboInfo) { 
 	//funtzio honek tropa baten ubikazioa esatean ze tropa aukeratu den esaten du eta bere posizioa gordetzen du
