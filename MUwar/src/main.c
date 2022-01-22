@@ -16,6 +16,11 @@ int main(int argc, char* argv[])
 	printf("\n SAKATU P TROPAK SORTU EDO MUGITZEKO\n");
 	init("tutorial", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 800, false);
 
+	//______________________________________________TTF_____________________________________________________________________//
+	textuaGaitu();
+	textuaIdatzi(10, 20, "Hola");
+	//______________________________________________TTF_____________________________________________________________________//
+
 	irudiakKargatu(terreno.irudiak, link[0]);
 	irudiakKargatu(soldado.irudiak, link[1]);
 	irudiakKargatu(orco.irudiak, link[2]);

@@ -19,6 +19,52 @@ int aa=0, ZenbatMugitu=0, tmp_x,tmp_y;
 int ñ = -1;
 bool Desplazamendua_erabaki = false;
 int k = 0;
+
+
+//______________________________________________TTF_____________________________________________________________________//
+TTF_Font* font = 0;
+void textuaIdatzi(int x, int y, char* str)
+{
+	SDL_Surface* textSurface;
+	SDL_Texture* mTexture;
+	SDL_Color textColor = { 0XFF, 0XFF, 0XFF };
+	SDL_Rect src, dst;
+	SDL_Renderer* gRenderer;
+
+	if (font == 0) return;
+	gRenderer = getRenderer();
+	textSurface = TTF_RenderText_Solid(font, str, textColor);
+	mTexture = SDL_CreateTextureFromSurface(gRenderer, textSurface);
+	src.x = 0; dst.x = x;
+	src.y = 0; dst.y = y;
+	src.w = dst.w = textSurface->w;
+	src.h = dst.h = textSurface->h;
+	SDL_RenderCopy(gRenderer, mTexture, &src, &dst);
+	SDL_FreeSurface(textSurface);
+	SDL_DestroyTexture(mTexture);
+}
+void textuaGaitu(void) {
+	font = TTF_OpenFontIndex("arial.ttf", 16, 0);
+	if (!font)
+	{
+		printf("TTF_OpenFontIndex: %s\n", TTF_GetError());
+		// handle error
+	}
+}
+void textuaDesgaitu(void)
+{
+	if (font != 0) TTF_CloseFont(font);
+	font = 0;
+}
+SDL_Renderer* getRenderer(void) { return renderer; }
+//______________________________________________TTF_____________________________________________________________________//
+
+
+
+
+
+
+
 void Desplazamendua(){
 int orgx, orgy;
 int difx, dify;
@@ -379,7 +425,7 @@ bool running() {
 	return isRunning;
 }
 void update() {
-	if (mugituX == true)Tropa_desplazamendua.x += orientazioaX*1;
-	if (mugituY == true)Tropa_desplazamendua.y += orientazioaY*1;
+	if (mugituX == true)Tropa_desplazamendua.x += orientazioaX*3;
+	if (mugituY == true)Tropa_desplazamendua.y += orientazioaY*3;
 }
 

@@ -5,6 +5,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include<SDL2/SDL_ttf.h>
 
 
 /* SDL2 */
@@ -16,7 +17,16 @@
 SDL_Window* window;
 SDL_Renderer* renderer;
 bool isRunning;
+
+//______________________________________________TTF_____________________________________________________________________//
+
 SDL_Texture* irudiak[20];
+SDL_Renderer* getRenderer(void);
+//______________________________________________TTF_____________________________________________________________________//
+
+
+
+
 
 #pragma region DEFINES
 #define WINDOW_WIDTH     800
@@ -76,11 +86,9 @@ int Tropa_Org_Aukeratu(int* Xorg, int* Yorg, int* XCuboInfo, int* YCuboInfo);
 void Zenbat_eta_nora_desplazatu_en_Baldosas(int* _orientazioa, int org, int dest, int* _dif, int* _difAbs);
 void Tropa_Dest_Aukeratu(int  TropaDestX, int TropaDestY, int tropaOrgX, int TropaOrgY, int TerrenoDondePuedeAndar, int IpiniNahiDenTropa);
 void Desplazamendua();
+void textuaIdatzi(int x, int y, char* str);
+void textuaGaitu(void);
+void textuaDesgaitu(void);
+SDL_Renderer* getRenderer(void);
 #pragma endregion
-
-
-
-
-
-
 #endif // !JOKOA_H
