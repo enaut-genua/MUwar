@@ -5,6 +5,11 @@ typedef enum
 {
 	Urdina,
 	Gorria
+} Bandoa;
+
+typedef struct
+{
+	int dirua;
 } Jokalaria;
 
 #endif // !JOKALARIA_H
