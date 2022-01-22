@@ -323,7 +323,7 @@ ElementuenTexturak* argazkiak_kargatu(void)
 	 * Kargatu Aukeratutakoaren Textura
 	 */
 
-	if ((texturak->rangoa.aurrea = textura_sortu("res/img/bloke_laranja.png", 80)) == NULL)
+	if ((texturak->rangoa.aurrea = textura_sortu("res/img/jokua/bloke_laranja.png", 80)) == NULL)
 	{
 		ERROREA("Ezin izan da aukeratutakoaren textura sortu.");
 		goto errorea;
@@ -333,7 +333,7 @@ ElementuenTexturak* argazkiak_kargatu(void)
 	 * Kargatu Punteroaren Textura
 	 */
 
-	if ((texturak->punteroa.aurrea = textura_sortu("res/img/punteroa.png", SDL_ALPHA_OPAQUE)) == NULL)
+	if ((texturak->punteroa.aurrea = textura_sortu("res/img/jokua/punteroa.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		ERROREA("Ezin izan da punteroraren textura sortu.");
 		goto errorea;
@@ -344,84 +344,84 @@ ElementuenTexturak* argazkiak_kargatu(void)
 	 */
 
 	 /* Basamortua */
-	if ((texturak->basamortua.aurrea = textura_sortu("res/img/basamortua.png", SDL_ALPHA_OPAQUE)) == NULL)
+	if ((texturak->basamortua.aurrea = textura_sortu("res/img/jokua/basamortua.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		ERROREA("Ezin izan da basamortuaren textura sortu.");
 		goto errorea;
 	}
 
 	/* Base gorria */
-	if ((texturak->base_gorria.aurrea = textura_sortu("res/img/base_gorria.png", SDL_ALPHA_OPAQUE)) == NULL)
+	if ((texturak->base_gorria.aurrea = textura_sortu("res/img/jokua/base_gorria.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		ERROREA("Ezin izan base gorriaren textura sortu.");
 		goto errorea;
 	}
 
 	/* Base urdina */
-	if ((texturak->base_urdina.aurrea = textura_sortu("res/img/base_urdina.png", SDL_ALPHA_OPAQUE)) == NULL)
+	if ((texturak->base_urdina.aurrea = textura_sortu("res/img/jokua/base_urdina.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		fprintf(stderr, "Errorea: Ezin izan da base urdinaren textura sortu.\n");
 		goto errorea;
 	}
 
 	///* Baso moztua */
-	//if ((texturak->baso_moztua.aurrea = textura_sortu("res/img/baso_moztua.png", SDL_ALPHA_OPAQUE)) == NULL)
+	//if ((texturak->baso_moztua.aurrea = textura_sortu("res/img/jokua/baso_moztua.png", SDL_ALPHA_OPAQUE)) == NULL)
 	//{
 	//	fprintf(stderr, "Errorea: Ezin izan da base urdinaren textura sortu.\n");
 	//	goto errorea;
 	//}
 
 	/* Basoa */
-	if ((texturak->basoa.aurrea = textura_sortu("res/img/basoa.png", SDL_ALPHA_OPAQUE)) == NULL)
+	if ((texturak->basoa.aurrea = textura_sortu("res/img/jokua/basoa.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		ERROREA("Ezin izan da basoaren textura sortu.");
 		goto errorea;
 	}
 
 	/* Herri hautsia */
-	if ((texturak->herri_hautsia.aurrea = textura_sortu("res/img/herri_hautsia.png", SDL_ALPHA_OPAQUE)) == NULL)
+	if ((texturak->herri_hautsia.aurrea = textura_sortu("res/img/jokua/herri_hautsia.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		ERROREA("Ezin izan da herri hautsiaren textura sortu.");
 		goto errorea;
 	}
 
 	/* Herria */
-	if ((texturak->herria.aurrea = textura_sortu("res/img/herria.png", SDL_ALPHA_OPAQUE)) == NULL)
+	if ((texturak->herria.aurrea = textura_sortu("res/img/jokua/herria.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		ERROREA("Ezin izan da herriaren textura sortu.");
 		goto errorea;
 	}
 
 	/* Ibaia */
-	if ((texturak->ibaia.aurrea = textura_sortu("res/img/ura.png", SDL_ALPHA_OPAQUE)) == NULL)
+	if ((texturak->ibaia.aurrea = textura_sortu("res/img/jokua/ura.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		ERROREA("Ezin izan da ibaiaren textura sortu.");
 		goto errorea;
 	}
 
 	/* Karretera */
-	if ((texturak->karretera.aurrea = textura_sortu("res/img/karretera.png", SDL_ALPHA_OPAQUE)) == NULL)
+	if ((texturak->karretera.aurrea = textura_sortu("res/img/jokua/karretera.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		ERROREA("Ezin izan da karreteraren textura sortu.");
 		goto errorea;
 	}
 
 	/* Larrea */
-	if ((texturak->larrea.aurrea = textura_sortu("res/img/larrea.png", SDL_ALPHA_OPAQUE)) == NULL)
+	if ((texturak->larrea.aurrea = textura_sortu("res/img/jokua/larrea.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		ERROREA("Ezin izan da larrearen textura sortu.");
 		goto errorea;
 	}
 
 	/* Mendi hautsia */
-	if ((texturak->mendi_hautsia.aurrea = textura_sortu("res/img/mendia.png", SDL_ALPHA_OPAQUE)) == NULL)
+	if ((texturak->mendi_hautsia.aurrea = textura_sortu("res/img/jokua/mendia.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		ERROREA("Ezin izan da mendiaren textura sortu.");
 		goto errorea;
 	}
 
 	/* Mendia */
-	if ((texturak->mendia.aurrea = textura_sortu("res/img/mendia.png", SDL_ALPHA_OPAQUE)) == NULL)
+	if ((texturak->mendia.aurrea = textura_sortu("res/img/jokua/mendia.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		ERROREA("Ezin izan da mendiaren textura sortu.");
 		goto errorea;
@@ -432,172 +432,172 @@ ElementuenTexturak* argazkiak_kargatu(void)
 	 */
 
 	 /* Infanteria */
-	if ((texturak->infanteria_urdina.aurrea = textura_sortu("res/img/infanteria_urdina_aurrea.png", SDL_ALPHA_OPAQUE)) == NULL)
+	if ((texturak->infanteria_urdina.aurrea = textura_sortu("res/img/jokua/infanteria_urdina_aurrea.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		ERROREA("Ezin izan da infanteria urdinaren aurreko textura sortu.");
 		goto errorea;
 	}
-	if ((texturak->infanteria_urdina.atzea = textura_sortu("res/img/infanteria_urdina_atzea.png", SDL_ALPHA_OPAQUE)) == NULL)
+	if ((texturak->infanteria_urdina.atzea = textura_sortu("res/img/jokua/infanteria_urdina_atzea.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		ERROREA("Ezin izan da infanteria urdinaren atzeko textura sortu.");
 		goto errorea;
 	}
-	if ((texturak->infanteria_urdina.ezker = textura_sortu("res/img/infanteria_urdina_ezkerra.png", SDL_ALPHA_OPAQUE)) == NULL)
+	if ((texturak->infanteria_urdina.ezker = textura_sortu("res/img/jokua/infanteria_urdina_ezkerra.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		ERROREA("Ezin izan da infanteria urdinaren ezkerreko textura sortu.");
 		goto errorea;
 	}
-	if ((texturak->infanteria_urdina.eskubi = textura_sortu("res/img/infanteria_urdina_eskubi.png", SDL_ALPHA_OPAQUE)) == NULL)
+	if ((texturak->infanteria_urdina.eskubi = textura_sortu("res/img/jokua/infanteria_urdina_eskubi.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		ERROREA("Ezin izan da infanteria urdinaren eskubiko textura sortu.");
 		goto errorea;
 	}
 
-	if ((texturak->infanteria_gorria.aurrea = textura_sortu("res/img/infanteria_gorria_aurrea.png", SDL_ALPHA_OPAQUE)) == NULL)
+	if ((texturak->infanteria_gorria.aurrea = textura_sortu("res/img/jokua/infanteria_gorria_aurrea.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		ERROREA("Ezin izan da infanteria gorriaren aurreko textura sortu.");
 		goto errorea;
 	}
-	if ((texturak->infanteria_gorria.atzea = textura_sortu("res/img/infanteria_gorria_atzea.png", SDL_ALPHA_OPAQUE)) == NULL)
+	if ((texturak->infanteria_gorria.atzea = textura_sortu("res/img/jokua/infanteria_gorria_atzea.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		ERROREA("Ezin izan da infanteria gorriaren atzeko textura sortu.");
 		goto errorea;
 	}
-	if ((texturak->infanteria_gorria.ezker = textura_sortu("res/img/infanteria_gorria_ezkerra.png", SDL_ALPHA_OPAQUE)) == NULL)
+	if ((texturak->infanteria_gorria.ezker = textura_sortu("res/img/jokua/infanteria_gorria_ezkerra.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		ERROREA("Ezin izan da infanteria gorriaren ezkerreko textura sortu.");
 		goto errorea;
 	}
-	if ((texturak->infanteria_gorria.eskubi = textura_sortu("res/img/infanteria_gorria_eskubi.png", SDL_ALPHA_OPAQUE)) == NULL)
+	if ((texturak->infanteria_gorria.eskubi = textura_sortu("res/img/jokua/infanteria_gorria_eskubi.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		ERROREA("Ezin izan da infanteria gorriaren eskubiko textura sortu.");
 		goto errorea;
 	}
 
 	/* Infanteria Mek */
-	if ((texturak->infanteria_mek_urdina.aurrea = textura_sortu("res/img/infanteria_mek_urdina_aurrea.png", SDL_ALPHA_OPAQUE)) == NULL)
+	if ((texturak->infanteria_mek_urdina.aurrea = textura_sortu("res/img/jokua/infanteria_mek_urdina_aurrea.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		ERROREA("Ezin izan da infanteria_mek urdinaren aurreko textura sortu.");
 		goto errorea;
 	}
-	if ((texturak->infanteria_mek_urdina.atzea = textura_sortu("res/img/infanteria_mek_urdina_atzea.png", SDL_ALPHA_OPAQUE)) == NULL)
+	if ((texturak->infanteria_mek_urdina.atzea = textura_sortu("res/img/jokua/infanteria_mek_urdina_atzea.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		ERROREA("Ezin izan da infanteria_mek urdinaren atzeko textura sortu.");
 		goto errorea;
 	}
-	if ((texturak->infanteria_mek_urdina.ezker = textura_sortu("res/img/infanteria_mek_urdina_ezkerra.png", SDL_ALPHA_OPAQUE)) == NULL)
+	if ((texturak->infanteria_mek_urdina.ezker = textura_sortu("res/img/jokua/infanteria_mek_urdina_ezkerra.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		ERROREA("Ezin izan da infanteria_mek urdinaren ezkerreko textura sortu.");
 		goto errorea;
 	}
-	if ((texturak->infanteria_mek_urdina.eskubi = textura_sortu("res/img/infanteria_mek_urdina_eskubi.png", SDL_ALPHA_OPAQUE)) == NULL)
+	if ((texturak->infanteria_mek_urdina.eskubi = textura_sortu("res/img/jokua/infanteria_mek_urdina_eskubi.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		ERROREA("Ezin izan da infanteria_mek urdinaren eskubiko textura sortu.");
 		goto errorea;
 	}
 
-	if ((texturak->infanteria_mek_gorria.aurrea = textura_sortu("res/img/infanteria_mek_gorria_aurrea.png", SDL_ALPHA_OPAQUE)) == NULL)
+	if ((texturak->infanteria_mek_gorria.aurrea = textura_sortu("res/img/jokua/infanteria_mek_gorria_aurrea.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		ERROREA("Ezin izan da infanteria_mek gorriaren aurreko textura sortu.");
 		goto errorea;
 	}
-	if ((texturak->infanteria_mek_gorria.atzea = textura_sortu("res/img/infanteria_mek_gorria_atzea.png", SDL_ALPHA_OPAQUE)) == NULL)
+	if ((texturak->infanteria_mek_gorria.atzea = textura_sortu("res/img/jokua/infanteria_mek_gorria_atzea.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		ERROREA("Ezin izan da infanteria_mek gorriaren atzeko textura sortu.");
 		goto errorea;
 	}
-	if ((texturak->infanteria_mek_gorria.ezker = textura_sortu("res/img/infanteria_mek_gorria_ezkerra.png", SDL_ALPHA_OPAQUE)) == NULL)
+	if ((texturak->infanteria_mek_gorria.ezker = textura_sortu("res/img/jokua/infanteria_mek_gorria_ezkerra.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		ERROREA("Ezin izan da infanteria_mek gorriaren ezkerreko textura sortu.");
 		goto errorea;
 	}
-	if ((texturak->infanteria_mek_gorria.eskubi = textura_sortu("res/img/infanteria_mek_gorria_eskubi.png", SDL_ALPHA_OPAQUE)) == NULL)
+	if ((texturak->infanteria_mek_gorria.eskubi = textura_sortu("res/img/jokua/infanteria_mek_gorria_eskubi.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		ERROREA("Ezin izan da infanteria_mek gorriaren eskubiko textura sortu.");
 		goto errorea;
 	}
 
 	/* Rekon */
-	if ((texturak->rekon_urdina.aurrea = textura_sortu("res/img/rekon_urdina_aurrea.png", SDL_ALPHA_OPAQUE)) == NULL)
+	if ((texturak->rekon_urdina.aurrea = textura_sortu("res/img/jokua/rekon_urdina_aurrea.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		ERROREA("Ezin izan da rekon urdinaren aurreko textura sortu.");
 		goto errorea;
 	}
-	if ((texturak->rekon_urdina.atzea = textura_sortu("res/img/rekon_urdina_atzea.png", SDL_ALPHA_OPAQUE)) == NULL)
+	if ((texturak->rekon_urdina.atzea = textura_sortu("res/img/jokua/rekon_urdina_atzea.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		ERROREA("Ezin izan da rekon urdinaren atzeko textura sortu.");
 		goto errorea;
 	}
-	if ((texturak->rekon_urdina.ezker = textura_sortu("res/img/rekon_urdina_ezkerra.png", SDL_ALPHA_OPAQUE)) == NULL)
+	if ((texturak->rekon_urdina.ezker = textura_sortu("res/img/jokua/rekon_urdina_ezkerra.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		ERROREA("Ezin izan da rekon urdinaren ezkerreko textura sortu.");
 		goto errorea;
 	}
-	if ((texturak->rekon_urdina.eskubi = textura_sortu("res/img/rekon_urdina_eskubi.png", SDL_ALPHA_OPAQUE)) == NULL)
+	if ((texturak->rekon_urdina.eskubi = textura_sortu("res/img/jokua/rekon_urdina_eskubi.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		ERROREA("Ezin izan da rekon urdinaren eskubiko textura sortu.");
 		goto errorea;
 	}
 
-	if ((texturak->rekon_gorria.aurrea = textura_sortu("res/img/rekon_gorria_aurrea.png", SDL_ALPHA_OPAQUE)) == NULL)
+	if ((texturak->rekon_gorria.aurrea = textura_sortu("res/img/jokua/rekon_gorria_aurrea.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		ERROREA("Ezin izan da rekon gorriaren aurreko textura sortu.");
 		goto errorea;
 	}
-	if ((texturak->rekon_gorria.atzea = textura_sortu("res/img/rekon_gorria_atzea.png", SDL_ALPHA_OPAQUE)) == NULL)
+	if ((texturak->rekon_gorria.atzea = textura_sortu("res/img/jokua/rekon_gorria_atzea.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		ERROREA("Ezin izan da rekon gorriaren atzeko textura sortu.");
 		goto errorea;
 	}
-	if ((texturak->rekon_gorria.ezker = textura_sortu("res/img/rekon_gorria_ezkerra.png", SDL_ALPHA_OPAQUE)) == NULL)
+	if ((texturak->rekon_gorria.ezker = textura_sortu("res/img/jokua/rekon_gorria_ezkerra.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		ERROREA("Ezin izan da rekon gorriaren ezkerreko textura sortu.");
 		goto errorea;
 	}
-	if ((texturak->rekon_gorria.eskubi = textura_sortu("res/img/rekon_gorria_eskubi.png", SDL_ALPHA_OPAQUE)) == NULL)
+	if ((texturak->rekon_gorria.eskubi = textura_sortu("res/img/jokua/rekon_gorria_eskubi.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		ERROREA("Ezin izan da rekon gorriaren eskubiko textura sortu.");
 		goto errorea;
 	}
 
 	/* Tanke */
-	if ((texturak->tanke_urdina.aurrea = textura_sortu("res/img/tanke_urdina_aurrea.png", SDL_ALPHA_OPAQUE)) == NULL)
+	if ((texturak->tanke_urdina.aurrea = textura_sortu("res/img/jokua/tanke_urdina_aurrea.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		ERROREA("Ezin izan da tanke urdinaren aurreko textura sortu.");
 		goto errorea;
 	}
-	if ((texturak->tanke_urdina.atzea = textura_sortu("res/img/tanke_urdina_atzea.png", SDL_ALPHA_OPAQUE)) == NULL)
+	if ((texturak->tanke_urdina.atzea = textura_sortu("res/img/jokua/tanke_urdina_atzea.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		ERROREA("Ezin izan da tanke urdinaren atzeko textura sortu.");
 		goto errorea;
 	}
-	if ((texturak->tanke_urdina.ezker = textura_sortu("res/img/tanke_urdina_ezkerra.png", SDL_ALPHA_OPAQUE)) == NULL)
+	if ((texturak->tanke_urdina.ezker = textura_sortu("res/img/jokua/tanke_urdina_ezkerra.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		ERROREA("Ezin izan da tanke urdinaren ezkerreko textura sortu.");
 		goto errorea;
 	}
-	if ((texturak->tanke_urdina.eskubi = textura_sortu("res/img/tanke_urdina_eskubi.png", SDL_ALPHA_OPAQUE)) == NULL)
+	if ((texturak->tanke_urdina.eskubi = textura_sortu("res/img/jokua/tanke_urdina_eskubi.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		ERROREA("Ezin izan da tanke urdinaren eskubiko textura sortu.");
 		goto errorea;
 	}
 
-	if ((texturak->tanke_gorria.aurrea = textura_sortu("res/img/tanke_gorria_aurrea.png", SDL_ALPHA_OPAQUE)) == NULL)
+	if ((texturak->tanke_gorria.aurrea = textura_sortu("res/img/jokua/tanke_gorria_aurrea.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		ERROREA("Ezin izan da tanke gorriaren aurreko textura sortu.");
 		goto errorea;
 	}
-	if ((texturak->tanke_gorria.atzea = textura_sortu("res/img/tanke_gorria_atzea.png", SDL_ALPHA_OPAQUE)) == NULL)
+	if ((texturak->tanke_gorria.atzea = textura_sortu("res/img/jokua/tanke_gorria_atzea.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		ERROREA("Ezin izan da tanke gorriaren atzeko textura sortu.");
 		goto errorea;
 	}
-	if ((texturak->tanke_gorria.ezker = textura_sortu("res/img/tanke_gorria_ezkerra.png", SDL_ALPHA_OPAQUE)) == NULL)
+	if ((texturak->tanke_gorria.ezker = textura_sortu("res/img/jokua/tanke_gorria_ezkerra.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		ERROREA("Ezin izan da tanke gorriaren ezkerreko textura sortu.");
 		goto errorea;
 	}
-	if ((texturak->tanke_gorria.eskubi = textura_sortu("res/img/tanke_gorria_eskubi.png", SDL_ALPHA_OPAQUE)) == NULL)
+	if ((texturak->tanke_gorria.eskubi = textura_sortu("res/img/jokua/tanke_gorria_eskubi.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		ERROREA("Ezin izan da tanke gorriaren eskubiko textura sortu.");
 		goto errorea;
