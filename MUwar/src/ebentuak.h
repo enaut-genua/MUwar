@@ -16,6 +16,10 @@ typedef struct
 typedef struct
 {
 	bool enter;
+	bool a;
+	bool s;
+	bool d;
+	bool w;
 } Teklatua;
 
 /* Erabiltzaileak egindako ebentuak kudeatzen ditu */

@@ -39,6 +39,9 @@
     <ClCompile Include="src\jokalaria.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\bektorea.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\tropa.h">
@@ -69,6 +72,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\jokalaria.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\bektorea.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

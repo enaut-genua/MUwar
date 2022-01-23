@@ -122,6 +122,9 @@ void egin_jokaldia(void)
 	static Baldosa* klikatutako_baldosa = NULL;
 	static Bekt2D klikatutako_baldosa_pos = { 0 };
 
+	static Bekt2D xagua_pasatako_posizioak = { 0 };
+	static int posizioen_luzeera = { 0 };
+
 	const Xagua* xagua = ebentuak_lortu_xaguaren_egoera();
 	Baldosa* aukeratutako_baldosa = mapa_lortu_pos(MAPA, xagua->mapako_posizioa.x, xagua->mapako_posizioa.y);
 

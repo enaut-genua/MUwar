@@ -155,6 +155,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\bektorea.c" />
     <ClCompile Include="src\ebentuak.c" />
     <ClCompile Include="src\jokalaria.c" />
     <ClCompile Include="src\jokoa.c" />
@@ -166,6 +167,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\baldosa.h" />
+    <ClInclude Include="src\bektorea.h" />
     <ClInclude Include="src\ebentuak.h" />
     <ClInclude Include="src\include.h" />
     <ClInclude Include="src\jokalaria.h" />
