@@ -61,7 +61,7 @@ Baldosa* mapa_lortu_pos(Mapa* mapa, int x, int y)
 	Baldosa* baldosa = NULL;
 	int pos = x + mapa->tamaina_x * y;
 
-	if ((x >= 0 && x < mapa->tamaina_x) && (y >= 0 && x < mapa->tamaina_y))
+	if ((x >= 0 && x < mapa->tamaina_x) && (y >= 0 && y < mapa->tamaina_y))
 	{
 		baldosa = &(mapa->mapa[pos]);
 	}

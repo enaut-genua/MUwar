@@ -23,8 +23,10 @@ static Bandoa NOREN_TXANDA = Gorria;
 
 static void egin_jokaldia(void);
 static void detektatu_inputa(float dt);
-static void detektatu_klika(void);
+static void detektatu_xagua(void);
 static void detektatu_teklatua(float dt);
+
+static void tropa(Baldosa* klikatutako_baldosa, Bekt2D klikatutako_baldosa_pos);
 
 /*
  *	END: Funtzio pribatuak
@@ -80,16 +82,12 @@ bool jokoa_hasi(void)
 	bool dena_ondo = true;
 	float dt = 0;
 
-	mapa_lortu_pos(MAPA, 5, 6)->tropa = tropa_sortu(Rekon, Urdina);
-	mapa_lortu_pos(MAPA, 4, 9)->tropa = tropa_sortu(Rekon, Gorria);
-
 	OHARRA("Jokoa hasi da.");
 
 	while (JOKOA_MARTXAN && dena_ondo)
 	{
 		uint64_t hasiera = SDL_GetPerformanceCounter();
 		dena_ondo = render_marraztu(MAPA);
-		egin_jokaldia();
 		detektatu_inputa(dt);
 		ebentuak_kudeatu();
 
@@ -121,18 +119,67 @@ bool jokoa_mugitu_tropa(Baldosa* hasiera, Baldosa* bukaera)
 	return dena_ondo;
 }
 
-void egin_jokaldia(void)
+void detektatu_inputa(float dt)
+{
+	detektatu_xagua();
+	detektatu_teklatua(dt);
+}
+
+void detektatu_xagua(void)
 {
 	static Baldosa* klikatutako_baldosa = NULL;
 	static Bekt2D klikatutako_baldosa_pos = { 0 };
 
-	static Bekt2D xagua_pasatako_posizioak = { 0 };
-	static int posizioen_luzeera = { 0 };
-
 	const Xagua* xagua = ebentuak_lortu_xaguaren_egoera();
-	Baldosa* aukeratutako_baldosa = mapa_lortu_pos(MAPA, xagua->mapako_posizioa.x, xagua->mapako_posizioa.y);
 
-	if (ebentuak_lortu_teklatua_berria()->enter == true && ebentuak_lortu_teklatua_zaharra()->enter == false)
+	Baldosa* aukeratutako_baldosa = mapa_lortu_pos(MAPA, xagua->mapako_posizioa.x, xagua->mapako_posizioa.y);
+	Bekt2D aukeratutako_baldosa_pos = { 0 };
+
+	if (xagua->ezker_botoia_klikatuta == true)
+	{
+		aukeratutako_baldosa_pos = xagua->mapako_posizioa;
+		if (aukeratutako_baldosa != NULL)
+		{
+			if (aukeratutako_baldosa->tropa != NULL)
+			{
+				if (aukeratutako_baldosa->tropa->id == NOREN_TXANDA)
+				{
+					klikatutako_baldosa = aukeratutako_baldosa;
+					klikatutako_baldosa_pos = xagua->mapako_posizioa;
+					mapa_rangoa_jarri(MAPA, aukeratutako_baldosa->tropa->mug_max, xagua->mapako_posizioa.x, xagua->mapako_posizioa.y);
+				}
+			}
+			else
+			{
+				if (NOREN_TXANDA == Gorria && aukeratutako_baldosa->mota == Base_gorria)
+				{
+					aukeratutako_baldosa->tropa = tropa_sortu(rand() % 4, Gorria);
+				}
+				else if (NOREN_TXANDA == Urdina && aukeratutako_baldosa->mota == Base_urdina)
+				{
+					aukeratutako_baldosa->tropa = tropa_sortu(rand() % 4, Urdina);
+				}
+			}
+		}
+	}
+	else if (xagua->ezker_botoia_klikatuta == false)
+	{
+		if (klikatutako_baldosa != NULL)
+		{
+			int tropa_rango = klikatutako_baldosa->tropa->mug_max;
+			jokoa_mugitu_tropa(klikatutako_baldosa, aukeratutako_baldosa);
+			mapa_rangoa_kendu(MAPA, tropa_rango, klikatutako_baldosa_pos.x, klikatutako_baldosa_pos.y);
+			klikatutako_baldosa = NULL;
+		}
+	}
+}
+
+void detektatu_teklatua(float dt)
+{
+	const Teklatua* teklatu_berria = ebentuak_lortu_teklatua_berria();
+	const Teklatua* teklatu_zaharra = ebentuak_lortu_teklatua_zaharra();
+
+	if (teklatu_berria->enter == true && teklatu_zaharra->enter == false)
 	{
 		if (NOREN_TXANDA == Gorria)
 		{
@@ -144,53 +191,6 @@ void egin_jokaldia(void)
 			OHARRA("Gorriaren txanda.");
 			NOREN_TXANDA = Gorria;
 		}
-	}
-
-	if (xagua->ezker_botoia_klikatuta && aukeratutako_baldosa != NULL && aukeratutako_baldosa->tropa != NULL && klikatutako_baldosa == NULL && NOREN_TXANDA == aukeratutako_baldosa->tropa->id)
-	{
-		klikatutako_baldosa = aukeratutako_baldosa;
-		klikatutako_baldosa_pos = xagua->mapako_posizioa;
-		mapa_rangoa_jarri(MAPA, aukeratutako_baldosa->tropa->mug_max, xagua->mapako_posizioa.x, xagua->mapako_posizioa.y);
-	}
-
-	if (xagua->ezker_botoia_klikatuta == false && klikatutako_baldosa != NULL)
-	{
-		int tropa_rango = klikatutako_baldosa->tropa->mug_max;
-		jokoa_mugitu_tropa(klikatutako_baldosa, aukeratutako_baldosa);
-		mapa_rangoa_kendu(MAPA, tropa_rango, klikatutako_baldosa_pos.x, klikatutako_baldosa_pos.y);
-		klikatutako_baldosa = NULL;
-	}
-}
-
-void detektatu_inputa(float dt)
-{
-	detektatu_klika();
-	detektatu_teklatua(dt);
-}
-
-void detektatu_klika(void)
-{
-	const Xagua* xagua = ebentuak_lortu_xaguaren_egoera();
-	if (xagua->ezker_botoia_klikatuta == true)
-	{
-
-	}
-	else
-	{
-
-	}
-}
-
-void detektatu_teklatua(float dt)
-{
-	const Teklatua* teklatu_berria = ebentuak_lortu_teklatua_berria();
-	const Teklatua* teklatu_zaharra = ebentuak_lortu_teklatua_zaharra();
-
-	ERABILI_GABE(teklatu_zaharra);
-
-	if (teklatu_berria->enter == true)
-	{
-
 	}
 	if (teklatu_berria->a == true)
 	{
@@ -207,5 +207,32 @@ void detektatu_teklatua(float dt)
 	if (teklatu_berria->s == true)
 	{
 		render_mugitu_mapa_behera(dt);
+	}
+}
+
+void tropa(Baldosa* baldosa, Bekt2D baldosa_pos)
+{
+	static Baldosa* klikatutako_baldosa = NULL;
+	static Bekt2D klikatutako_baldosa_pos = { 0 };
+
+	if (klikatutako_baldosa == NULL)
+	{
+		if (baldosa != NULL && baldosa->tropa->id == NOREN_TXANDA)
+		{
+			klikatutako_baldosa = baldosa;
+			klikatutako_baldosa_pos = baldosa_pos;
+			mapa_rangoa_jarri(MAPA, klikatutako_baldosa->tropa->mug_max, klikatutako_baldosa_pos.x, klikatutako_baldosa_pos.y);
+		}
+	}
+	else
+	{
+		Baldosa* aukeratutako_baldosa = mapa_lortu_pos(MAPA, ebentuak_lortu_xaguaren_egoera()->mapako_posizioa.x, ebentuak_lortu_xaguaren_egoera()->mapako_posizioa.y);
+		if (aukeratutako_baldosa != klikatutako_baldosa)
+		{
+			int rangoa = klikatutako_baldosa->tropa->mug_max;
+			jokoa_mugitu_tropa(klikatutako_baldosa, aukeratutako_baldosa);
+			mapa_rangoa_kendu(MAPA, rangoa, klikatutako_baldosa_pos.x, klikatutako_baldosa_pos.y);
+			klikatutako_baldosa = NULL;
+		}
 	}
 }
