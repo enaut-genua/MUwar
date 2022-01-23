@@ -26,6 +26,7 @@ SDL_Renderer* getRenderer(void);
 void textuaIdatzi(int x, int y, char* str);
 void textuaGaitu(void);
 void textuaDesgaitu(void);
+void Textuak_idatzi();
 //______________________________________________TTF_____________________________________________________________________//
 
 

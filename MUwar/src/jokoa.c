@@ -27,7 +27,7 @@ void textuaIdatzi(int x, int y, char* str)
 {
 	SDL_Surface* textSurface;
 	SDL_Texture* mTexture;
-	SDL_Color textColor = { 0xFF, 0xFF, 0xFF };
+	SDL_Color textColor = { 0, 0, 0 };
 	SDL_Rect src, dst;
 	SDL_Renderer* gRenderer;
 
@@ -44,7 +44,7 @@ void textuaIdatzi(int x, int y, char* str)
 	SDL_DestroyTexture(mTexture);
 }
 void textuaGaitu(void) {
-	font = TTF_OpenFontIndex("arial.ttf", 16, 0);
+	font = TTF_OpenFontIndex("arial.ttf", 20, 0);
 	if (!font)
 	{
 		printf("TTF_OpenFontIndex: %s\n", TTF_GetError());
@@ -443,10 +443,23 @@ void render() {
 	erakutsiTale(mousePos.x, mousePos.y);
 	Mapa();
 	Desplazamendua();
+	Textuak_idatzi();
 	Tropa_Aukeratzeko_barra_sortu();
-	textuaIdatzi(90, 70, "Hola");
+	
 	SDL_RenderPresent(renderer);
 }
+void Textuak_idatzi() {
+	textuaIdatzi(350, 20, "Jokalaria: ");
+	if (PERTSONAK[infoPos.y][infoPos.x] > 0) {
+		textuaIdatzi(10, 100, "Tropa ID: ");
+		textuaIdatzi(10, 130, "bizitza: ");
+		textuaIdatzi(10, 160, "atakea: ");
+		textuaIdatzi(10, 190, "rangoa: ");
+	 }
+
+
+}
+
 void iso(int x0, int y0) {
 	isometric.x = x0 - y0;
 	isometric.y = (x0 + y0) * 0.5;
