@@ -5,7 +5,7 @@
 
 #include "mapa.h"
 
-/* renderizadorea sortzen du */
+/* renderizadorea sortzen du. Liburutegiak hasieratzen dira,mapa sortzen da , renderizadorea sortzen da eta texturak sortzen dira  */
 bool render_sortu(int xpos, int ypos, int width, int height, bool fullscreen);
 
 /* Memoria garbitzen du */

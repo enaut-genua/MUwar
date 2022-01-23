@@ -1,5 +1,4 @@
 #include "jokoa.h"
-
 #include "renderizadorea.h"
 #include "ebentuak.h"
 #include "tropa.h"
