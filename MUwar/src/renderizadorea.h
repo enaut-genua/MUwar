@@ -21,10 +21,10 @@ void render_handitu_argazkiak(void);
 void render_txikitu_argazkiak(void);
 
 /* Funtzio hauek maparen lehen baldosaren posizioa aldatzen dute */
-void render_mugitu_mapa_gora(void);
-void render_mugitu_mapa_behera(void);
-void render_mugitu_mapa_eskubi(void);
-void render_mugitu_mapa_ezker(void);
+void render_mugitu_mapa_gora(float dt);
+void render_mugitu_mapa_behera(float dt);
+void render_mugitu_mapa_eskubi(float dt);
+void render_mugitu_mapa_ezker(float dt);
 
 /* Funtzio honek FPSak erakutsiko ditu */
 void render_erakutsi_fps(float dt);

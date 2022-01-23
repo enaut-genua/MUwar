@@ -65,13 +65,6 @@ Baldosa* mapa_lortu_pos(Mapa* mapa, int x, int y)
 	{
 		baldosa = &(mapa->mapa[pos]);
 	}
-#ifdef _DEBUG
-	else
-	{
-		/* Hau DEBUG denean bakarrik exekutatuko da, programa pixkat moteltzen duelako. */
-		ABISUA("Maparen mugetatik kanpoko baldosa bat lortzen saiatu da.\r");
-	}
-#endif // _DEBUG
 
 	return baldosa;
 }

@@ -38,16 +38,20 @@ void ebentuak_kudeatu(void)
 				*JOKOA_MARTXAN = false;
 				break;
 			case SDLK_w:
-				render_mugitu_mapa_gora();
+				TEKLATUA_BERRIA.w = true;
+				//render_mugitu_mapa_gora();
 				break;
 			case SDLK_s:
-				render_mugitu_mapa_behera();
+				TEKLATUA_BERRIA.s = true;
+				//render_mugitu_mapa_behera();
 				break;
 			case SDLK_a:
-				render_mugitu_mapa_ezker();
+				TEKLATUA_BERRIA.a = true;
+				//render_mugitu_mapa_ezker();
 				break;
 			case SDLK_d:
-				render_mugitu_mapa_eskubi();
+				TEKLATUA_BERRIA.d = true;
+				//render_mugitu_mapa_eskubi();
 				break;
 			case SDLK_RETURN:
 				TEKLATUA_BERRIA.enter = true;
@@ -59,6 +63,18 @@ void ebentuak_kudeatu(void)
 		{
 			switch (event.key.keysym.sym)
 			{
+			case SDLK_w:
+				TEKLATUA_BERRIA.w = false;
+				break;
+			case SDLK_s:
+				TEKLATUA_BERRIA.s = false;
+				break;
+			case SDLK_a:
+				TEKLATUA_BERRIA.a = false;
+				break;
+			case SDLK_d:
+				TEKLATUA_BERRIA.d = false;
+				break;
 			case SDLK_RETURN:
 				TEKLATUA_BERRIA.enter = false;
 				break;

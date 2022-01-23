@@ -250,28 +250,28 @@ void render_txikitu_argazkiak(void)
 	}
 }
 
-void render_mugitu_mapa_gora(void)
+void render_mugitu_mapa_gora(float dt)
 {
-	MAPA_NONDIK_HASI_MARRAZTEN.x += (int)(ARGAZKI_TAMAINA * 0.5f);
-	MAPA_NONDIK_HASI_MARRAZTEN.y -= (int)(ARGAZKI_TAMAINA * 0.5f);
+	MAPA_NONDIK_HASI_MARRAZTEN.x += (int)(floor(ARGAZKI_TAMAINA * dt * 10));
+	MAPA_NONDIK_HASI_MARRAZTEN.y -= (int)(floor(ARGAZKI_TAMAINA * dt * 10));
 }
 
-void render_mugitu_mapa_behera(void)
+void render_mugitu_mapa_behera(float dt)
 {
-	MAPA_NONDIK_HASI_MARRAZTEN.x -= (int)(ARGAZKI_TAMAINA * 0.5f);
-	MAPA_NONDIK_HASI_MARRAZTEN.y += (int)(ARGAZKI_TAMAINA * 0.5f);
+	MAPA_NONDIK_HASI_MARRAZTEN.x -= (int)(floor(ARGAZKI_TAMAINA * dt * 10));
+	MAPA_NONDIK_HASI_MARRAZTEN.y += (int)(floor(ARGAZKI_TAMAINA * dt * 10));
 }
 
-void render_mugitu_mapa_eskubi(void)
+void render_mugitu_mapa_eskubi(float dt)
 {
-	MAPA_NONDIK_HASI_MARRAZTEN.x -= (int)(ARGAZKI_TAMAINA * 0.5f);
-	MAPA_NONDIK_HASI_MARRAZTEN.y -= (int)(ARGAZKI_TAMAINA * 0.5f);
+	MAPA_NONDIK_HASI_MARRAZTEN.x -= (int)(floor(ARGAZKI_TAMAINA * dt * 10));
+	MAPA_NONDIK_HASI_MARRAZTEN.y -= (int)(floor(ARGAZKI_TAMAINA * dt * 10));
 }
 
-void render_mugitu_mapa_ezker(void)
+void render_mugitu_mapa_ezker(float dt)
 {
-	MAPA_NONDIK_HASI_MARRAZTEN.x += (int)(ARGAZKI_TAMAINA * 0.5f);
-	MAPA_NONDIK_HASI_MARRAZTEN.y += (int)(ARGAZKI_TAMAINA * 0.5f);
+	MAPA_NONDIK_HASI_MARRAZTEN.x += (int)(floor(ARGAZKI_TAMAINA * dt * 10));
+	MAPA_NONDIK_HASI_MARRAZTEN.y += (int)(floor(ARGAZKI_TAMAINA * dt * 10));
 }
 
 void render_erakutsi_fps(float dt)
