@@ -68,19 +68,13 @@ typedef struct IRUDIAK {
 
 } ORIENTAZIOA;
 ORIENTAZIOA soldado, orco, terreno, cubo ;
-
+//______________________________________________BEHEKO BARRA_____________________________________________________________________//
 typedef struct {
-	SDL_Texture* irudiak[4];
+	SDL_Texture* irudia;
 	SDL_Rect laukia;
 } BARRA;
-BARRA ;
-typedef struct {
-	BARRA SOLDADO;
-	BARRA TANKE;
-
-} TROPA_BARRA;
-
-TROPA_BARRA Tropa_Barra_urdina, Tropa_Barra_gorria;
+BARRA Barra_Urdina,Barra_Gorria ;
+//______________________________________________BEHEKO BARRA_____________________________________________________________________//
 #pragma endregion
 
 #pragma region FUNCTIONS

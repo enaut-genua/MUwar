@@ -59,22 +59,19 @@ void textuaDesgaitu(void)
 SDL_Renderer* getRenderer(void) { return renderer; }
 //______________________________________________TTF_____________________________________________________________________//
 
+//______________________________________________BEHEKO BARRA_____________________________________________________________________//
 void Tropa_Aukeratzeko_barra_sortu() {
 	if (Tropa_Sortu)
 	{
-			laukia(300, 800-100, 100, 100, &laukiakk);
-			SDL_RenderCopy(renderer, Tropa_Barra_urdina.SOLDADO.irudiak[0], NULL, &laukiakk);
-			Tropa_Barra_urdina.SOLDADO.laukia.x = 300;
-			Tropa_Barra_urdina.SOLDADO.laukia.y = 800 - 100;
-			Tropa_Barra_urdina.SOLDADO.laukia.w = 100;
-			Tropa_Barra_urdina.SOLDADO.laukia.h = 100;
-
-			laukia(300+100, 800 - 100, 100, 100, &laukiakk);
-			SDL_RenderCopy(renderer, Tropa_Barra_urdina.TANKE.irudiak[0], NULL, &laukiakk);
-			Tropa_Barra_urdina.SOLDADO.laukia.x = 300 + 100;
-			Tropa_Barra_urdina.SOLDADO.laukia.y = 800 - 100;
-			Tropa_Barra_urdina.SOLDADO.laukia.w = 100;
-			Tropa_Barra_urdina.SOLDADO.laukia.h = 100;
+		for (int i = 0; i < 2; i++)
+		{
+			laukia(300+(i*100), 800 - 100, 100, 100, &laukiakk);
+			SDL_RenderCopy(renderer, Barra_Urdina.irudia, NULL, &laukiakk);
+			Barra_Urdina.laukia.x = 300;
+			Barra_Urdina.laukia.y = 800 - 100;
+			Barra_Urdina.laukia.w = 100;
+			Barra_Urdina.laukia.h = 100;
+		}
 	}
 }
 int Barrako_tropa_aukeratu() {
@@ -95,7 +92,7 @@ int Barrako_tropa_aukeratu() {
 
 	return value;
 }
-
+//______________________________________________BEHEKO BARRA_____________________________________________________________________//
 void Desplazamendua(){
 int orgx, orgy;
 int difx, dify;
@@ -201,10 +198,11 @@ void handleEvents() {
 		case SDL_MOUSEBUTTONDOWN:
 				if (Basetik_sortu_tropa == true) 
 				{
+					//______________________________________________BEHEKO BARRA_____________________________________________________________________//
 					cc = Barrako_tropa_aukeratu();
 					PERTSONAK[tropa_org.y][tropa_org.x] =cc ;
 					Basetik_sortu_tropa = false;
-					
+					//______________________________________________BEHEKO BARRA_____________________________________________________________________//
 					Tropa_Sortu = false;
 				}	
 				if (Tropa_Mugitzeko_Aukera) {
