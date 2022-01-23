@@ -4,7 +4,7 @@
 #include "baldosa.h"
 #include "mapa.h"
 
-/* Jokoaren elementuak prestatu */
+/* Jokoaren elementuak prestatu. Bertan mapa eta renderizadorea sortzeaz gain, ebentuak jasotzeko prestatzen da programa. */
 bool jokoa_prestatu(void);
 
 /* Jokoaren elementuak garbitu */
