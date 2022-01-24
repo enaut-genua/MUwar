@@ -21,6 +21,7 @@
 #define SDL_MAIN_HANDLED
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include<SDL2/SDL_ttf.h>
 
 /* Erroreak, abisuak eta oharrak printeatzeko makroak */
 #define ERROREA(X)		(fprintf(stderr, "Errorea: %s\n", X))

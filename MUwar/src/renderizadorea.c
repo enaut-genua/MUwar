@@ -133,7 +133,7 @@ void textuaDesgaitu(void)
 	if (font != 0) TTF_CloseFont(font);
 	font = 0;
 }
-SDL_Renderer* getRenderer(void) { return renderer; }
+
 //______________________________________________TTF_____________________________________________________________________//
 
 

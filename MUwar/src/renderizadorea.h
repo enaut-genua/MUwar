@@ -9,8 +9,6 @@
 //______________________________________________TTF_____________________________________________________________________//
 
 SDL_Texture* irudiak[20];
-SDL_Renderer* getRenderer(void);
-SDL_Renderer* getRenderer(void);
 void textuaIdatzi(int x, int y, char* str);
 void textuaGaitu(void);
 void textuaDesgaitu(void);
