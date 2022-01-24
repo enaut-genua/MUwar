@@ -169,11 +169,47 @@ void handleEvents() {
 		{
 			if (event.wheel.y > 0 && TAMAÑOIMAGEN < 500)TAMAÑOIMAGEN += 5;
 			else if (event.wheel.y < 0 && TAMAÑOIMAGEN>70)TAMAÑOIMAGEN -= 5;
-		}	
+		}
 		switch (event.button.type)
 		{
-		case SDL_MOUSEBUTTONUP: 
-			
+
+			case SDL_MOUSEBUTTONDOWN:
+			if (Basetik_sortu_tropa == true)
+			{
+				//______________________________________________BEHEKO BARRA_____________________________________________________________________//
+				cc = Barrako_tropa_aukeratu();
+				PERTSONAK[tropa_org.y][tropa_org.x] = cc;
+				Basetik_sortu_tropa = false;
+				//______________________________________________BEHEKO BARRA_____________________________________________________________________//
+				Tropa_Sortu = false;
+			}
+			if (Tropa_Mugitzeko_Aukera) {
+				if (!tropaAukeratuta) {
+					Detektatutako_Tropa = Tropa_Org_Aukeratu(&tropa_org.x, &tropa_org.y, &infoPos.x, &infoPos.y);
+					if (Detektatutako_Tropa > EZER)
+					{
+						Tropa_desplazamendua.x = 0;
+						Tropa_desplazamendua.y = 0;
+						printf("\nTROPA AUKERATU DA\n");
+						tropaAukeratuta = true;
+						Rangoa(rango, EZABATU, &tropa_org.x, &tropa_org.y);
+						Rangoa(rango, MARRAZTU, &tropa_org.x, &tropa_org.y);
+						mugituY = false;
+						mugituX = false;
+						mugituGeneral = false;
+						ñ = -1;
+					}
+				}
+				if (TERRENO[infoPos.y][infoPos.x] == basea && !tropaAukeratuta)
+				{
+					if (!Tropa_Sortu)Tropa_Sortu = true;
+					Basetik_sortu_tropa = true;
+				}
+			}
+			break;
+
+			case SDL_MOUSEBUTTONUP:
+
 			if (tropaAukeratuta) {
 				if (TERRENO[infoPos.y][infoPos.x] <= 1 && RANGO_JOKALARIARENA[infoPos.y][infoPos.x] == 1 && TRAYECTORIA[infoPos.y][infoPos.x] == 1)
 					Tropa_Dest_Aukeratu(infoPos.x, infoPos.y, tropa_org.x, tropa_org.y, 1, Detektatutako_Tropa);
@@ -183,7 +219,7 @@ void handleEvents() {
 				mugituGeneral = true;
 				if (TERRENO[infoPos.y][infoPos.x] > 1) { mugituX = false; mugituGeneral = true; }
 			}
-			
+
 
 			for (int yy = 0; yy < TALE_Y; yy++) { //pa borrar trayectoria de mierda
 				for (int xx = 0; xx < TALE_X; xx++) {
@@ -195,41 +231,8 @@ void handleEvents() {
 			OSTIA = false;
 			infoPosy_tmp = 0; infoPosx_tmp = 0;
 			break;
-		case SDL_MOUSEBUTTONDOWN:
-				if (Basetik_sortu_tropa == true) 
-				{
-					//______________________________________________BEHEKO BARRA_____________________________________________________________________//
-					cc = Barrako_tropa_aukeratu();
-					PERTSONAK[tropa_org.y][tropa_org.x] =cc ;
-					Basetik_sortu_tropa = false;
-					//______________________________________________BEHEKO BARRA_____________________________________________________________________//
-					Tropa_Sortu = false;
-				}	
-				if (Tropa_Mugitzeko_Aukera) {
-					if (!tropaAukeratuta) {
-						Detektatutako_Tropa = Tropa_Org_Aukeratu(&tropa_org.x, &tropa_org.y, &infoPos.x, &infoPos.y);
-						if (Detektatutako_Tropa > EZER)
-						{
-							Tropa_desplazamendua.x = 0;
-							Tropa_desplazamendua.y = 0;
-							printf("\nTROPA AUKERATU DA\n");
-							tropaAukeratuta = true;
-							Rangoa(rango, EZABATU, &tropa_org.x, &tropa_org.y);
-							Rangoa(rango, MARRAZTU, &tropa_org.x, &tropa_org.y);
-							mugituY = false;
-							mugituX = false;
-							mugituGeneral = false;
-							ñ = -1;
-						}
-					}
-					if (TERRENO[infoPos.y][infoPos.x] == basea && !tropaAukeratuta)
-					{
-						if (!Tropa_Sortu)Tropa_Sortu = true;
-						Basetik_sortu_tropa = true;
-					}
-				}
-			break;
 		}
+	
 		switch (event.key.type) {
 		case SDL_KEYDOWN:
 
