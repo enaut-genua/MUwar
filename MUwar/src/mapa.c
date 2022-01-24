@@ -76,7 +76,7 @@ void mapa_rangoa_jarri(Mapa* mapa, int rangoa, int x_pos, int y_pos)
 		for (int j = y_pos - rangoa; j < y_pos + rangoa; j++)
 		{
 			Baldosa* baldosa = mapa_lortu_pos(mapa, i, j);
-			if (baldosa != NULL && baldosa->mota!=Mendia&&baldosa->mota!=Ibaia)
+			if (baldosa != NULL && baldosa->mota != Mendia && baldosa->mota != Ibaia && baldosa->tropa == NULL)
 			{
 				baldosa->markatuta = true;
 			}

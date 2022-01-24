@@ -138,7 +138,7 @@ void detektatu_xagua(void)
 	if (xagua->ezker_botoia_klikatuta == true)
 	{
 		aukeratutako_baldosa_pos = xagua->mapako_posizioa;
-		if (aukeratutako_baldosa != NULL)
+		if (aukeratutako_baldosa != NULL && klikatutako_baldosa == NULL)
 		{
 			if (aukeratutako_baldosa->tropa != NULL)
 			{
