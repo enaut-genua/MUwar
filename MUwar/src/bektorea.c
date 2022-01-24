@@ -72,7 +72,7 @@ bool bektorea_hutsik_dago(const Bektorea* bekt)
 
 bool bektorea_handitu(Bektorea* bekt)
 {
-	bool dena_ondo = false;
+	bool dena_ondo = true;
 
 	if (bekt != NULL)
 	{
@@ -80,10 +80,13 @@ bool bektorea_handitu(Bektorea* bekt)
 		{
 			bekt->kapazidadea += bektorea_lortu_kapazidadea(bekt) / 2;
 			uint8_t** tmp = (uint8_t**)realloc(bekt->datuak, sizeof(uint8_t*) * bekt->kapazidadea);
-			if (tmp != NULL)
+			if (tmp == NULL)
+			{
+				dena_ondo = false;
+			}
+			else
 			{
 				bekt->datuak = tmp;
-				dena_ondo = true;
 			}
 		}
 	}

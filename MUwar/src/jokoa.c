@@ -174,6 +174,16 @@ void detektatu_xagua(void)
 			jokoa_mugitu_tropa(klikatutako_baldosa, aukeratutako_baldosa);
 			mapa_rangoa_kendu(MAPA, tropa_rango, klikatutako_baldosa_pos.x, klikatutako_baldosa_pos.y);
 			klikatutako_baldosa = NULL;
+
+			/* Azpikoa borratu */
+			for (size_t i = 0; i < BIDEA->luzeera; i++)
+			{
+				Bekt2D gordetako_balioa = { 0 };
+				memcpy(&gordetako_balioa, BIDEA->datuak[i], bektorea_lortu_datu_tamaina(BIDEA));
+				printf("%llu. elementua: %d, %d\n", i + 1, gordetako_balioa.x, gordetako_balioa.y);
+			}
+
+			bektorea_borratu(&BIDEA);
 		}
 	}
 
@@ -221,11 +231,27 @@ void detektatu_teklatua(float dt)
 
 void bidea_registratu(const Xagua* xagua)
 {
-	ERABILI_GABE(xagua);
+	bool registratu_daiteke = true;
+
 	if (BIDEA == NULL)
 	{
 		BIDEA = bektorea_sortu(sizeof(Bekt2D), 0);
 	}
 
+	Bekt2D xagu_pos = xagua->mapako_posizioa;
 
+	for (size_t i = 0; i < BIDEA->luzeera; i++)
+	{
+		Bekt2D gordetako_balioa = { 0 };
+		memcpy(&gordetako_balioa, BIDEA->datuak[i], bektorea_lortu_datu_tamaina(BIDEA));
+		if (xagu_pos.x == gordetako_balioa.x && xagu_pos.y == gordetako_balioa.y)
+		{
+			registratu_daiteke = false;
+		}
+	}
+	
+	if (registratu_daiteke)
+	{
+		bektorea_sartu_atzean(BIDEA, (uint8_t*)(&xagu_pos));
+	}
 }
