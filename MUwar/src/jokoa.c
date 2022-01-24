@@ -25,7 +25,7 @@ static Bektorea* BIDEA = NULL;
 static void detektatu_inputa(float dt);
 static void detektatu_xagua(void);
 static void detektatu_teklatua(float dt);
-static void bidea_registratu(Xagua* xagua);
+static void bidea_registratu(const Xagua* xagua);
 
 /*
  *	END: Funtzio pribatuak
@@ -219,8 +219,9 @@ void detektatu_teklatua(float dt)
 	}
 }
 
-void bidea_registratu(Xagua* xagua)
+void bidea_registratu(const Xagua* xagua)
 {
+	ERABILI_GABE(xagua);
 	if (BIDEA == NULL)
 	{
 		BIDEA = bektorea_sortu(sizeof(Bekt2D), 0);
