@@ -189,6 +189,8 @@ bool render_sortu(int xpos, int ypos, int width, int height, bool fullscreen)
 		goto atera;
 	};
 
+
+	TTF_Init();
 	OHARRA("Lehioa, renderizadorea eta texturak zuzen sortu dira.");
 
 atera:
