@@ -52,5 +52,28 @@ TerrenoMotak mapa_2[] = {
 /*  20 */	Larrea,		 Larrea,	 Larrea,	 Larrea,	 Larrea,	 Larrea,	 Larrea,	 Larrea,	 Larrea,	 Larrea, Larrea, Larrea, Larrea, Larrea,	 Larrea,	 Larrea,	 Larrea,	 Larrea,	 Larrea, Base_gorria,
 };
 
+TerrenoMotak mapa_3[] = {
+Base_urdina, Larrea, Larrea, Ibaia, Ibaia, Ibaia, Larrea, Larrea, Larrea, Basoa, Larrea, Larrea, Larrea, Ibaia, Ibaia, Ibaia, Larrea, Larrea, Larrea, Basoa,
+Larrea, Larrea, Larrea, Ibaia, Ibaia, Ibaia, Larrea, Herria, Larrea, Larrea, Larrea, Larrea, Larrea, Ibaia, Ibaia, Ibaia, Larrea, Herria, Larrea, Larrea,
+Larrea, Larrea, Larrea, Ibaia, Ibaia, Ibaia, Larrea, Larrea, Larrea, Larrea, Basamortua, Basamortua, Basamortua, Ibaia, Ibaia, Ibaia, Larrea, Larrea, Herria, Larrea,
+Larrea, Larrea, Larrea, Ibaia, Ibaia, Ibaia, Ibaia, Ibaia, Ibaia, Ibaia, Ibaia, Basamortua, Basamortua, Ibaia, Ibaia, Ibaia, Larrea, Larrea, Basamortua, Larrea,
+Larrea, Larrea, Larrea, Ibaia, Ibaia, Ibaia, Ibaia, Ibaia, Ibaia, Ibaia, Ibaia, Basamortua, Basamortua, Ibaia, Ibaia, Ibaia, Larrea, Basamortua, Basamortua, Larrea,
+Larrea, Larrea, Larrea, Ibaia, Ibaia, Ibaia, Ibaia, Ibaia, Ibaia, Ibaia, Ibaia, Mendia, Mendia, Ibaia, Ibaia, Ibaia, Ibaia, Ibaia, Basamortua, Basoa,
+Larrea, Larrea, Larrea, Basamortua, Basamortua, Larrea, Larrea, Mendia, Larrea, Larrea, Larrea, Larrea, Larrea, Ibaia, Ibaia, Ibaia, Ibaia, Ibaia, Basamortua, Larrea,
+Larrea, Larrea, Herria, Basamortua, Basamortua, Larrea, Larrea, Mendia, Larrea, Herria, Basoa, Herria, Larrea, Ibaia, Ibaia, Ibaia, Ibaia, Ibaia, Mendia, Mendia,
+Larrea, Basamortua, Basamortua, Basamortua, Larrea, Ibaia, Ibaia, Ibaia, Larrea, Basoa, Herria, Basoa, Larrea, Mendia, Larrea, Larrea, Larrea, Larrea, Larrea, Larrea,
+Larrea, Basamortua, Larrea, Larrea, Larrea, Ibaia, Ibaia, Ibaia, Larrea, Larrea, Larrea, Larrea, Larrea, Mendia, Larrea, Larrea, Larrea, Larrea, Larrea, Larrea,
+Basoa, Larrea, Ibaia, Ibaia, Ibaia, Ibaia, Ibaia, Ibaia, Mendia, Mendia, Ibaia, Ibaia, Ibaia, Ibaia, Ibaia, Ibaia, Larrea, Basoa, Larrea, Larrea,
+Larrea, Larrea, Ibaia, Ibaia, Ibaia, Ibaia, Ibaia, Ibaia, Larrea, Larrea, Ibaia, Ibaia, Ibaia, Ibaia, Ibaia, Ibaia, Larrea, Larrea, Larrea, Larrea,
+Mendia, Mendia, Ibaia, Ibaia, Ibaia, Ibaia, Ibaia, Ibaia, Larrea, Larrea, Larrea, Larrea, Larrea, Ibaia, Ibaia, Ibaia, Ibaia, Ibaia, Larrea, Herria,
+Larrea, Basamortua, Basamortua, Larrea, Mendia, Larrea, Larrea, Larrea, Larrea, Larrea, Larrea, Larrea, Larrea, Ibaia, Ibaia, Ibaia, Ibaia, Ibaia, Larrea, Larrea,
+Larrea, Basamortua, Larrea, Larrea, Mendia, Larrea, Larrea, Larrea, Basoa, Larrea, Herria, Basamortua, Larrea, Ibaia, Ibaia, Ibaia, Ibaia, Ibaia, Ibaia, Ibaia,
+Basamortua, Basamortua, Larrea, Larrea, Ibaia, Ibaia, Ibaia, Larrea, Larrea, Larrea, Basamortua, Basamortua, Basamortua, Basamortua, Larrea, Ibaia, Ibaia, Ibaia, Ibaia, Ibaia,
+Larrea, Basoa, Larrea, Larrea, Ibaia, Ibaia, Ibaia, Larrea, Larrea, Larrea, Larrea, Basamortua, Basamortua, Basamortua, Larrea, Ibaia, Ibaia, Ibaia, Ibaia, Ibaia,
+Larrea, Larrea, Larrea, Herria, Ibaia, Ibaia, Ibaia, Ibaia, Ibaia, Ibaia, Ibaia, Ibaia, Basamortua, Larrea, Basoa, Larrea, Larrea, Larrea, Larrea, Larrea,
+Larrea, Herria, Larrea, Larrea, Ibaia, Ibaia, Ibaia, Ibaia, Ibaia, Ibaia, Ibaia, Ibaia, Larrea, Larrea, Larrea, Larrea, Larrea, Larrea, Larrea, Larrea,
+Larrea, Larrea, Basoa, Larrea, Ibaia, Ibaia, Ibaia, Ibaia, Ibaia, Ibaia, Ibaia, Ibaia, Larrea, Larrea, Larrea, Larrea, Larrea, Larrea, Larrea, Base_gorria,
+};
+
 
 #endif // !MAPA_MODELOAK_H

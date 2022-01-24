@@ -71,9 +71,9 @@ Baldosa* mapa_lortu_pos(Mapa* mapa, int x, int y)
 
 void mapa_rangoa_jarri(Mapa* mapa, int rangoa, int x_pos, int y_pos)
 {
-	for (int i = x_pos - rangoa; i < x_pos + rangoa; i++)
+	for (int i = x_pos - rangoa; i <= x_pos + rangoa; i++)
 	{
-		for (int j = y_pos - rangoa; j < y_pos + rangoa; j++)
+		for (int j = y_pos - rangoa; j <= y_pos + rangoa; j++)
 		{
 			Baldosa* baldosa = mapa_lortu_pos(mapa, i, j);
 			if (baldosa != NULL && baldosa->mota != Mendia && baldosa->mota != Ibaia && baldosa->tropa == NULL)
@@ -86,9 +86,9 @@ void mapa_rangoa_jarri(Mapa* mapa, int rangoa, int x_pos, int y_pos)
 
 void mapa_rangoa_kendu(Mapa* mapa, int rangoa, int x_pos, int y_pos)
 {
-	for (int i = x_pos - rangoa; i < x_pos + rangoa; i++)
+	for (int i = x_pos - rangoa; i <= x_pos + rangoa; i++)
 	{
-		for (int j = y_pos - rangoa; j < y_pos + rangoa; j++)
+		for (int j = y_pos - rangoa; j <= y_pos + rangoa; j++)
 		{
 			Baldosa* baldosa = mapa_lortu_pos(mapa, i, j);
 			if (baldosa != NULL)

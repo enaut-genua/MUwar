@@ -6,7 +6,7 @@ Bektorea* bektorea_sortu(size_t datu_tamaina, size_t kapazidadea)
 
 	if (kapazidadea == 0)
 	{
-		kapazidadea = 8;
+		kapazidadea = datu_tamaina * 4;
 	}
 
 	if ((bekt = (Bektorea*)calloc(1, sizeof(Bektorea))) == NULL)

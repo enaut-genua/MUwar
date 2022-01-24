@@ -3,6 +3,8 @@
 
 #include "baldosa.h"
 #include "mapa.h"
+#include "jokalaria.h"
+
 
 /* Jokoaren elementuak prestatu. Bertan mapa eta renderizadorea sortzeaz gain, ebentuak jasotzeko prestatzen da programa. */
 bool jokoa_prestatu(void);
@@ -15,5 +17,8 @@ bool jokoa_hasi(void);
 
 /* Mugitu Tropa */
 bool jokoa_mugitu_tropa(Baldosa* hasiera, Baldosa* bukaera);
+
+/* Lortu noren txanda */
+Bandoa jokoa_lortu_txanda(void);
 
 #endif // !JOKOA_H

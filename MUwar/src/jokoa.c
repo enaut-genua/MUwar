@@ -3,7 +3,7 @@
 #include "ebentuak.h"
 #include "tropa.h"
 #include "mapa_modeloak.h"
-#include "jokalaria.h"
+#include "bektorea.h"
 
 /*
  *	START: Aldagai global pribatuak
@@ -12,6 +12,7 @@
 static bool JOKOA_MARTXAN = true;
 static Mapa* MAPA = NULL;
 static Bandoa NOREN_TXANDA = Gorria;
+static Bektorea* BIDEA = NULL;
 
 /*
  *	END: Aldagai global pribatuak
@@ -21,12 +22,10 @@ static Bandoa NOREN_TXANDA = Gorria;
   *	START: Funtzio pribatuak
   */
 
-static void egin_jokaldia(void);
 static void detektatu_inputa(float dt);
 static void detektatu_xagua(void);
 static void detektatu_teklatua(float dt);
-
-static void tropa(Baldosa* klikatutako_baldosa, Bekt2D klikatutako_baldosa_pos);
+static void bidea_registratu(Xagua* xagua);
 
 /*
  *	END: Funtzio pribatuak
@@ -119,6 +118,11 @@ bool jokoa_mugitu_tropa(Baldosa* hasiera, Baldosa* bukaera)
 	return dena_ondo;
 }
 
+Bandoa jokoa_lortu_txanda(void)
+{
+	return NOREN_TXANDA;
+}
+
 void detektatu_inputa(float dt)
 {
 	detektatu_xagua();
@@ -172,6 +176,11 @@ void detektatu_xagua(void)
 			klikatutako_baldosa = NULL;
 		}
 	}
+
+	if (xagua->ezker_botoia_klikatuta == true && klikatutako_baldosa != NULL)
+	{
+		bidea_registratu(xagua);
+	}
 }
 
 void detektatu_teklatua(float dt)
@@ -210,29 +219,12 @@ void detektatu_teklatua(float dt)
 	}
 }
 
-void tropa(Baldosa* baldosa, Bekt2D baldosa_pos)
+void bidea_registratu(Xagua* xagua)
 {
-	static Baldosa* klikatutako_baldosa = NULL;
-	static Bekt2D klikatutako_baldosa_pos = { 0 };
+	if (BIDEA == NULL)
+	{
+		BIDEA = bektorea_sortu(sizeof(Bekt2D), 0);
+	}
 
-	if (klikatutako_baldosa == NULL)
-	{
-		if (baldosa != NULL && baldosa->tropa->id == NOREN_TXANDA)
-		{
-			klikatutako_baldosa = baldosa;
-			klikatutako_baldosa_pos = baldosa_pos;
-			mapa_rangoa_jarri(MAPA, klikatutako_baldosa->tropa->mug_max, klikatutako_baldosa_pos.x, klikatutako_baldosa_pos.y);
-		}
-	}
-	else
-	{
-		Baldosa* aukeratutako_baldosa = mapa_lortu_pos(MAPA, ebentuak_lortu_xaguaren_egoera()->mapako_posizioa.x, ebentuak_lortu_xaguaren_egoera()->mapako_posizioa.y);
-		if (aukeratutako_baldosa != klikatutako_baldosa)
-		{
-			int rangoa = klikatutako_baldosa->tropa->mug_max;
-			jokoa_mugitu_tropa(klikatutako_baldosa, aukeratutako_baldosa);
-			mapa_rangoa_kendu(MAPA, rangoa, klikatutako_baldosa_pos.x, klikatutako_baldosa_pos.y);
-			klikatutako_baldosa = NULL;
-		}
-	}
+
 }

@@ -3,6 +3,7 @@
 #include "renderizadorea.h"
 #include "ebentuak.h"
 #include "kalkuloak.h"
+#include "jokoa.h"
 
 /*
  *	START: Estruktura pribatuak
@@ -61,12 +62,16 @@ typedef struct
 
 static ElementuenTexturak* argazkiak_kargatu(void);												/* Argazkiak memoriara kargatzen ditu */
 static void argazkiak_garbitu(ElementuenTexturak** texturak);									/* Argazkiak memoriatik garbitzen ditu */
+static bool letra_tipoa_kargatu(void);
+static void letra_tipoa_garbitu(void);
 static SDL_Texture* textura_sortu(const char* path, uint8_t alpha);								/* Pathean dagoen argazkiaren textura sortzen du */
 static bool marraztu_baldosa(Baldosa* baldosa, SDL_Rect* rect);									/* Pasatzen zaion baldosa marrazten du */
 static bool marraztu_tropa(Baldosa* baldosa, SDL_Rect* rect);									/* Baldosan dagoen tropa marrazten du */
 static bool marraztu_orientazioa(TropaStat* tropa, Textura* textura, SDL_Rect* rect);			/* marraztu_tropa(2) funtziotik deitzen da, orientazioaren arabera tropa marrazten du */
 static bool marraztu_punteroa(Mapa* mapa, Baldosa* baldosa);									/* Marraztu punteroa */
 static bool marraztu_informazioa(Mapa* mapa);
+static bool marraztu_stat_textua(Mapa* mapa);
+static bool marraztu_textua(SDL_Rect* rect, char* str);
 static bool marraztu_markatua(Baldosa* baldosa, SDL_Rect* rect);
 /*
  *	END: Funtzio pribatuak
@@ -79,6 +84,8 @@ static bool marraztu_markatua(Baldosa* baldosa, SDL_Rect* rect);
 
 static SDL_Window* WINDOW = NULL;
 static SDL_Renderer* RENDERER = NULL;
+static TTF_Font* FONT = NULL;
+
 static ElementuenTexturak* ELEM_TEXT = NULL;
 static Bekt2D MAPA_NONDIK_HASI_MARRAZTEN = { 100, 300 };
 static int ARGAZKI_TAMAINA = 100;
@@ -96,53 +103,6 @@ const char* LEHIOAREN_IZENA = "MUwar";
 /*
  *	END: Konstanteak
  */
-
-
- //______________________________________________TTF_____________________________________________________________________//
-TTF_Font* font = 0;
-void textuaIdatzi(int x, int y, char* str)
-{
-	SDL_Surface* textSurface;
-	SDL_Texture* mTexture;
-	SDL_Color textColor = { 0, 0, 0 };
-	SDL_Rect src, dst;
-	SDL_Renderer* gRenderer;
-
-	if (font == 0) return;
-	gRenderer = RENDERER;
-	textSurface = TTF_RenderText_Solid(font, str, textColor);
-	mTexture = SDL_CreateTextureFromSurface(gRenderer, textSurface);
-	src.x = 0; dst.x = x;
-	src.y = 0; dst.y = y;
-	src.w = dst.w = textSurface->w;
-	src.h = dst.h = textSurface->h;
-	SDL_RenderCopy(gRenderer, mTexture, &src, &dst);
-	SDL_FreeSurface(textSurface);
-	SDL_DestroyTexture(mTexture);
-}
-void textuaGaitu(void) {
-	font = TTF_OpenFontIndex("res/Fonts/arial.ttf", 20, 0);
-	if (!font)
-	{
-		printf("TTF_OpenFontIndex: %s\n", TTF_GetError());
-		// handle error
-	}
-}
-void textuaDesgaitu(void)
-{
-	if (font != 0) TTF_CloseFont(font);
-	font = 0;
-}
-
-void Textuak_idatzi() {
-	textuaIdatzi(350, 20, "Jokalaria: ");
-	
-		textuaIdatzi(10, 100, "Tropa ID: ");
-		textuaIdatzi(10, 130, "bizitza: ");
-		textuaIdatzi(10, 160, "atakea: ");
-		textuaIdatzi(10, 190, "rangoa: ");
-}
-//______________________________________________TTF_____________________________________________________________________//
 
 
 bool render_sortu(int xpos, int ypos, int width, int height, bool fullscreen)
@@ -197,9 +157,16 @@ bool render_sortu(int xpos, int ypos, int width, int height, bool fullscreen)
 		goto atera;
 	};
 
+	/* TTF inizializatu */
+	if (TTF_Init() < 0)
+	{
+		ERROREA(TTF_GetError());
+		dena_ondo = false;
+		goto atera;
+	}
 
-	TTF_Init();
-	textuaGaitu();
+	letra_tipoa_kargatu();
+
 	OHARRA("Lehioa, renderizadorea eta texturak zuzen sortu dira.");
 
 atera:
@@ -208,6 +175,7 @@ atera:
 
 void render_garbitu(void)
 {
+	letra_tipoa_garbitu();
 	argazkiak_garbitu(&ELEM_TEXT);
 	SDL_DestroyRenderer(RENDERER);
 	SDL_DestroyWindow(WINDOW);
@@ -278,7 +246,13 @@ bool render_marraztu(Mapa* mapa)
 		dena_ondo = false;
 		goto atera;
 	}
-	Textuak_idatzi();
+
+	if (marraztu_stat_textua(mapa) == false)
+	{
+		ERROREA("Ezin izan dira estadistikak marraztu.");
+		dena_ondo = false;
+		goto atera;
+	}
 
 	SDL_RenderPresent(RENDERER);
 
@@ -690,7 +664,7 @@ void argazkiak_garbitu(ElementuenTexturak** texturak)
 		SDL_DestroyTexture((*texturak)->infanteria_gorria.atzea);
 		SDL_DestroyTexture((*texturak)->infanteria_gorria.eskubi);
 		SDL_DestroyTexture((*texturak)->infanteria_gorria.ezker);
-		
+
 		SDL_DestroyTexture((*texturak)->infanteria_mek_urdina.aurrea);
 		SDL_DestroyTexture((*texturak)->infanteria_mek_urdina.atzea);
 		SDL_DestroyTexture((*texturak)->infanteria_mek_urdina.eskubi);
@@ -705,7 +679,7 @@ void argazkiak_garbitu(ElementuenTexturak** texturak)
 		SDL_DestroyTexture((*texturak)->rekon_urdina.atzea);
 		SDL_DestroyTexture((*texturak)->rekon_urdina.eskubi);
 		SDL_DestroyTexture((*texturak)->rekon_urdina.ezker);
-										
+
 		SDL_DestroyTexture((*texturak)->rekon_gorria.aurrea);
 		SDL_DestroyTexture((*texturak)->rekon_gorria.atzea);
 		SDL_DestroyTexture((*texturak)->rekon_gorria.eskubi);
@@ -715,7 +689,7 @@ void argazkiak_garbitu(ElementuenTexturak** texturak)
 		SDL_DestroyTexture((*texturak)->tanke_urdina.atzea);
 		SDL_DestroyTexture((*texturak)->tanke_urdina.eskubi);
 		SDL_DestroyTexture((*texturak)->tanke_urdina.ezker);
-										
+
 		SDL_DestroyTexture((*texturak)->tanke_gorria.aurrea);
 		SDL_DestroyTexture((*texturak)->tanke_gorria.atzea);
 		SDL_DestroyTexture((*texturak)->tanke_gorria.eskubi);
@@ -725,6 +699,24 @@ void argazkiak_garbitu(ElementuenTexturak** texturak)
 		*texturak = NULL;
 	}
 	OHARRA("Texturak garbitu dira.");
+}
+
+bool letra_tipoa_kargatu(void)
+{
+	bool dena_ondo = true;
+	FONT = TTF_OpenFontIndex("res/Fonts/arial.ttf", 20, 0);
+	if (!FONT)
+	{
+		ERROREA(TTF_GetError());
+		dena_ondo = false;
+	}
+	return dena_ondo;
+}
+
+void letra_tipoa_garbitu(void)
+{
+	TTF_CloseFont(FONT);
+	TTF_Quit();
 }
 
 SDL_Texture* textura_sortu(const char* path, uint8_t alpha)
@@ -1012,6 +1004,122 @@ bool marraztu_informazioa(Mapa* mapa)
 	}
 
 atera:
+	return dena_ondo;
+}
+
+bool marraztu_stat_textua(Mapa* mapa)
+{
+	char buffer[50] = { 0 };
+	bool dena_ondo = true;
+	SDL_Rect rect = { 0 };
+
+	Baldosa* baldosa = mapa_lortu_pos(mapa, ebentuak_lortu_xaguaren_egoera()->mapako_posizioa.x, ebentuak_lortu_xaguaren_egoera()->mapako_posizioa.y);
+
+	/* Txanda */
+	rect.x = 320;
+	rect.y = 20;
+	snprintf(buffer, 50, "Jokalaria: %s", jokoa_lortu_txanda() == Gorria ? "Gorria" : "Urdina");
+	if (marraztu_textua(&rect, buffer) == false)
+	{
+		ERROREA("Textua ez da marraztu.");
+		dena_ondo = false;
+		goto atera;
+	}
+
+	/* Bizitza */
+	if (baldosa && baldosa->tropa)
+	{
+		rect.x = 10;
+		rect.y = 100;
+		snprintf(buffer, 50, "Bizitza: %d", baldosa->tropa->bizitza);
+	}
+
+	if (marraztu_textua(&rect, buffer) == false)
+	{
+		ERROREA("Textua ez da marraztu.");
+		dena_ondo = false;
+		goto atera;
+	}
+
+	/* Rangoa */
+	if (baldosa && baldosa->tropa)
+	{
+		rect.x = 10;
+		rect.y = 130;
+		snprintf(buffer, 50, "Rangoa: %d", baldosa->tropa->mug_max);
+	}
+
+	if (marraztu_textua(&rect, buffer) == false)
+	{
+		ERROREA("Textua ez da marraztu.");
+		dena_ondo = false;
+		goto atera;
+	}
+
+	/* Munizioa */
+	if (baldosa && baldosa->tropa)
+	{
+		rect.x = 10;
+		rect.y = 160;
+		snprintf(buffer, 50, "Munizioa: %d", baldosa->tropa->amunizioa);
+	}
+
+	if (marraztu_textua(&rect, buffer) == false)
+	{
+		ERROREA("Textua ez da marraztu.");
+		dena_ondo = false;
+		goto atera;
+	}
+
+	/* Atakea */
+	if (baldosa && baldosa->tropa)
+	{
+		rect.x = 10;
+		rect.y = 190;
+		snprintf(buffer, 50, "Atakea: %d", baldosa->tropa->atakea);
+	}
+
+	if (marraztu_textua(&rect, buffer) == false)
+	{
+		ERROREA("Textua ez da marraztu.");
+		dena_ondo = false;
+		goto atera;
+	}
+
+atera:
+	return dena_ondo;
+}
+
+/*
+
+(10, 100, "Tropa ID: ")
+(10, 130, "bizitza: ")
+(10, 160, "atakea: ")
+(10, 190, "rangoa: ")
+
+*/
+
+bool marraztu_textua(SDL_Rect* rect, char* str)
+{
+	bool dena_ondo = true;
+
+	SDL_Color textColor = { 0 };
+
+	SDL_Surface* surface_string = TTF_RenderText_Blended(FONT, str, textColor);
+	SDL_Texture* textura_string = SDL_CreateTextureFromSurface(RENDERER, surface_string);
+
+	rect->w = surface_string->w;
+	rect->h = surface_string->h;
+
+	if (SDL_RenderCopy(RENDERER, textura_string, NULL, rect) < 0)
+	{
+		ERROREA(SDL_GetError());
+		dena_ondo = false;
+	}
+
+	SDL_FreeSurface(surface_string);
+	SDL_DestroyTexture(textura_string);
+
 	return dena_ondo;
 }
 
