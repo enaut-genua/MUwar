@@ -5,6 +5,18 @@
 
 #include "mapa.h"
 
+
+//______________________________________________TTF_____________________________________________________________________//
+
+SDL_Texture* irudiak[20];
+SDL_Renderer* getRenderer(void);
+SDL_Renderer* getRenderer(void);
+void textuaIdatzi(int x, int y, char* str);
+void textuaGaitu(void);
+void textuaDesgaitu(void);
+void Textuak_idatzi();
+//______________________________________________TTF_____________________________________________________________________//
+
 /* renderizadorea sortzen du. Liburutegiak hasieratzen dira,mapa sortzen da , renderizadorea sortzen da eta texturak sortzen dira  */
 bool render_sortu(int xpos, int ypos, int width, int height, bool fullscreen);
 
