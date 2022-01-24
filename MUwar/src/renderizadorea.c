@@ -121,7 +121,7 @@ void textuaIdatzi(int x, int y, char* str)
 	SDL_DestroyTexture(mTexture);
 }
 void textuaGaitu(void) {
-	font = TTF_OpenFontIndex("arial.ttf", 20, 0);
+	font = TTF_OpenFontIndex("res/Fonts/arial.ttf", 20, 0);
 	if (!font)
 	{
 		printf("TTF_OpenFontIndex: %s\n", TTF_GetError());
@@ -191,6 +191,7 @@ bool render_sortu(int xpos, int ypos, int width, int height, bool fullscreen)
 
 
 	TTF_Init();
+	textuaGaitu();
 	OHARRA("Lehioa, renderizadorea eta texturak zuzen sortu dira.");
 
 atera:
