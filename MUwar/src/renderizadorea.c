@@ -109,7 +109,7 @@ void textuaIdatzi(int x, int y, char* str)
 	SDL_Renderer* gRenderer;
 
 	if (font == 0) return;
-	gRenderer = getRenderer();
+	gRenderer = RENDERER;
 	textSurface = TTF_RenderText_Solid(font, str, textColor);
 	mTexture = SDL_CreateTextureFromSurface(gRenderer, textSurface);
 	src.x = 0; dst.x = x;
