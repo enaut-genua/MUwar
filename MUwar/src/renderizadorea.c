@@ -269,6 +269,7 @@ bool render_marraztu(Mapa* mapa)
 		dena_ondo = false;
 		goto atera;
 	}
+	Textuak_idatzi();
 
 	SDL_RenderPresent(RENDERER);
 
