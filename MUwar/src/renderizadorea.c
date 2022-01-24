@@ -119,7 +119,7 @@ bool render_sortu(int xpos, int ypos, int width, int height, bool fullscreen)
 	}
 
 	/* Renderizadore bat sortzen du, hala ezean errore bat emango du */
-	if ((RENDERER = SDL_CreateRenderer(WINDOW, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_TARGETTEXTURE /*| SDL_RENDERER_PRESENTVSYNC*/)) == NULL)
+	if ((RENDERER = SDL_CreateRenderer(WINDOW, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_TARGETTEXTURE | SDL_RENDERER_PRESENTVSYNC)) == NULL)
 	{
 		ERROREA(SDL_GetError());
 		dena_ondo = false;
