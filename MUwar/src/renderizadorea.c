@@ -134,6 +134,14 @@ void textuaDesgaitu(void)
 	font = 0;
 }
 
+void Textuak_idatzi() {
+	textuaIdatzi(350, 20, "Jokalaria: ");
+	
+		textuaIdatzi(10, 100, "Tropa ID: ");
+		textuaIdatzi(10, 130, "bizitza: ");
+		textuaIdatzi(10, 160, "atakea: ");
+		textuaIdatzi(10, 190, "rangoa: ");
+}
 //______________________________________________TTF_____________________________________________________________________//
 
 
