@@ -112,6 +112,34 @@ bool jokoa_mugitu_tropa(Baldosa* hasiera, Baldosa* bukaera)
 		tmp = hasiera->tropa;
 		hasiera->tropa = NULL;
 		bukaera->tropa = tmp;
+
+
+		Bekt2D azken_aurreko_balorea = { 0 };	
+		Bekt2D azken_balorea = { 0 };
+
+		bektorea_lortu_balioa_posizioan(BIDEA, bektorea_lortu_luzeera(BIDEA) - 2, (uint8_t*)(&azken_aurreko_balorea));
+		bektorea_lortu_balioa_atzean(BIDEA, (uint8_t*)(&azken_balorea));
+
+		int dif_x = azken_aurreko_balorea.x - azken_balorea.x;
+		int dif_y = azken_aurreko_balorea.y - azken_balorea.y;
+
+		if (dif_x < 0 && dif_y == 0)
+		{
+			bukaera->tropa->orientazioa = Aurrea;
+		}
+		else if (dif_x > 0 && dif_y == 0)
+		{
+			bukaera->tropa->orientazioa = Atzea;
+		}
+		else if (dif_x == 0 && dif_y < 0)
+		{
+			bukaera->tropa->orientazioa = Ezker;
+		}
+		else if (dif_x == 0 && dif_y > 0)
+		{
+			bukaera->tropa->orientazioa = Eskubi;
+		}
+
 		dena_ondo = true;
 	}
 
@@ -137,11 +165,10 @@ void detektatu_xagua(void)
 	const Xagua* xagua = ebentuak_lortu_xaguaren_egoera();
 
 	Baldosa* aukeratutako_baldosa = mapa_lortu_pos(MAPA, xagua->mapako_posizioa.x, xagua->mapako_posizioa.y);
-	Bekt2D aukeratutako_baldosa_pos = { 0 };
+//	Bekt2D aukeratutako_baldosa_pos = xagua->mapako_posizioa;
 
 	if (xagua->ezker_botoia_klikatuta == true)
 	{
-		aukeratutako_baldosa_pos = xagua->mapako_posizioa;
 		if (aukeratutako_baldosa != NULL && klikatutako_baldosa == NULL)
 		{
 			if (aukeratutako_baldosa->tropa != NULL)
@@ -179,7 +206,7 @@ void detektatu_xagua(void)
 			for (size_t i = 0; i < BIDEA->luzeera; i++)
 			{
 				Bekt2D gordetako_balioa = { 0 };
-				memcpy(&gordetako_balioa, BIDEA->datuak[i], bektorea_lortu_datu_tamaina(BIDEA));
+				bektorea_lortu_balioa_posizioan(BIDEA, i, (uint8_t*)(&gordetako_balioa));
 				printf("%llu. elementua: %d, %d\n", i + 1, gordetako_balioa.x, gordetako_balioa.y);
 			}
 

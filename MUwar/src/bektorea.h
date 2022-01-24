@@ -31,4 +31,7 @@ bool bektorea_borratu_posizioan(Bektorea* bekt, const size_t posizioa);
 bool bektorea_borratu_aurrean(Bektorea* bekt);
 bool bektorea_borratu_atzean(Bektorea* bekt);
 
+uint8_t* bektorea_lortu_balioa_posizioan(Bektorea* bekt, const size_t posizioa,  uint8_t* erreferentzia);
+uint8_t* bektorea_lortu_balioa_atzean(Bektorea* bekt, uint8_t* erreferentzia);
+
 #endif // !BEKTOREA_H

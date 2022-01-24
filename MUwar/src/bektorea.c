@@ -201,7 +201,7 @@ bool bektorea_borratu_posizioan(Bektorea* bekt, const size_t posizioa)
 
 	if (bekt != NULL)
 	{
-		if (bektorea_hutsik_dago(bekt) == false && posizioa < bektorea_lortu_datu_tamaina(bekt))
+		if (bektorea_hutsik_dago(bekt) == false && posizioa < bektorea_lortu_luzeera(bekt))
 		{
 			for (size_t i = posizioa; i < bektorea_lortu_luzeera(bekt) - 1; i++)
 			{
@@ -256,4 +256,42 @@ bool bektorea_borratu_atzean(Bektorea* bekt)
 	}
 
 	return false;
+}
+
+uint8_t* bektorea_lortu_balioa_posizioan(Bektorea* bekt, const size_t posizioa, uint8_t* erreferentzia)
+{
+	uint8_t* ret = NULL;
+
+	if (bekt != NULL)
+	{
+		if (posizioa < bektorea_lortu_luzeera(bekt))
+		{
+			ret = bekt->datuak[posizioa];
+			if (erreferentzia != NULL)
+			{
+				memcpy(erreferentzia, ret, bektorea_lortu_datu_tamaina(bekt));
+			}
+		}
+	}
+
+	return ret;
+}
+
+uint8_t* bektorea_lortu_balioa_atzean(Bektorea* bekt, uint8_t* erreferentzia)
+{
+	uint8_t* ret = NULL;
+
+	if (bekt != NULL)
+	{
+		if (bektorea_hutsik_dago(bekt) == false)
+		{
+			ret = bektorea_lortu_balioa_posizioan(bekt, bektorea_lortu_luzeera(bekt) - 1, NULL);
+			if (erreferentzia != NULL)
+			{
+				memcpy(erreferentzia, ret, bektorea_lortu_datu_tamaina(bekt));
+			}
+		}
+	}
+
+	return NULL;
 }
