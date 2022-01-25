@@ -59,7 +59,8 @@ void tropa_atakatu(TropaStat** erasotzailea, TropaStat** erasotua)
 {
 	if (erasotzailea != NULL && erasotua != NULL)
 	{
-		(*erasotzailea)->bizitza -= (int)(floor(((*erasotua)->atakea - (*erasotzailea)->defentsa) * 0.75));
+		int a = (int)(floor(abs((*erasotua)->atakea - (*erasotzailea)->defentsa) * 0.65));
+		(*erasotzailea)->bizitza -= a;
 
 		if ((*erasotzailea)->bizitza <= 0)
 		{
