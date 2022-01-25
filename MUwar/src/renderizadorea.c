@@ -390,12 +390,12 @@ ElementuenTexturak* argazkiak_kargatu(void)
 		goto errorea;
 	}
 
-	///* Baso moztua */
-	//if ((texturak->baso_moztua.aurrea = textura_sortu("res/img/jokua/baso_moztua.png", SDL_ALPHA_OPAQUE)) == NULL)
-	//{
-	//	fprintf(stderr, "Errorea: Ezin izan da base urdinaren textura sortu.\n");
-	//	goto errorea;
-	//}
+	/* Baso moztua */
+	if ((texturak->baso_moztua.aurrea = textura_sortu("res/img/jokua/baso_moztua.png", SDL_ALPHA_OPAQUE)) == NULL)
+	{
+		fprintf(stderr, "Errorea: Ezin izan da baso moztuaren textura sortu.\n");
+		goto errorea;
+	}
 
 	/* Basoa */
 	if ((texturak->basoa.aurrea = textura_sortu("res/img/jokua/basoa.png", SDL_ALPHA_OPAQUE)) == NULL)
@@ -440,7 +440,7 @@ ElementuenTexturak* argazkiak_kargatu(void)
 	}
 
 	/* Mendi hautsia */
-	if ((texturak->mendi_hautsia.aurrea = textura_sortu("res/img/jokua/mendia.png", SDL_ALPHA_OPAQUE)) == NULL)
+	if ((texturak->mendi_hautsia.aurrea = textura_sortu("res/img/jokua/mendi_hautsia.png", SDL_ALPHA_OPAQUE)) == NULL)
 	{
 		ERROREA("Ezin izan da mendiaren textura sortu.");
 		goto errorea;
@@ -753,6 +753,87 @@ bool marraztu_baldosa(Baldosa* baldosa, SDL_Rect* rect)
 
 	switch (baldosa->mota)
 	{
+	case Basamortua:
+	{
+		if (SDL_RenderCopy(RENDERER, ELEM_TEXT->basamortua.aurrea, NULL, rect) < 0)
+		{
+			ERROREA(SDL_GetError());
+			dena_ondo = false;
+		}
+		break;
+	}
+	case Base_gorria:
+	{
+		if (SDL_RenderCopy(RENDERER, ELEM_TEXT->base_gorria.aurrea, NULL, rect) < 0)
+		{
+			ERROREA(SDL_GetError());
+			dena_ondo = false;
+		}
+		break;
+	}
+	case Base_urdina:
+	{
+		if (SDL_RenderCopy(RENDERER, ELEM_TEXT->base_urdina.aurrea, NULL, rect) < 0)
+		{
+			ERROREA(SDL_GetError());
+			dena_ondo = false;
+		}
+		break;
+	}
+	case Basoa:
+	{
+		if (SDL_RenderCopy(RENDERER, ELEM_TEXT->basoa.aurrea, NULL, rect) < 0)
+		{
+			ERROREA(SDL_GetError());
+			dena_ondo = false;
+		}
+		break;
+	}
+	case BasoMoztua:
+	{
+		if (SDL_RenderCopy(RENDERER, ELEM_TEXT->baso_moztua.aurrea, NULL, rect) < 0)
+		{
+			ERROREA(SDL_GetError());
+			dena_ondo = false;
+		}
+		break;
+	}
+	case Herria:
+	{
+		if (SDL_RenderCopy(RENDERER, ELEM_TEXT->herria.aurrea, NULL, rect) < 0)
+		{
+			ERROREA(SDL_GetError());
+			dena_ondo = false;
+		}
+		break;
+	}
+	case HerriHautsia:
+	{
+		if (SDL_RenderCopy(RENDERER, ELEM_TEXT->herri_hautsia.aurrea, NULL, rect) < 0)
+		{
+			ERROREA(SDL_GetError());
+			dena_ondo = false;
+		}
+		break;
+	}
+	case Ibaia:
+	{
+		if (SDL_RenderCopy(RENDERER, ELEM_TEXT->ibaia.aurrea, NULL, rect) < 0)
+		{
+			ERROREA(SDL_GetError());
+			dena_ondo = false;
+		}
+		break;
+	}
+	case Karretera:
+	{
+		if (SDL_RenderCopy(RENDERER, ELEM_TEXT->karretera.aurrea, NULL, rect) < 0)
+		{
+			ERROREA(SDL_GetError());
+			dena_ondo = false;
+		}
+		break;
+	}
 	case Larrea:
 	{
 		if (SDL_RenderCopy(RENDERER, ELEM_TEXT->larrea.aurrea, NULL, rect) < 0)
@@ -771,64 +852,9 @@ bool marraztu_baldosa(Baldosa* baldosa, SDL_Rect* rect)
 		}
 		break;
 	}
-	case Ibaia:
+	case MendiHautsia:
 	{
-		if (SDL_RenderCopy(RENDERER, ELEM_TEXT->ibaia.aurrea, NULL, rect) < 0)
-		{
-			ERROREA(SDL_GetError());
-			dena_ondo = false;
-		}
-		break;
-	}
-	case Basamortua:
-	{
-		if (SDL_RenderCopy(RENDERER, ELEM_TEXT->basamortua.aurrea, NULL, rect) < 0)
-		{
-			ERROREA(SDL_GetError());
-			dena_ondo = false;
-		}
-		break;
-	}
-	case Basoa:
-	{
-		if (SDL_RenderCopy(RENDERER, ELEM_TEXT->basoa.aurrea, NULL, rect) < 0)
-		{
-			ERROREA(SDL_GetError());
-			dena_ondo = false;
-		}
-		break;
-	}
-	case Base_gorria:
-	{
-		if (SDL_RenderCopy(RENDERER, ELEM_TEXT->base_gorria.aurrea, NULL, rect) < 0)
-		{
-			ERROREA(SDL_GetError());
-			dena_ondo = false;
-		}
-		break;
-	}
-
-	case Base_urdina:
-	{
-		if (SDL_RenderCopy(RENDERER, ELEM_TEXT->base_urdina.aurrea, NULL, rect) < 0)
-		{
-			ERROREA(SDL_GetError());
-			dena_ondo = false;
-		}
-		break;
-	}
-	case Herria:
-	{
-		if (SDL_RenderCopy(RENDERER, ELEM_TEXT->herria.aurrea, NULL, rect) < 0)
-		{
-			ERROREA(SDL_GetError());
-			dena_ondo = false;
-		}
-		break;
-	}
-	case Karretera:
-	{
-		if (SDL_RenderCopy(RENDERER, ELEM_TEXT->karretera.aurrea, NULL, rect) < 0)
+		if (SDL_RenderCopy(RENDERER, ELEM_TEXT->mendi_hautsia.aurrea, NULL, rect) < 0)
 		{
 			ERROREA(SDL_GetError());
 			dena_ondo = false;

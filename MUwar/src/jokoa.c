@@ -22,6 +22,7 @@ static Bektorea* BIDEA = NULL;
   *	START: Funtzio pribatuak
   */
 
+static bool mugitu_tropa(Baldosa* hasiera, Baldosa* bukaera);
 static void detektatu_inputa(float dt);
 static void detektatu_xagua(void);
 static void detektatu_teklatua(float dt);
@@ -102,43 +103,22 @@ bool jokoa_hasi(void)
 	return dena_ondo;
 }
 
-bool jokoa_mugitu_tropa(Baldosa* hasiera, Baldosa* bukaera)
+bool mugitu_tropa(Baldosa* hasiera, Baldosa* bukaera)
 {
 	bool dena_ondo = false;
 
 	if (bukaera != NULL && bukaera->tropa == NULL && hasiera->tropa != NULL && bukaera->markatuta == true)
 	{
-		TropaStat* tmp = NULL;
-		tmp = hasiera->tropa;
+		TropaStat* tmp = hasiera->tropa;
 		hasiera->tropa = NULL;
 		bukaera->tropa = tmp;
 
-
-		Bekt2D azken_aurreko_balorea = { 0 };	
-		Bekt2D azken_balorea = { 0 };
-
-		bektorea_lortu_balioa_posizioan(BIDEA, bektorea_lortu_luzeera(BIDEA) - 2, (uint8_t*)(&azken_aurreko_balorea));
-		bektorea_lortu_balioa_atzean(BIDEA, (uint8_t*)(&azken_balorea));
-
-		int dif_x = azken_aurreko_balorea.x - azken_balorea.x;
-		int dif_y = azken_aurreko_balorea.y - azken_balorea.y;
-
-		if (dif_x < 0 && dif_y == 0)
+		if (baldosa_aldatu_mota(bukaera) == true)
 		{
-			bukaera->tropa->orientazioa = Aurrea;
+			// Aldaketaren arabera egin gauzak
 		}
-		else if (dif_x > 0 && dif_y == 0)
-		{
-			bukaera->tropa->orientazioa = Atzea;
-		}
-		else if (dif_x == 0 && dif_y < 0)
-		{
-			bukaera->tropa->orientazioa = Ezker;
-		}
-		else if (dif_x == 0 && dif_y > 0)
-		{
-			bukaera->tropa->orientazioa = Eskubi;
-		}
+
+		tropa_orientazioa(BIDEA, bukaera->tropa);
 
 		dena_ondo = true;
 	}
@@ -165,7 +145,6 @@ void detektatu_xagua(void)
 	const Xagua* xagua = ebentuak_lortu_xaguaren_egoera();
 
 	Baldosa* aukeratutako_baldosa = mapa_lortu_pos(MAPA, xagua->mapako_posizioa.x, xagua->mapako_posizioa.y);
-//	Bekt2D aukeratutako_baldosa_pos = xagua->mapako_posizioa;
 
 	if (xagua->ezker_botoia_klikatuta == true)
 	{
@@ -197,17 +176,24 @@ void detektatu_xagua(void)
 	{
 		if (klikatutako_baldosa != NULL)
 		{
-			int tropa_rango = klikatutako_baldosa->tropa->mug_max;
-			jokoa_mugitu_tropa(klikatutako_baldosa, aukeratutako_baldosa);
-			mapa_rangoa_kendu(MAPA, tropa_rango, klikatutako_baldosa_pos.x, klikatutako_baldosa_pos.y);
-			klikatutako_baldosa = NULL;
-
-			/* Azpikoa borratu */
-			for (size_t i = 0; i < BIDEA->luzeera; i++)
+			if (aukeratutako_baldosa != NULL)
 			{
-				Bekt2D gordetako_balioa = { 0 };
-				bektorea_lortu_balioa_posizioan(BIDEA, i, (uint8_t*)(&gordetako_balioa));
-				printf("%llu. elementua: %d, %d\n", i + 1, gordetako_balioa.x, gordetako_balioa.y);
+				if (aukeratutako_baldosa->tropa != NULL)
+				{
+					// Atakatu
+					if (aukeratutako_baldosa->tropa->id != NOREN_TXANDA)
+					{
+						Bekt2D baldosa_pos = { 0 };
+						tropa_atakatu(&klikatutako_baldosa->tropa, &aukeratutako_baldosa->tropa);
+						bektorea_lortu_balioa_posizioan(BIDEA, bektorea_lortu_luzeera(BIDEA) - 2, (uint8_t*)(&baldosa_pos));
+						aukeratutako_baldosa = mapa_lortu_pos(MAPA, baldosa_pos.x, baldosa_pos.y);
+					}
+				}
+
+				int tropa_rango = klikatutako_baldosa->tropa->mug_max;
+				mugitu_tropa(klikatutako_baldosa, aukeratutako_baldosa);
+				mapa_rangoa_kendu(MAPA, tropa_rango, klikatutako_baldosa_pos.x, klikatutako_baldosa_pos.y);
+				klikatutako_baldosa = NULL;
 			}
 
 			bektorea_borratu(&BIDEA);
@@ -267,16 +253,24 @@ void bidea_registratu(const Xagua* xagua)
 
 	Bekt2D xagu_pos = xagua->mapako_posizioa;
 
-	for (size_t i = 0; i < BIDEA->luzeera; i++)
+	if ((xagu_pos.x < MAPA->tamaina_x && xagu_pos.x >= 0) && (xagu_pos.y < MAPA->tamaina_y && xagu_pos.y >= 0))
 	{
-		Bekt2D gordetako_balioa = { 0 };
-		memcpy(&gordetako_balioa, BIDEA->datuak[i], bektorea_lortu_datu_tamaina(BIDEA));
-		if (xagu_pos.x == gordetako_balioa.x && xagu_pos.y == gordetako_balioa.y)
+		for (size_t i = 0; i < BIDEA->luzeera; i++)
 		{
-			registratu_daiteke = false;
+			Bekt2D gordetako_balioa = { 0 };
+			bektorea_lortu_balioa_posizioan(BIDEA, i, (uint8_t*)(&gordetako_balioa));
+
+			if ((xagu_pos.x == gordetako_balioa.x) && (xagu_pos.y == gordetako_balioa.y))
+			{
+				registratu_daiteke = false;
+			}
 		}
 	}
-	
+	else
+	{
+		registratu_daiteke = false;
+	}
+
 	if (registratu_daiteke)
 	{
 		bektorea_sartu_atzean(BIDEA, (uint8_t*)(&xagu_pos));

@@ -34,28 +34,31 @@ errorea:
 
 void bektorea_borratu(Bektorea** bekt)
 {
-	for (size_t i = 0; i < bektorea_lortu_luzeera(*bekt); i++)
+	if (*bekt != NULL)
 	{
-		free((*bekt)->datuak[i]);
+		for (size_t i = 0; i < bektorea_lortu_luzeera(*bekt); i++)
+		{
+			free((*bekt)->datuak[i]);
+		}
+		free((*bekt)->datuak);
+		free(*bekt);
+		*bekt = NULL;
 	}
-	free((*bekt)->datuak);
-	free(*bekt);
-	*bekt = NULL;
 }
 
 size_t bektorea_lortu_kapazidadea(const Bektorea* bekt)
 {
-	return bekt->kapazidadea;
+	return bekt ? bekt->kapazidadea : 0;
 }
 
 size_t bektorea_lortu_luzeera(const Bektorea* bekt)
 {
-	return bekt->luzeera;
+	return bekt ? bekt->luzeera : 0;
 }
 
 size_t bektorea_lortu_datu_tamaina(const Bektorea* bekt)
 {
-	return bekt->datu_tamaina;
+	return bekt ? bekt->datu_tamaina : 0;
 }
 
 bool bektorea_hutsik_dago(const Bektorea* bekt)
@@ -90,6 +93,7 @@ bool bektorea_handitu(Bektorea* bekt)
 			}
 		}
 	}
+
 
 	if (dena_ondo == false)
 	{

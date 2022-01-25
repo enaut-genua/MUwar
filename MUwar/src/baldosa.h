@@ -5,19 +5,19 @@
 
 typedef enum
 {
-	Base_urdina,
-	Base_gorria,
 	Basamortua,
-	Larrea,
-	Ibaia,
-	Karretera,
+	Base_gorria,
+	Base_urdina,
 	Basoa,
 	BasoMoztua,
-	Mendia,
-	MendiHautsia,	
+	Fabrika,
 	Herria,
 	HerriHautsia,
-	Fabrika,
+	Ibaia,
+	Karretera,
+	Larrea,
+	Mendia,
+	MendiHautsia,
 } TerrenoMotak;
 
 typedef struct
@@ -28,5 +28,8 @@ typedef struct
 	bool markatuta;					/* Baldosa aukeratuta dagoen ala ez */
 } Baldosa;
 
+/* Aldatu baldosaren mota, troparen arabera */
+
+bool baldosa_aldatu_mota(Baldosa* baldosa);
 
 #endif // !BALDOSA_H

@@ -4,6 +4,7 @@
 #include "include.h"
 
 #include "jokalaria.h"
+#include "bektorea.h"
 
 /* Jokuan erabiliko diren tropa motak. */
 typedef enum
@@ -17,16 +18,17 @@ typedef enum
 /* Tropen estatistikak */
 typedef struct
 {
-	Bandoa id;				/* Zeinen tropa den */
+	Bandoa id;					/* Zeinen tropa den */
 	int bizitza;				/* Zenbat bizitza daukaten */
 	int atakea;					/* Zenbat atake daukaten */
+	int defentsa;				/* Zenbat defentsa duen */
 	int amunizioa;				/* Zenbat amunizio daukaten */
 	int errekurtsoak;			/* Bizirik jarraitzeko behar dituzten errekurtsoak. Adib, gasolina ala janaria */
 	int mug_max;				/* Zenbat mugitu daitezken kondizio idealetan */
 	TropaMota mota;				/* Tropa mota */
 	Orientazioa orientazioa;	/* Tropak begiratzen duen orientazioa */
-	bool terrenoa_puskatu;		/* Terrenoa puskatzeko gaitasuna */
-	bool hiriak_hartu;			/* Hiriak hartzeko gaitasuna */
+	//bool terrenoa_puskatu;		/* Terrenoa puskatzeko gaitasuna */
+	//bool hiriak_hartu;			/* Hiriak hartzeko gaitasuna */
 } TropaStat;
 
 /* Sortu tropak memorian */
@@ -35,7 +37,10 @@ TropaStat* tropa_sortu(TropaMota mota, Bandoa id);
 /* Borratu tropa */
 void tropa_borratu(TropaStat** tropa);
 
-///* Tropa mugitu */
-//bool tropa_mugitu(Baldosa * baldosa_1);
+/* Bi tropen arteko konfliktoa */
+void tropa_atakatu(TropaStat** erasotzailea, TropaStat** erasotua);
+
+/* Tropa orientazioa kalkulatu */
+void tropa_orientazioa(Bektorea* bekt, TropaStat* tropa);
 
 #endif // TROPAK_H

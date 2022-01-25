@@ -1,8 +1,8 @@
-#include <stdlib.h>
+#include "include.h"
 
 #include "ebentuak.h"
 #include "mapa.h"
-
+#include "jokoa.h"
 
 Mapa* mapa_sortu(TerrenoMotak mapa_array[], int tamaina_x, int tamaina_y)
 {
@@ -76,9 +76,19 @@ void mapa_rangoa_jarri(Mapa* mapa, int rangoa, int x_pos, int y_pos)
 		for (int j = y_pos - rangoa; j <= y_pos + rangoa; j++)
 		{
 			Baldosa* baldosa = mapa_lortu_pos(mapa, i, j);
-			if (baldosa != NULL && baldosa->mota != Mendia && baldosa->mota != Ibaia && baldosa->tropa == NULL)
+			if (baldosa != NULL)
 			{
-				baldosa->markatuta = true;
+				if (baldosa->mota != Ibaia)
+				{
+					baldosa->markatuta = true;
+					if (baldosa->tropa != NULL)
+					{
+						if (baldosa->tropa->id == jokoa_lortu_txanda())
+						{
+							baldosa->markatuta = false;
+						}
+					}
+				}
 			}
 		}
 	}

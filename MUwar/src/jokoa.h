@@ -15,9 +15,6 @@ void jokoa_garbitu(void);
 /* Jokoa hasi */
 bool jokoa_hasi(void);
 
-/* Mugitu Tropa */
-bool jokoa_mugitu_tropa(Baldosa* hasiera, Baldosa* bukaera);
-
 /* Lortu noren txanda */
 Bandoa jokoa_lortu_txanda(void);
 
