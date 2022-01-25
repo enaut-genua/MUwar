@@ -1,6 +1,5 @@
 #include"jokoa.h"
 #include"mapa.h"
-bool tropaAukeratuta = false;
 bool Tropa_Mugitzeko_Aukera = false;
 bool mugituX = false, mugituY = false, mugituGeneral = false;
 bool XiritsiDa;
@@ -11,17 +10,92 @@ int Detektatutako_Tropa;
 int Dif_destOrg_X_abs, Dif_destOrg_Y_abs;
 int Dif_destOrg_X, Dif_destOrg_Y;
 int orientazioaX, orientazioaY;
-int infoPosx_tmp=NULL, infoPosy_tmp=NULL;
+
 int hasierako_pos_x= NULL, hasierako_pos_y = NULL;
 SDL_Rect laukiakk;
-bool zapalduta = false,OSTIA=false, tmp = false;
-int aa=0, ZenbatMugitu=0, tmp_x,tmp_y;
+
+int ZenbatMugitu=0, tmp_x,tmp_y;
 int ñ = -1;
 bool Desplazamendua_erabaki = false;
 int k = 0;
 bool Tropa_Sortu = false;
 int cc = 2;
-//______________________________________________TTF_____________________________________________________________________//
+
+
+//|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+bool tropaAukeratuta = false;
+bool zapalduta = false;
+bool Lehenengo_pos_aukeratuta = false;
+int desplazamendu_kopurua=0;
+int infoPosx_tmp = NULL, infoPosy_tmp = NULL;// diferencial de posizioa egitejko aurreko pposizioa gordetxen du temporalmente
+void TrayectoriaMarraztu() {
+	if (SDL_BUTTON_LMASK != 0 && tropaAukeratuta) {
+		if ((TERRENO[infoPos.y][infoPos.x] == 1 || TERRENO[infoPos.y][infoPos.x] == 4))//berrarra edo basamortua bada
+		{
+			zapalduta = true;
+			if ((infoPosy_tmp != infoPos.y || infoPosx_tmp != infoPos.x) && (0 <= desplazamendu_kopurua && desplazamendu_kopurua <= TALE_Y) && (TRAYECTORIA[infoPos.y][infoPos.x] != 1)) {
+
+				infoPosy_tmp = infoPos.y;
+				infoPosx_tmp = infoPos.x;
+				TRAYECTORIA[infoPos.y][infoPos.x] = 1;
+				TRAYECTORIA_EN_ORDEN[desplazamendu_kopurua][0] = infoPos.y;
+				TRAYECTORIA_EN_ORDEN[desplazamendu_kopurua][1] = infoPos.x;
+
+				desplazamendu_kopurua++;
+				
+				//printf("\naa= %d", aa);
+			}
+			if ((infoPosy_tmp != infoPos.y || infoPosx_tmp != infoPos.x) && 0 <= desplazamendu_kopurua && desplazamendu_kopurua <= TALE_Y + 1 && TRAYECTORIA[infoPos.y][infoPos.x] == 1) {
+				bool tmp = false;
+				for (int i = 0; i < TALE_Y; i++)
+				{
+					if (tmp == false && TRAYECTORIA_EN_ORDEN[i][0] == infoPos.y && TRAYECTORIA_EN_ORDEN[i][1] == infoPos.x) {
+
+						tmp = true;
+
+						if (tmp == true) desplazamendu_kopurua = i;
+					}
+					if (tmp == true) {
+						TRAYECTORIA[TRAYECTORIA_EN_ORDEN[i][0]][TRAYECTORIA_EN_ORDEN[i][1]] = 0;
+						TRAYECTORIA_EN_ORDEN[i][1] = 0;
+						TRAYECTORIA_EN_ORDEN[i][0] = 0;
+					}
+				}
+
+			}
+			//printf("\n  %d  %d", TRAYECTORIA_EN_ORDEN[0][1], TRAYECTORIA_EN_ORDEN[0][0]);
+			if (!Lehenengo_pos_aukeratuta)
+			{
+				hasierako_pos_x = infoPos.x;
+				hasierako_pos_y = infoPos.y;
+				Lehenengo_pos_aukeratuta = true;
+			}
+		}
+
+		if ((hasierako_pos_y == infoPos.y && hasierako_pos_x == infoPos.x) || (TERRENO[infoPos.y][infoPos.x] < 1))
+		{
+			for (int yy = 0; yy < TALE_Y; yy++) { //pa borrar trayectoria de mierda
+				for (int xx = 0; xx < TALE_X; xx++) {
+					TRAYECTORIA[yy][xx] = 0;
+				}
+			}
+			TRAYECTORIA_EN_ORDEN[0][1] = hasierako_pos_x;
+			TRAYECTORIA_EN_ORDEN[0][0] = hasierako_pos_y;
+			desplazamendu_kopurua = 1;
+			if ((TERRENO[infoPos.y][infoPos.x] < 1))
+			{
+				tropaAukeratuta = false;
+				printf("\n TROPA MUGITZEKO AUKERA GALDU DA MAPATIK ATERA DELAKO, AUKERATU BERRIRO\n");
+			}
+		}
+
+		//printf("\naa= %d   %d", aa, rango);
+
+	}
+
+}
+//|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+
 TTF_Font* font = 0;
 void textuaIdatzi(int x, int y, char* str)
 {
@@ -57,9 +131,7 @@ void textuaDesgaitu(void)
 	font = 0;
 }
 SDL_Renderer* getRenderer(void) { return renderer; }
-//______________________________________________TTF_____________________________________________________________________//
 
-//______________________________________________BEHEKO BARRA_____________________________________________________________________//
 void Tropa_Aukeratzeko_barra_sortu() {
 	if (Tropa_Sortu)
 	{
@@ -92,7 +164,6 @@ int Barrako_tropa_aukeratu() {
 
 	return value;
 }
-//______________________________________________BEHEKO BARRA_____________________________________________________________________//
 void Desplazamendua(){
 int orgx, orgy;
 int difx, dify;
@@ -176,16 +247,17 @@ void handleEvents() {
 			case SDL_MOUSEBUTTONDOWN:
 			if (Basetik_sortu_tropa == true)
 			{
-				//______________________________________________BEHEKO BARRA_____________________________________________________________________//
+				
 				cc = Barrako_tropa_aukeratu();
 				PERTSONAK[tropa_org.y][tropa_org.x] = cc;
 				Basetik_sortu_tropa = false;
-				//______________________________________________BEHEKO BARRA_____________________________________________________________________//
+				
 				Tropa_Sortu = false;
 			}
 			if (Tropa_Mugitzeko_Aukera) {
+			//|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||1|||11
 				if (!tropaAukeratuta) {
-					Detektatutako_Tropa = Tropa_Org_Aukeratu(&tropa_org.x, &tropa_org.y, &infoPos.x, &infoPos.y);
+					Detektatutako_Tropa = Tropa_Org_Aukeratu(&tropa_org.x, &tropa_org.y, &infoPos.x, &infoPos.y);			
 					if (Detektatutako_Tropa > EZER)
 					{
 						Tropa_desplazamendua.x = 0;
@@ -206,6 +278,7 @@ void handleEvents() {
 					Basetik_sortu_tropa = true;
 				}
 			}
+			
 			break;
 
 			case SDL_MOUSEBUTTONUP:
@@ -219,16 +292,16 @@ void handleEvents() {
 				mugituGeneral = true;
 				if (TERRENO[infoPos.y][infoPos.x] > 1) { mugituX = false; mugituGeneral = true; }
 			}
-
+			//|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
 			for (int yy = 0; yy < TALE_Y; yy++) { //pa borrar trayectoria de mierda
 				for (int xx = 0; xx < TALE_X; xx++) {
 					TRAYECTORIA[yy][xx] = 0;
 				}
 			}
-			ZenbatMugitu = aa;
-			aa = 0;
-			OSTIA = false;
+			ZenbatMugitu = desplazamendu_kopurua;
+			desplazamendu_kopurua = 0;
+			Lehenengo_pos_aukeratuta = false;
 			infoPosy_tmp = 0; infoPosx_tmp = 0;
 			break;
 		}
@@ -297,6 +370,8 @@ void Rangoa(int rango,int borratu_edo_marraztu, int* XCuboInfo, int* YCuboInfo) 
 		}
 	}
 }
+
+
 void MousePos(void) {
 	int buttons;
 	
@@ -304,69 +379,7 @@ void MousePos(void) {
 	buttons = SDL_GetMouseState(&mousePos.x, &mousePos.y);
 	//SDL_Log("Mouse cursor is at %d, %d", mousePos.x, mousePos.y);
 
-	if ((buttons & SDL_BUTTON_LMASK) != 0&& tropaAukeratuta) {
-		if ((TERRENO[infoPos.y][infoPos.x] == 1 || TERRENO[infoPos.y][infoPos.x] == 4))
-		{
-			zapalduta = true;
-			if ((infoPosy_tmp != infoPos.y || infoPosx_tmp != infoPos.x) && (0 <= aa && aa <= TALE_Y) && (TRAYECTORIA[infoPos.y][infoPos.x] != 1)) {
-
-				infoPosy_tmp = infoPos.y;
-				infoPosx_tmp = infoPos.x;
-				TRAYECTORIA[infoPos.y][infoPos.x] = 1;
-				TRAYECTORIA_EN_ORDEN[aa][0] = infoPos.y;
-				TRAYECTORIA_EN_ORDEN[aa][1] = infoPos.x;
-
-				aa++;
-				tmp = false;
-				//printf("\naa= %d", aa);
-			}
-			if ((infoPosy_tmp != infoPos.y || infoPosx_tmp != infoPos.x) && 0 <= aa && aa <= TALE_Y + 1 && TRAYECTORIA[infoPos.y][infoPos.x] == 1) {
-
-				for (int i = 0; i < TALE_Y; i++)
-				{
-					if (tmp == false && TRAYECTORIA_EN_ORDEN[i][0] == infoPos.y && TRAYECTORIA_EN_ORDEN[i][1] == infoPos.x) {
-
-						tmp = true;
-
-						if (tmp == true) aa = i;
-					}
-					if (tmp == true) {
-						TRAYECTORIA[TRAYECTORIA_EN_ORDEN[i][0]][TRAYECTORIA_EN_ORDEN[i][1]] = 0;
-						TRAYECTORIA_EN_ORDEN[i][1] = 0;
-						TRAYECTORIA_EN_ORDEN[i][0] = 0;
-					}
-				}
-
-			}
-			//printf("\n  %d  %d", TRAYECTORIA_EN_ORDEN[0][1], TRAYECTORIA_EN_ORDEN[0][0]);
-			if (!OSTIA)
-			{
-				hasierako_pos_x = infoPos.x;
-				hasierako_pos_y = infoPos.y;
-				OSTIA = true;
-			}
-		}
-		
-		if ((hasierako_pos_y == infoPos.y && hasierako_pos_x == infoPos.x)||(TERRENO[infoPos.y][infoPos.x] < 1 ))
-		{
-			for (int yy = 0; yy < TALE_Y; yy++) { //pa borrar trayectoria de mierda
-				for (int xx = 0; xx < TALE_X; xx++) {
-					TRAYECTORIA[yy][xx] = 0;
-				}
-			}
-			TRAYECTORIA_EN_ORDEN[0][1] = hasierako_pos_x;
-			TRAYECTORIA_EN_ORDEN[0][0] = hasierako_pos_y;
-			aa = 1;
-			if ((TERRENO[infoPos.y][infoPos.x] < 1))
-			{
-				tropaAukeratuta = false;
-				printf("\n TROPA MUGITZEKO AUKERA GALDU DA MAPATIK ATERA DELAKO, AUKERATU BERRIRO\n");
-			}
-		}
-
-		//printf("\naa= %d   %d", aa, rango);
-		
-	}
+	
 }
 SDL_Texture* loadImage(char* file, SDL_Renderer* render) {
 	SDL_Surface* tmpSurface = IMG_Load(file);
@@ -446,6 +459,7 @@ void render() {
 	erakutsiTale(mousePos.x, mousePos.y);
 	Mapa();
 	Desplazamendua();
+	TrayectoriaMarraztu();
 	Textuak_idatzi();
 	Tropa_Aukeratzeko_barra_sortu();
 	

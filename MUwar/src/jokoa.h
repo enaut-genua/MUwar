@@ -101,5 +101,6 @@ void Tropa_Dest_Aukeratu(int  TropaDestX, int TropaDestY, int tropaOrgX, int Tro
 void Desplazamendua();
 void Tropa_Aukeratzeko_barra_sortu();
 int Barrako_tropa_aukeratu();
+void TrayectoriaMarraztu();
 #pragma endregion
 #endif // !JOKOA_H
