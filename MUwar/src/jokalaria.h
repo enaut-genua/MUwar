@@ -3,6 +3,7 @@
 
 typedef enum
 {
+	Inor,
 	Urdina,
 	Gorria
 } Bandoa;

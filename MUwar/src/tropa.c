@@ -59,20 +59,27 @@ void tropa_atakatu(TropaStat** erasotzailea, TropaStat** erasotua)
 {
 	if (erasotzailea != NULL && erasotua != NULL)
 	{
-		int a = (int)(floor(abs((*erasotua)->atakea - (*erasotzailea)->defentsa) * 0.65));
-		(*erasotzailea)->bizitza -= a;
+		(*erasotzailea)->bizitza -= (int)(floor(abs((*erasotua)->atakea - (*erasotzailea)->defentsa) * 0.65));
+		(*erasotua)->bizitza -= (int)(floor(((*erasotzailea)->atakea - (*erasotua)->defentsa) * 1.25));
+		
+		(*erasotzailea)->amunizioa -= 2;
+		(*erasotua)->amunizioa--;
+		
+		if ((*erasotua)->amunizioa == 0)
+		{
+		}
 
+		
+		if ((*erasotua)->bizitza <= 0)
+		{
+			tropa_borratu(erasotua);
+		}
 		if ((*erasotzailea)->bizitza <= 0)
 		{
 			tropa_borratu(erasotzailea);
 		}
 
-		(*erasotua)->bizitza -= (int)(floor(((*erasotzailea)->atakea - (*erasotua)->defentsa)));
-		if ((*erasotua)->bizitza <= 0)
-		{
-			tropa_borratu(erasotua);
-		}
-
+		(*erasotzailea)->mugitu_da = true;
 	}
 }
 
@@ -111,6 +118,7 @@ void tropa_orientazioa(Bektorea* bidea, TropaStat* tropa)
 
 void eraiki_infanteria(TropaStat* trp)
 {
+	trp->mugitu_da = true;
 	trp->bizitza = 100;
 	trp->atakea = 10;
 	trp->defentsa = 1;
@@ -122,6 +130,7 @@ void eraiki_infanteria(TropaStat* trp)
 
 void eraiki_infanteria_mek(TropaStat* trp)
 {
+	trp->mugitu_da = true;
 	trp->bizitza = 100;
 	trp->atakea = 20;
 	trp->defentsa = 10;
@@ -133,6 +142,7 @@ void eraiki_infanteria_mek(TropaStat* trp)
 
 void eraiki_errekonozimentua(TropaStat* trp)
 {
+	trp->mugitu_da = true;
 	trp->bizitza = 100;
 	trp->atakea = 15;
 	trp->defentsa = 20;
@@ -145,6 +155,7 @@ void eraiki_errekonozimentua(TropaStat* trp)
 
 void eraiki_tanke(TropaStat* trp)
 {
+	trp->mugitu_da = true;
 	trp->bizitza = 100;
 	trp->atakea = 30;
 	trp->defentsa = 40;

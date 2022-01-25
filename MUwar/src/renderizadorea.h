@@ -30,7 +30,7 @@ void render_mugitu_mapa_ezker(float dt);
 void render_erakutsi_fps(float dt);
 
 /* Getters/Setters */
-const int render_lortu_argazki_tamaina(void);
-const Bekt2D render_lortu_mapa_nondik_hasi_marrazten(void);
+int render_lortu_argazki_tamaina(void);
+Bekt2D render_lortu_mapa_nondik_hasi_marrazten(void);
 
 #endif // !RENDERIZADOREA_H

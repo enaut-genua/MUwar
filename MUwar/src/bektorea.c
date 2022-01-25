@@ -259,7 +259,7 @@ bool bektorea_borratu_atzean(Bektorea* bekt)
 		}
 	}
 
-	return false;
+	return dena_ondo;
 }
 
 uint8_t* bektorea_lortu_balioa_posizioan(Bektorea* bekt, const size_t posizioa, uint8_t* erreferentzia)

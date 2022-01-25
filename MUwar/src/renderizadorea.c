@@ -320,12 +320,12 @@ void render_erakutsi_fps(float dt)
 
 }
 
-const int render_lortu_argazki_tamaina(void)
+int render_lortu_argazki_tamaina(void)
 {
 	return ARGAZKI_TAMAINA;
 }
 
-const Bekt2D render_lortu_mapa_nondik_hasi_marrazten(void)
+Bekt2D render_lortu_mapa_nondik_hasi_marrazten(void)
 {
 	return MAPA_NONDIK_HASI_MARRAZTEN;
 }

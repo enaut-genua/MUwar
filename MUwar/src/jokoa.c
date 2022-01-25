@@ -13,6 +13,7 @@ static bool JOKOA_MARTXAN = true;
 static Mapa* MAPA = NULL;
 static Bandoa NOREN_TXANDA = Gorria;
 static Bektorea* BIDEA = NULL;
+static Bandoa IRABAZLEA = Inor;
 
 /*
  *	END: Aldagai global pribatuak
@@ -27,6 +28,7 @@ static void detektatu_inputa(float dt);
 static void detektatu_xagua(void);
 static void detektatu_teklatua(float dt);
 static void bidea_registratu(const Xagua* xagua);
+static void txandaz_aldatu(void);
 
 /*
  *	END: Funtzio pribatuak
@@ -113,6 +115,8 @@ bool mugitu_tropa(Baldosa* hasiera, Baldosa* bukaera)
 		hasiera->tropa = NULL;
 		bukaera->tropa = tmp;
 
+		bukaera->tropa->mugitu_da = true;
+
 		if (baldosa_aldatu_mota(bukaera) == true)
 		{
 			// Aldaketaren arabera egin gauzak
@@ -152,7 +156,7 @@ void detektatu_xagua(void)
 		{
 			if (aukeratutako_baldosa->tropa != NULL)
 			{
-				if (aukeratutako_baldosa->tropa->id == NOREN_TXANDA)
+				if (aukeratutako_baldosa->tropa->id == NOREN_TXANDA && aukeratutako_baldosa->tropa->mugitu_da == false)
 				{
 					klikatutako_baldosa = aukeratutako_baldosa;
 					klikatutako_baldosa_pos = xagua->mapako_posizioa;
@@ -178,6 +182,7 @@ void detektatu_xagua(void)
 		{
 			if (aukeratutako_baldosa != NULL)
 			{
+				int tropa_rango = klikatutako_baldosa->tropa->mug_max;
 				if (aukeratutako_baldosa->tropa != NULL)
 				{
 					// Atakatu
@@ -190,7 +195,6 @@ void detektatu_xagua(void)
 					}
 				}
 
-				int tropa_rango = klikatutako_baldosa->tropa->mug_max;
 				mugitu_tropa(klikatutako_baldosa, aukeratutako_baldosa);
 				mapa_rangoa_kendu(MAPA, tropa_rango, klikatutako_baldosa_pos.x, klikatutako_baldosa_pos.y);
 				klikatutako_baldosa = NULL;
@@ -213,16 +217,7 @@ void detektatu_teklatua(float dt)
 
 	if (teklatu_berria->enter == true && teklatu_zaharra->enter == false)
 	{
-		if (NOREN_TXANDA == Gorria)
-		{
-			OHARRA("Urdinaren txanda.");
-			NOREN_TXANDA = Urdina;
-		}
-		else if (NOREN_TXANDA == Urdina)
-		{
-			OHARRA("Gorriaren txanda.");
-			NOREN_TXANDA = Gorria;
-		}
+		txandaz_aldatu();
 	}
 	if (teklatu_berria->a == true)
 	{
@@ -274,5 +269,45 @@ void bidea_registratu(const Xagua* xagua)
 	if (registratu_daiteke)
 	{
 		bektorea_sartu_atzean(BIDEA, (uint8_t*)(&xagu_pos));
+	}
+}
+
+void txandaz_aldatu(void)
+{
+	int tamaina = MAPA->tamaina_x * MAPA->tamaina_y;
+	for (int i = 0; i < tamaina; i++)
+	{
+		Baldosa* baldosa = &MAPA->mapa[i];
+		TropaStat* tropa = baldosa->tropa;
+		if (tropa != NULL)
+		{
+			if (tropa->id == NOREN_TXANDA)
+			{
+				tropa->mugitu_da = false;
+			}
+			if (baldosa->mota == Base_gorria && tropa->id == Urdina)
+			{
+				// Irabazi
+				IRABAZLEA = Urdina;
+				JOKOA_MARTXAN = false;
+			}
+			else if (baldosa->mota == Base_urdina && tropa->id == Gorria)
+			{
+				//  Irabazi
+				IRABAZLEA = Gorria;
+				JOKOA_MARTXAN = false;
+			}
+		}
+	}
+
+	if (NOREN_TXANDA == Gorria)
+	{
+		OHARRA("Urdinaren txanda.");
+		NOREN_TXANDA = Urdina;
+	}
+	else if (NOREN_TXANDA == Urdina)
+	{
+		OHARRA("Gorriaren txanda.");
+		NOREN_TXANDA = Gorria;
 	}
 }

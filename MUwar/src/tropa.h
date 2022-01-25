@@ -18,6 +18,7 @@ typedef enum
 /* Tropen estatistikak */
 typedef struct
 {
+	bool mugitu_da;
 	Bandoa id;					/* Zeinen tropa den */
 	int bizitza;				/* Zenbat bizitza daukaten */
 	int atakea;					/* Zenbat atake daukaten */
