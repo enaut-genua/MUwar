@@ -256,6 +256,8 @@ bool render_marraztu(Mapa* mapa)
 		goto atera;
 	}
 
+	//marraztu_tropa_aukeratzeko_menua();
+
 	SDL_RenderPresent(RENDERER);
 
 atera:
@@ -1205,6 +1207,7 @@ bool marraztu_tropa_aukeratzeko_menua(void)
 	SDL_Rect laukia_3 = { .y = (int)(floor(leiho_tamaina.y) * 0.30), .w = 100, .h = 100 };
 	SDL_Rect laukia_4 = { .y = (int)(floor(leiho_tamaina.y) * 0.35), .w = 100, .h = 100 };
 
+	SDL_RenderFillRect(RENDERER, &laukia_1);
 
 
 	return dena_ondo;

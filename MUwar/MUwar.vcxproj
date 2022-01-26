@@ -163,6 +163,7 @@
     <ClCompile Include="src\kalkuloak.c" />
     <ClCompile Include="src\main.c" />
     <ClCompile Include="src\mapa.c" />
+    <ClCompile Include="src\menua.c" />
     <ClCompile Include="src\renderizadorea.c" />
     <ClCompile Include="src\tropa.c" />
   </ItemGroup>
@@ -170,6 +171,7 @@
     <ClInclude Include="src\baldosa.h" />
     <ClInclude Include="src\bektorea.h" />
     <ClInclude Include="src\ebentuak.h" />
+    <ClInclude Include="src\menua.h" />
     <ClInclude Include="src\include.h" />
     <ClInclude Include="src\jokalaria.h" />
     <ClInclude Include="src\jokoa.h" />

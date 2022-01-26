@@ -45,6 +45,9 @@
     <ClCompile Include="src\baldosa.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\menua.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\tropa.h">
@@ -78,6 +81,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\bektorea.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\menua.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
