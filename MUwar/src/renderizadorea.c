@@ -73,6 +73,8 @@ static bool marraztu_informazioa(Mapa* mapa);
 static bool marraztu_stat_textua(Mapa* mapa);
 static bool marraztu_textua(SDL_Rect* rect, char* str);
 static bool marraztu_markatua(Baldosa* baldosa, SDL_Rect* rect);
+static bool marraztu_tropa_aukeratzeko_menua(void);
+
 /*
  *	END: Funtzio pribatuak
  */
@@ -98,7 +100,7 @@ static int ARGAZKI_TAMAINA = 100;
   *	START: Konstanteak
   */
 
-const char* LEHIOAREN_IZENA = "MUwar";
+const char* LEIHOAREN_IZENA = "MUwar";
 
 /*
  *	END: Konstanteak
@@ -119,7 +121,7 @@ bool render_sortu(int xpos, int ypos, int width, int height, bool fullscreen)
 	}
 
 	/* Lehio bat sortzen du, hala ezean errore bat emango du */
-	if ((WINDOW = SDL_CreateWindow(LEHIOAREN_IZENA, xpos, ypos, width, height, banderak | SDL_WINDOW_RESIZABLE | SDL_WINDOW_FOREIGN)) == NULL)
+	if ((WINDOW = SDL_CreateWindow(LEIHOAREN_IZENA, xpos, ypos, width, height, banderak | SDL_WINDOW_RESIZABLE | SDL_WINDOW_FOREIGN)) == NULL)
 	{
 		ERROREA(SDL_GetError());
 		dena_ondo = false;
@@ -312,7 +314,7 @@ void render_erakutsi_fps(float dt)
 
 	if (tenporizadorea >= 1.0f)
 	{
-		sprintf(str, "%s - FPS: %d", LEHIOAREN_IZENA, fotogramak);
+		sprintf(str, "%s - FPS: %d", LEIHOAREN_IZENA, fotogramak);
 		SDL_SetWindowTitle(WINDOW, str);
 		--tenporizadorea;
 		fotogramak = 0;
@@ -328,6 +330,13 @@ int render_lortu_argazki_tamaina(void)
 Bekt2D render_lortu_mapa_nondik_hasi_marrazten(void)
 {
 	return MAPA_NONDIK_HASI_MARRAZTEN;
+}
+
+Bekt2D render_lortu_leiho_tamaina(void)
+{
+	Bekt2D lehio_tamaina = { 0 };
+	SDL_GetWindowSize(WINDOW, &lehio_tamaina.x, &lehio_tamaina.y);
+	return lehio_tamaina;
 }
 
 /*
@@ -1007,8 +1016,8 @@ bool marraztu_punteroa(Mapa* mapa, Baldosa* baldosa)
 
 bool marraztu_informazioa(Mapa* mapa)
 {
-	bool dena_ondo = true;
 	SDL_Rect laukia = { 0, 0, 100, 100 };
+	bool dena_ondo = true;
 	Bekt2D aukeratutako_baldosa_pos = ebentuak_lortu_xaguaren_egoera()->mapako_posizioa;
 	Baldosa* aukeratutako_baldosa = mapa_lortu_pos(mapa, aukeratutako_baldosa_pos.x, aukeratutako_baldosa_pos.y);
 
@@ -1038,12 +1047,13 @@ bool marraztu_stat_textua(Mapa* mapa)
 	char buffer[50] = { 0 };
 	bool dena_ondo = true;
 	SDL_Rect rect = { 0 };
+	Bekt2D lehio_tamaina = render_lortu_leiho_tamaina();
 
 	Baldosa* baldosa = mapa_lortu_pos(mapa, ebentuak_lortu_xaguaren_egoera()->mapako_posizioa.x, ebentuak_lortu_xaguaren_egoera()->mapako_posizioa.y);
 
 	/* Txanda */
-	rect.x = 320;
-	rect.y = 20;
+	rect.x = (int)(floor(lehio_tamaina.x * 0.43));
+	rect.y = (int)(floor(lehio_tamaina.y * 0.03));
 	snprintf(buffer, 50, "Jokalaria: %s", jokoa_lortu_txanda() == Gorria ? "Gorria" : "Urdina");
 	if (marraztu_textua(&rect, buffer) == false)
 	{
@@ -1055,8 +1065,8 @@ bool marraztu_stat_textua(Mapa* mapa)
 	/* Bizitza */
 	if (baldosa && baldosa->tropa)
 	{
-		rect.x = 10;
-		rect.y = 100;
+		rect.x = (int)(floor(lehio_tamaina.x * 0.004));
+		rect.y = (int)(floor(lehio_tamaina.y * 0.15));
 		snprintf(buffer, 50, "Bizitza: %d", baldosa->tropa->bizitza);
 	}
 
@@ -1070,8 +1080,8 @@ bool marraztu_stat_textua(Mapa* mapa)
 	/* Rangoa */
 	if (baldosa && baldosa->tropa)
 	{
-		rect.x = 10;
-		rect.y = 130;
+		rect.x = (int)(floor(lehio_tamaina.x * 0.004));
+		rect.y = (int)(floor(lehio_tamaina.y * 0.20));
 		snprintf(buffer, 50, "Rangoa: %d", baldosa->tropa->mug_max);
 	}
 
@@ -1085,8 +1095,8 @@ bool marraztu_stat_textua(Mapa* mapa)
 	/* Munizioa */
 	if (baldosa && baldosa->tropa)
 	{
-		rect.x = 10;
-		rect.y = 160;
+		rect.x = (int)(floor(lehio_tamaina.x * 0.004));
+		rect.y = (int)(floor(lehio_tamaina.y * 0.25));
 		snprintf(buffer, 50, "Munizioa: %d", baldosa->tropa->amunizioa);
 	}
 
@@ -1100,8 +1110,8 @@ bool marraztu_stat_textua(Mapa* mapa)
 	/* Atakea */
 	if (baldosa && baldosa->tropa)
 	{
-		rect.x = 10;
-		rect.y = 190;
+		rect.x = (int)(floor(lehio_tamaina.x * 0.004));
+		rect.y = (int)(floor(lehio_tamaina.y * 0.30));
 		snprintf(buffer, 50, "Atakea: %d", baldosa->tropa->atakea);
 	}
 
@@ -1115,15 +1125,6 @@ bool marraztu_stat_textua(Mapa* mapa)
 atera:
 	return dena_ondo;
 }
-
-/*
-
-(10, 100, "Tropa ID: ")
-(10, 130, "bizitza: ")
-(10, 160, "atakea: ")
-(10, 190, "rangoa: ")
-
-*/
 
 bool marraztu_textua(SDL_Rect* rect, char* str)
 {
@@ -1161,6 +1162,50 @@ bool marraztu_markatua(Baldosa* baldosa, SDL_Rect* rect)
 			dena_ondo = false;
 		}
 	}
+
+	return dena_ondo;
+}
+
+bool marraztu_tropa_aukeratzeko_menua(void)
+{
+	bool dena_ondo = true;
+	Bekt2D leiho_tamaina = ebentuak_lortu_lehio_tamaina_berria();
+
+	Baldosa baldosa_infanteria_urdina = { 0 };
+	Baldosa baldosa_infanteria_mek_urdina = { 0 };
+	Baldosa baldosa_rekon_urdina = { 0 };
+	Baldosa baldosa_tanke_urdina = { 0 };
+
+	Baldosa baldosa_infanteria_gorria = { 0 };
+	Baldosa baldosa_infanteria_mek_gorria = { 0 };
+	Baldosa baldosa_rekon_gorria = { 0 };
+	Baldosa baldosa_tanke_gorria = { 0 };
+
+	TropaStat infanteria_urdina = { .id = Urdina, .orientazioa = Aurrea };
+	TropaStat infanteria_mek_urdina = { .id = Urdina, .orientazioa = Aurrea };
+	TropaStat rekon_urdina = { .id = Urdina, .orientazioa = Aurrea };
+	TropaStat tanke_urdina = { .id = Urdina, .orientazioa = Aurrea };
+	TropaStat infanteria_gorria = { .id = Gorria, .orientazioa = Aurrea };
+	TropaStat infanteria_mek_gorria = { .id = Gorria, .orientazioa = Aurrea };
+	TropaStat rekon_gorria = { .id = Gorria, .orientazioa = Aurrea };
+	TropaStat tanke_gorria = { .id = Gorria, .orientazioa = Aurrea };
+
+	baldosa_infanteria_urdina.tropa = &infanteria_urdina;
+	baldosa_infanteria_mek_urdina.tropa = &infanteria_mek_urdina;
+	baldosa_rekon_urdina.tropa = &rekon_urdina;
+	baldosa_tanke_urdina.tropa = &tanke_urdina;
+
+	baldosa_infanteria_gorria.tropa = &infanteria_gorria;
+	baldosa_infanteria_mek_gorria.tropa = &infanteria_mek_gorria;
+	baldosa_rekon_gorria.tropa = &rekon_gorria;
+	baldosa_tanke_gorria.tropa = &tanke_gorria;
+
+	SDL_Rect laukia_1 = { .y = (int)(floor(leiho_tamaina.y) * 0.20), .w = 100, .h = 100 };
+	SDL_Rect laukia_2 = { .y = (int)(floor(leiho_tamaina.y) * 0.25), .w = 100, .h = 100 };
+	SDL_Rect laukia_3 = { .y = (int)(floor(leiho_tamaina.y) * 0.30), .w = 100, .h = 100 };
+	SDL_Rect laukia_4 = { .y = (int)(floor(leiho_tamaina.y) * 0.35), .w = 100, .h = 100 };
+
+
 
 	return dena_ondo;
 }

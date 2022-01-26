@@ -29,7 +29,6 @@ typedef struct
 } Baldosa;
 
 /* Aldatu baldosaren mota, troparen arabera */
-
 bool baldosa_aldatu_mota(Baldosa* baldosa);
 
 #endif // !BALDOSA_H

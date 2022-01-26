@@ -29,8 +29,9 @@ void render_mugitu_mapa_ezker(float dt);
 /* Funtzio honek FPSak erakutsiko ditu */
 void render_erakutsi_fps(float dt);
 
-/* Getters/Setters */
+/* Lortzeko */
 int render_lortu_argazki_tamaina(void);
 Bekt2D render_lortu_mapa_nondik_hasi_marrazten(void);
+Bekt2D render_lortu_leiho_tamaina(void);
 
 #endif // !RENDERIZADOREA_H

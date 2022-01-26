@@ -9,6 +9,8 @@
 static Xagua XAGUA = { 0 };
 static Teklatua TEKLATUA_ZAHARRA = { 0 };
 static Teklatua TEKLATUA_BERRIA = { 0 };
+static Bekt2D LEIHO_BERRIA = { 0 };
+static Bekt2D LEIHO_ZAHARRA = { 0 };
 static bool* JOKOA_MARTXAN = NULL;
 
 /*
@@ -30,6 +32,20 @@ void ebentuak_kudeatu(void)
 		case SDL_QUIT:
 			*JOKOA_MARTXAN = false;
 			break;
+		case SDL_WINDOWEVENT:
+		{
+			switch (event.window.event)
+			{
+			case SDL_WINDOWEVENT_SHOWN:
+				LEIHO_ZAHARRA = LEIHO_BERRIA = render_lortu_leiho_tamaina();
+				break;
+			case SDL_WINDOWEVENT_RESIZED:
+				LEIHO_ZAHARRA = LEIHO_BERRIA;
+				LEIHO_BERRIA = render_lortu_leiho_tamaina();
+				break;
+			}
+			break;
+		}
 		case SDL_KEYDOWN:
 		{
 			switch (event.key.keysym.sym)
@@ -125,6 +141,7 @@ void ebentuak_kudeatu(void)
 void ebentuak_konfiguratu(bool* interruptorea)
 {
 	JOKOA_MARTXAN = interruptorea;
+	
 }
 
 const Xagua* ebentuak_lortu_xaguaren_egoera(void)
@@ -149,4 +166,14 @@ const Teklatua* ebentuak_lortu_teklatua_zaharra(void)
 const Teklatua* ebentuak_lortu_teklatua_berria(void)
 {
 	return &TEKLATUA_BERRIA;
+}
+
+Bekt2D ebentuak_lortu_lehio_tamaina_berria(void)
+{
+	return LEIHO_BERRIA;
+}
+
+Bekt2D ebentuak_lortu_lehio_tamaina_zaharra(void)
+{
+	return LEIHO_ZAHARRA;
 }

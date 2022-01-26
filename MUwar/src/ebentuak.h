@@ -37,5 +37,11 @@ const Teklatua* ebentuak_lortu_teklatua_zaharra(void);
 /* Teklen egoera berria lortu */
 const Teklatua* ebentuak_lortu_teklatua_berria(void);
 
+/* Lehioaren tamaina berria lortu */
+Bekt2D ebentuak_lortu_lehio_tamaina_berria(void);
+
+/* Lehioaren tamaina zaharra lortu */
+Bekt2D ebentuak_lortu_lehio_tamaina_zaharra(void);
+
 #endif // !EBENTUAK_H
 
