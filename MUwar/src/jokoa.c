@@ -38,7 +38,7 @@ bool jokoa_prestatu(void)
 {
 	bool dena_ondo = true;
 
-	if (render_sortu(SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1200, 700, false) == false)
+	if (render_sortu(SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1200, 700, true) == false)
 	{
 		ERROREA("Ezin izan da renderizadorea sortu.");
 		dena_ondo = false;
