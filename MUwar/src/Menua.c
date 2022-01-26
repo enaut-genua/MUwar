@@ -4,7 +4,7 @@ int exitw = 114, exith = 55, controlsw = 232, controlsh = 53, playw = 136, playh
 Uint32 buttons;
 int mousex, mousey;
 bool* running = NULL;
-bool  menua = true, bukaeraMenua = true, irabazi = true;
+bool  menua = true, bukaeraMenua = true, irabazi = true, controlsp = true;
 
 
 void mousePos()
@@ -96,9 +96,9 @@ void nextStep(int step, SDL_Texture* menuaImage, SDL_Texture* exitImage, SDL_Tex
 		SDL_DestroyTexture(menuaImage);
 		SDL_RenderClear(renderer);
 		menua = false;
+		bukaeraMenua = false;
 		irabazi = false;
-		bukaeraMenua = true;
-
+		controlsp = true;
 	}
 }
 
@@ -125,10 +125,9 @@ void menu(SDL_Window* window, SDL_Renderer* renderer, int paow, int poh, int ste
 		SDL_Rect pantailaOsoa = { (int)(width / 2 - paow / 2),(int)(heigth / 2 - poh / 2), paow, poh };
 		SDL_Rect exit = { (int)(width / 2 - exitw / 2), (int)(poh * 0.812 + (heigth - poh) / 2), exitw, exith };  //Orriaren tamainare erdia - argazkiaren tamainaren erdia posizioa kuadratzeko
 		SDL_Rect controls = { (int)(width / 2 - controlsw / 2), (int)(poh * 0.684 + (heigth - poh) / 2), controlsw, controlsh };
-		SDL_Rect play = {(int)(width / 2 - playw / 2), (int)(poh * 0.544 + (heigth - poh) / 2), playw, playh };
+		SDL_Rect play = { (int)(width / 2 - playw / 2), (int)(poh * 0.544 + (heigth - poh) / 2), playw, playh };
 
 		SDL_RenderCopy(renderer, menuaImage, NULL, &pantailaOsoa);
-
 
 		hover1(pantailaOsoa, exit, controls, play, renderer, menuaImage, exitImage, playImage, controlsImage);
 		step = Botoiak(step, exit, controls, play);
@@ -137,8 +136,39 @@ void menu(SDL_Window* window, SDL_Renderer* renderer, int paow, int poh, int ste
 	}
 
 }
+void controlspantaila(SDL_Renderer* renderer, SDL_Window* window)
+{
+	SDL_Texture* kontrols = initialize_texture_from_file("controls.png", renderer);
+	SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, SDL_ALPHA_OPAQUE);
 
-void menuFinala(SDL_Renderer* renderer, int paow, int poh)
+	while (controlsp)
+	{
+		SDL_GetWindowSize(window, &width, &heigth);
+		int paow2 = width, poh2 = heigth;
+		SDL_RenderClear(renderer);
+		SDL_Rect pantailaOsoa = { width / 2 - paow2 / 2, heigth / 2 - poh2 / 2, paow2, poh2 };
+		SDL_RenderCopy(renderer, kontrols, NULL, &pantailaOsoa);
+		SDL_Rect bueltatu = { 0, heigth - 100,(int)(width * 0.15), 100 };
+		Botoiak3(renderer, bueltatu, kontrols);
+
+		SDL_RenderPresent(renderer);
+	}
+
+}
+void Botoiak3(SDL_Renderer* renderer, SDL_Rect hasieraraBuelta, SDL_Texture* kontrols)
+{
+	mousePos();
+	if ((mousex < (hasieraraBuelta.x + hasieraraBuelta.w) && mousex > hasieraraBuelta.x && mousey < (hasieraraBuelta.y + hasieraraBuelta.h) && mousey > hasieraraBuelta.y) && (buttons & SDL_BUTTON_LMASK) != 0)
+	{
+		controlsp = false;
+		menua = true;
+		*running = true;
+		bukaeraMenua = false;
+		SDL_DestroyTexture(kontrols);
+		SDL_RenderClear(renderer);
+	}
+}
+void menuFinala(SDL_Renderer* renderer, int paow, int poh, SDL_Window* window)
 {
 
 	SDL_Texture* blueVictory = initialize_texture_from_file("BlueTeamVictory.png", renderer);
@@ -149,6 +179,7 @@ void menuFinala(SDL_Renderer* renderer, int paow, int poh)
 	while (bukaeraMenua && running)
 	{
 		SDL_RenderClear(renderer);
+		SDL_GetWindowSize(window, &width, &heigth);
 		SDL_Rect pantailaOsoa = { width / 2 - paow / 2, heigth / 2 - poh / 2, paow, poh };
 		if (irabazi)
 		{
@@ -160,7 +191,7 @@ void menuFinala(SDL_Renderer* renderer, int paow, int poh)
 			SDL_SetRenderDrawColor(renderer, 0x00, 0x4A, 0xAD, SDL_ALPHA_OPAQUE);
 			SDL_RenderCopy(renderer, blueVictory, NULL, &pantailaOsoa);
 		}
-		SDL_Rect hasieraraBuelta = { (int)(width / 2 - hbw / 2),(int)(poh * 0.816 + (heigth - poh)/ 2), hbw, hbh };
+		SDL_Rect hasieraraBuelta = { (int)(width / 2 - hbw / 2),(int)(poh * 0.816 + (heigth - poh) / 2), hbw, hbh };
 
 		hover2(renderer, hasieraraBuelta, pantailaOsoa, redVictory, blueVictory, btv2, rtv2);
 		Botoiak2(renderer, hasieraraBuelta, redVictory, blueVictory, btv2, rtv2);
