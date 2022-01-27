@@ -77,14 +77,15 @@ void tropa_atakatu(TropaStat** erasotzailea, TropaStat** erasotua)
 
 	if (erasotzailea != NULL && erasotua != NULL)
 	{
-		(*erasotzailea)->bizitza -= (int)(floor(abs((*erasotua)->atakea - (*erasotzailea)->defentsa) * 0.65));
-		(*erasotua)->bizitza -= (int)(floor(abs(((*erasotzailea)->atakea - (*erasotua)->defentsa)) * 1.25));
-		
-		(*erasotzailea)->amunizioa -= 2;
-		(*erasotua)->amunizioa--;
-		
-		if ((*erasotua)->amunizioa == 0)
+		if ((*erasotzailea)->amunizioa)
 		{
+			(*erasotua)->bizitza -= (int)(ceil((((*erasotzailea)->atakea / (*erasotua)->defentsa)) * 1.25));
+			(*erasotzailea)->amunizioa--;
+		}
+
+		if ((*erasotua)->amunizioa)
+		{
+			(*erasotzailea)->bizitza -= (int)(ceil(((*erasotua)->atakea / (*erasotzailea)->defentsa) * 0.65));
 		}
 
 		(*erasotzailea)->mugitu_da = true;
@@ -175,7 +176,7 @@ void eraiki_tanke(TropaStat* trp)
 {
 	trp->mugitu_da = true;
 	trp->bizitza = 100;
-	trp->atakea = 30;
+	trp->atakea = 60;
 	trp->defentsa = 40;
 	trp->amunizioa = 12;
 	trp->errekurtsoak = 12;

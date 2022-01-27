@@ -128,7 +128,9 @@ bool mugitu_tropa(Baldosa* hasiera, Baldosa* bukaera)
 
 	if (bukaera != NULL && bukaera->tropa == NULL && hasiera->tropa != NULL && bukaera->markatuta == true /*&& bektorea_lortu_luzeera(BIDEA) <= hasiera->tropa->mug_max*/)
 	{
-		for (size_t i = 0; i < bektorea_lortu_luzeera(BIDEA); i++)
+		bool jarraitu = true;
+		size_t i = 0;
+		while (i < bektorea_lortu_luzeera(BIDEA) && jarraitu)
 		{
 			Baldosa* baldosa = NULL;
 			Bekt2D baldosa_pos = { 0 };
@@ -144,22 +146,21 @@ bool mugitu_tropa(Baldosa* hasiera, Baldosa* bukaera)
 			}
 			else
 			{
-				if (baldosa->mota == Ibaia)
-				{
-					mugitu_daiteke = false;
-				}
 				switch (baldosa->mota)
 				{
 				case Ibaia:
 					mugitu_daiteke = false;
+					jarraitu = false;
 					break;
 				case Mendia:
 				case Basoa:
 				case Herria:
 					bukaera = baldosa;
+					jarraitu = false;
 					break;
 				}
 			}
+			++i;
 		}
 
 		if (mugitu_daiteke)
@@ -278,8 +279,28 @@ void detektatu_xagua(void)
 				int tropa_rango = klikatutako_baldosa->tropa->mug_max;
 				if (aukeratutako_baldosa->tropa != NULL)
 				{
+					bool atakatu_dezake = true;
+					for (size_t i = 0; i < bektorea_lortu_luzeera(BIDEA); i++)
+					{
+						Bekt2D baldosa_pos = { 0 };		bektorea_lortu_balioa_posizioan(BIDEA, i, (uint8_t*)(&baldosa_pos));
+						Baldosa* baldosa = mapa_lortu_pos(MAPA, baldosa_pos.x, baldosa_pos.y);
+						
+						if (baldosa != NULL)
+						{
+							switch (baldosa->mota)
+							{
+							case Mendia:
+							case Ibaia:
+							case Herria:
+							case Basoa:
+								atakatu_dezake = false;
+								break;
+							}
+						}
+
+					}
 					// Atakatu
-					if (aukeratutako_baldosa->tropa->id != NOREN_TXANDA)
+					if (aukeratutako_baldosa->tropa->id != NOREN_TXANDA && atakatu_dezake)
 					{
 						Bekt2D baldosa_pos = { 0 };
 						tropa_atakatu(&klikatutako_baldosa->tropa, &aukeratutako_baldosa->tropa);
