@@ -86,6 +86,7 @@ void tropa_atakatu(TropaStat** erasotzailea, TropaStat** erasotua)
 		{
 		}
 
+		(*erasotzailea)->mugitu_da = true;
 		
 		if ((*erasotua)->bizitza <= 0)
 		{
@@ -96,7 +97,6 @@ void tropa_atakatu(TropaStat** erasotzailea, TropaStat** erasotua)
 			tropa_borratu(erasotzailea);
 		}
 
-		(*erasotzailea)->mugitu_da = true;
 	}
 }
 
