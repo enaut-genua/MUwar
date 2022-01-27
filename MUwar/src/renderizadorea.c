@@ -24,6 +24,7 @@ typedef struct
 
 	/* Aukeratutakoa markatzeko */
 	Textura rangoa;
+	Textura bidea;
 
 	/* Terrenoak */
 	Textura basamortua;
@@ -73,6 +74,7 @@ static bool marraztu_stat_textua(Mapa* mapa);
 static bool marraztu_textua(SDL_Rect* rect, char* str);
 static bool marraztu_markatua(Baldosa* baldosa, SDL_Rect* rect);
 static bool marraztu_tropa_aukeratzeko_menua(void);
+static bool marraztu_bidea(Baldosa* baldosa, SDL_Rect* rect, int i, int j);
 
 /*
  *	END: Funtzio pribatuak
@@ -238,6 +240,13 @@ bool render_marraztu(Mapa* mapa)
 				dena_ondo = false;
 				goto atera;
 			}
+
+			if (marraztu_bidea(baldosa, &laukia, i, j) == false)
+			{
+				ERROREA("Ezin izan da bidea marraztu.");
+				dena_ondo = false;
+				goto atera;
+			}
 		}
 	}
 
@@ -359,9 +368,15 @@ ElementuenTexturak* argazkiak_kargatu(void)
 	 * Kargatu Aukeratutakoaren Textura
 	 */
 
-	if ((texturak->rangoa.aurrea = render_textura_sortu("res/img/jokua/bloke_laranja.png", 80)) == NULL)
+	if ((texturak->rangoa.aurrea = render_textura_sortu("res/img/jokua/bloke_laranja.png", 60)) == NULL)
 	{
 		ERROREA("Ezin izan da aukeratutakoaren textura sortu.");
+		goto errorea;
+	}
+
+	if ((texturak->bidea.aurrea = render_textura_sortu("res/img/jokua/bidea.png", SDL_ALPHA_OPAQUE)) == NULL)
+	{
+		ERROREA("Ezin izan da bidearen textura sortu.");
 		goto errorea;
 	}
 
@@ -651,6 +666,13 @@ void argazkiak_garbitu(ElementuenTexturak** texturak)
 {
 	if (*texturak != NULL)
 	{
+		/* Punteroa */
+		SDL_DestroyTexture((*texturak)->punteroa.aurrea);
+
+		/* Bidea eta rangoak */
+		SDL_DestroyTexture((*texturak)->bidea.aurrea);
+		SDL_DestroyTexture((*texturak)->rangoa.aurrea);
+
 		/* Terrenoak */
 		SDL_DestroyTexture((*texturak)->basamortua.aurrea);
 		SDL_DestroyTexture((*texturak)->base_gorria.aurrea);
@@ -1236,6 +1258,33 @@ bool marraztu_tropa_aukeratzeko_menua(void)
 	ERABILI_GABE(laukia_4);
 
 
+	return dena_ondo;
+}
+
+bool marraztu_bidea(Baldosa* baldosa, SDL_Rect* rect, int i, int j)
+{
+	bool dena_ondo = true;
+	Bekt2D pos = { i, j };
+
+	Bektorea* bidea = jokoa_lortu_bidea();
+	
+	if (baldosa != NULL && bidea != NULL)
+	{
+		for (size_t ind = 0; ind < bektorea_lortu_luzeera(bidea); ind++)
+		{
+			Bekt2D bektoreko_posizioa = { 0 }; bektorea_lortu_balioa_posizioan(bidea, ind, (uint8_t*)(&bektoreko_posizioa));
+			if (bektoreko_posizioa.x == pos.x && bektoreko_posizioa.y == pos.y)
+			{
+				if (SDL_RenderCopy(RENDERER, ELEM_TEXT->bidea.aurrea, NULL, rect) < 0)
+				{
+					dena_ondo = false;
+					goto atera;
+				}
+			}
+		}
+	}
+
+atera:
 	return dena_ondo;
 }
 
