@@ -18,4 +18,8 @@ bool jokoa_hasi(void);
 /* Lortu noren txanda */
 Bandoa jokoa_lortu_txanda(void);
 
+/* Lortu irabazlea */
+Bandoa jokoa_lortu_irabazlea(void);
+
+
 #endif // !JOKOA_H

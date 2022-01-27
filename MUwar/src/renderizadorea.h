@@ -34,4 +34,16 @@ int render_lortu_argazki_tamaina(void);
 Bekt2D render_lortu_mapa_nondik_hasi_marrazten(void);
 Bekt2D render_lortu_leiho_tamaina(void);
 
+/* Pathean dagoen argazkiaren textura sortzen du */
+SDL_Texture* render_textura_sortu(const char* path, uint8_t alpha);
+
+/* Lortu renderer */
+SDL_Renderer* render_lortu_render(void);
+
+/* Lortu window */
+SDL_Window* render_lortu_window(void);
+
+/* Fondoa kolorez aldatu */
+bool render_aldatu_fondoa(void);
+
 #endif // !RENDERIZADOREA_H

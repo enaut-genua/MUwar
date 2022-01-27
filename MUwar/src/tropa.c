@@ -60,7 +60,7 @@ void tropa_atakatu(TropaStat** erasotzailea, TropaStat** erasotua)
 	if (erasotzailea != NULL && erasotua != NULL)
 	{
 		(*erasotzailea)->bizitza -= (int)(floor(abs((*erasotua)->atakea - (*erasotzailea)->defentsa) * 0.65));
-		(*erasotua)->bizitza -= (int)(floor(abs(((*erasotzailea)->atakea - (*erasotua)->defentsa) * 1.25)));
+		(*erasotua)->bizitza -= (int)(floor(abs(((*erasotzailea)->atakea - (*erasotua)->defentsa)) * 1.25));
 		
 		(*erasotzailea)->amunizioa -= 2;
 		(*erasotua)->amunizioa--;

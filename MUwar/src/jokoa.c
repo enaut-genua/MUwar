@@ -38,7 +38,7 @@ bool jokoa_prestatu(void)
 {
 	bool dena_ondo = true;
 
-	if (render_sortu(SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1200, 700, true) == false)
+	if (render_sortu(SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1200, 700, false) == false)
 	{
 		ERROREA("Ezin izan da renderizadorea sortu.");
 		dena_ondo = false;
@@ -85,6 +85,16 @@ bool jokoa_hasi(void)
 	float dt = 0;
 
 	OHARRA("Jokoa hasi da.");
+
+	if (render_aldatu_fondoa() == false)
+	{
+		ERROREA("Ezin izan da fondoa aldatu");
+		dena_ondo = false;
+	}
+
+	JOKOA_MARTXAN = true;
+	NOREN_TXANDA = Gorria;
+	IRABAZLEA = Inor;
 
 	while (JOKOA_MARTXAN && dena_ondo)
 	{
@@ -133,6 +143,11 @@ bool mugitu_tropa(Baldosa* hasiera, Baldosa* bukaera)
 Bandoa jokoa_lortu_txanda(void)
 {
 	return NOREN_TXANDA;
+}
+
+Bandoa jokoa_lortu_irabazlea(void)
+{
+	return IRABAZLEA;
 }
 
 void detektatu_inputa(float dt)
