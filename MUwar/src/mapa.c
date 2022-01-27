@@ -114,7 +114,8 @@ void mapa_rangoa_jarri(Mapa* mapa, int rangoa, int x_pos, int y_pos)
 			}
 		}
 	}
-	for (int i = x_pos, k = 0; i < x_pos + rangoa; i++, k++)
+
+	for (int i = x_pos, k = 0; i <= x_pos + rangoa; i++, k++)
 	{
 		for (int j = y_pos - rangoa + k; j <= y_pos + rangoa - k; j++)
 		{
