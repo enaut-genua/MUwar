@@ -80,9 +80,7 @@ void nextStep(int step, SDL_Texture* menuaImage, SDL_Texture* exitImage, SDL_Tex
 {
 	if (step == 1)
 	{
-		menua = false;
-		*running = false;
-
+		exit(EXIT_SUCCESS);
 	}
 	if (step == 2)
 	{
