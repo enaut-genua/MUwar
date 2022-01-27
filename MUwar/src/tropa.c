@@ -1,5 +1,6 @@
 #include "tropa.h"
 
+#include "musika.h"
 
 /*
  *	START: Funtzio pribatuen deklarazioa
@@ -57,6 +58,22 @@ void tropa_borratu(TropaStat** tropa)
 
 void tropa_atakatu(TropaStat** erasotzailea, TropaStat** erasotua)
 {
+	switch ((*erasotzailea)->mota)
+	{
+	case Infanteria:
+		musika_infanteria_tiro_efekto();
+		break;
+	case InfanteriaMek:
+		musika_infanteria_mek_tiro_efekto();
+		break;
+	case Rekon:
+		musika_kotxea_efekto();
+		musika_rekon_tiro_efekto();
+		break;
+	case Tanke:
+		musika_tanke_tiro_efekto();
+		break;
+	}
 	if (erasotzailea != NULL && erasotua != NULL)
 	{
 		(*erasotzailea)->bizitza -= (int)(floor(abs((*erasotua)->atakea - (*erasotzailea)->defentsa) * 0.65));

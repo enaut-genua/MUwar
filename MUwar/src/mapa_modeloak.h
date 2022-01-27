@@ -76,4 +76,6 @@ Larrea, Larrea, Basoa, Larrea, Ibaia, Ibaia, Ibaia, Ibaia, Ibaia, Ibaia, Ibaia, 
 };
 
 
+TerrenoMotak* array_mapa[] = { mapa_1, mapa_2, mapa_3 };
+
 #endif // !MAPA_MODELOAK_H

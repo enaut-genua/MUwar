@@ -4,6 +4,7 @@
 #include "tropa.h"
 #include "mapa_modeloak.h"
 #include "bektorea.h"
+#include "musika.h"
 
 /*
  *	START: Aldagai global pribatuak
@@ -45,7 +46,7 @@ bool jokoa_prestatu(void)
 		goto atera;
 	}
 
-	if ((MAPA = mapa_sortu(mapa_1, 20, 20)) == NULL)
+	if ((MAPA = mapa_sortu(array_mapa[rand() % 3], 20, 20)) == NULL)
 	{
 		ERROREA("Ezin izan da mapa sortu.");
 		dena_ondo = false;
@@ -96,6 +97,8 @@ bool jokoa_hasi(void)
 	NOREN_TXANDA = Gorria;
 	IRABAZLEA = Inor;
 
+	musika_hasi_jokoa();
+
 	while (JOKOA_MARTXAN && dena_ondo)
 	{
 		uint64_t hasiera = SDL_GetPerformanceCounter();
@@ -109,6 +112,8 @@ bool jokoa_hasi(void)
 
 		render_erakutsi_fps(dt);
 	}
+
+	musika_gelditu();
 
 	OHARRA("Jokoa bukatu da.");
 
@@ -150,6 +155,32 @@ Bandoa jokoa_lortu_irabazlea(void)
 	return IRABAZLEA;
 }
 
+bool jokoa_reset(void)
+{
+	bool dena_ondo = true;
+
+	int maparen_tamaina = MAPA != NULL ? MAPA->tamaina_x * MAPA->tamaina_y : 0;
+
+	for (int i = 0; i < maparen_tamaina; i++)
+	{
+		TropaStat* tropa = MAPA->mapa[i].tropa;
+		if (tropa != NULL)
+		{
+			tropa_borratu(&tropa);
+		}
+	}
+
+	mapa_borratu(&MAPA);
+
+	if ((MAPA = mapa_sortu(array_mapa[rand() % 3], 20, 20)) == NULL)
+	{
+		ERROREA("Ezin izan da mapa sortu.");
+		dena_ondo = false;
+	}
+
+	return dena_ondo;
+}
+
 void detektatu_inputa(float dt)
 {
 	detektatu_xagua();
@@ -173,6 +204,10 @@ void detektatu_xagua(void)
 			{
 				if (aukeratutako_baldosa->tropa->id == NOREN_TXANDA && aukeratutako_baldosa->tropa->mugitu_da == false)
 				{
+					if (musika_aukeratu_efekto() == false)
+					{
+						ERROREA("Ezin izan da aukeratu efekto entzun.");
+					}
 					klikatutako_baldosa = aukeratutako_baldosa;
 					klikatutako_baldosa_pos = xagua->mapako_posizioa;
 					mapa_rangoa_jarri(MAPA, aukeratutako_baldosa->tropa->mug_max, xagua->mapako_posizioa.x, xagua->mapako_posizioa.y);

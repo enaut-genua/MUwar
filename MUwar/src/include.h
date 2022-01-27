@@ -16,12 +16,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 /* SDL2 */
 #define SDL_MAIN_HANDLED
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
-#include<SDL2/SDL_ttf.h>
+#include <SDL2/SDL_ttf.h>
+#include <SDL2/SDL_mixer.h>
 
 /* Erroreak, abisuak eta oharrak printeatzeko makroak */
 #define ERROREA(X)		(fprintf(stderr, "Errorea: %s\n", X))

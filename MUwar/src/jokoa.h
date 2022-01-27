@@ -21,5 +21,8 @@ Bandoa jokoa_lortu_txanda(void);
 /* Lortu irabazlea */
 Bandoa jokoa_lortu_irabazlea(void);
 
+/* Reset */
+bool jokoa_reset(void);
+
 
 #endif // !JOKOA_H

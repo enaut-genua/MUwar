@@ -1,5 +1,6 @@
 #include "menua.h"
 #include "jokoa.h"
+#include "musika.h"
 
 Uint32 buttons;
 static int width = 500;
@@ -86,7 +87,6 @@ void nextStep(int step, SDL_Texture* menuaImage, SDL_Texture* exitImage, SDL_Tex
 	{
 		SDL_DestroyTexture(exitImage);
 		SDL_DestroyTexture(playImage);
-		//SDL_DestroyTexture(controlsImage);
 		SDL_DestroyTexture(menuaImage);
 		SDL_RenderClear(renderer);
 		menua = false;
@@ -121,6 +121,8 @@ void menu(SDL_Window* window, SDL_Renderer* renderer, int paow, int poh, int ste
 	SDL_Texture* controlsImage = initialize_texture_from_file("res/img/menua/menua_controls.png", renderer);
 	SDL_Texture* exitImage = initialize_texture_from_file("res/img/menua/menua_exit.png", renderer);
 
+	musika_hasi_menua();
+
 	while (menua)
 	{
 		SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, SDL_ALPHA_OPAQUE);
@@ -139,6 +141,7 @@ void menu(SDL_Window* window, SDL_Renderer* renderer, int paow, int poh, int ste
 		SDL_RenderPresent(renderer);
 	}
 
+	musika_gelditu();
 }
 void controlspantaila(SDL_Renderer* renderer, SDL_Window* window)
 {
@@ -178,6 +181,8 @@ void menuFinala(SDL_Renderer* renderer, int paow, int poh, SDL_Window* window)
 
 	if (irabazi != Inor)
 	{
+		musika_hasi_menua();
+
 		SDL_Texture* blueVictory = initialize_texture_from_file("res/img/menua/ekipo_urdina_irabazi_1.png", renderer);
 		SDL_Texture* redVictory = initialize_texture_from_file("res/img/menua/ekipo_gorria_irabazi_1.png", renderer);
 		SDL_Texture* btv2 = initialize_texture_from_file("res/img/menua/ekipo_urdina_irabazi_2.png", renderer);
@@ -205,6 +210,7 @@ void menuFinala(SDL_Renderer* renderer, int paow, int poh, SDL_Window* window)
 			SDL_RenderPresent(renderer);
 		}
 	}
+	musika_gelditu();
 	menua = true;
 	hasi_jokoa = false;
 }

@@ -3,6 +3,9 @@
 #include "jokoa.h"
 #include "menua.h"
 #include "renderizadorea.h"
+#include "musika.h"
+
+static void dena_garbitu(void);
 
 int main(void)
 {
@@ -11,12 +14,20 @@ int main(void)
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 #endif // _DEBUG
 
+	srand((unsigned int)(time(NULL)));
+
 	/* jokoa_garbitu() funtzioa programa bukaeran exekutatzeko erregistratu */
-	atexit(jokoa_garbitu);
+	atexit(dena_garbitu);
 	
 	if (jokoa_prestatu() == false)
 	{
 		ERROREA("Ezin izan da jokoa hasi.");
+		exit(EXIT_FAILURE);
+	}
+
+	if (musika_prestatu() == false)
+	{
+		ERROREA("Ezin izan da musika prestatu.");
 		exit(EXIT_FAILURE);
 	}
 
@@ -36,13 +47,13 @@ int main(void)
 			}
 			else
 			{
-				jokoa_garbitu();
-				if (jokoa_prestatu() == false)
+				if (jokoa_reset() == false)
 				{
-					ERROREA("Ezin izan da jokoa hasi.");
+					ERROREA("Ezin izan da reseteatu hasi.");
 					exit(EXIT_FAILURE);
 				}
 			}
+			musika_gelditu();
 		}
 		else
 		{
@@ -54,4 +65,10 @@ int main(void)
 
 
 	return EXIT_SUCCESS;
+}
+
+void dena_garbitu(void)
+{
+	jokoa_garbitu();
+	musika_garbitu();
 }
