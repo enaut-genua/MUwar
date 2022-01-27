@@ -177,7 +177,7 @@ void eraiki_tanke(TropaStat* trp)
 	trp->mugitu_da = true;
 	trp->bizitza = 100;
 	trp->atakea = 60;
-	trp->defentsa = 40;
+	trp->defentsa = 15;
 	trp->amunizioa = 12;
 	trp->errekurtsoak = 12;
 	trp->mug_max = 8;
