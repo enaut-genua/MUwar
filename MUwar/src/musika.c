@@ -107,6 +107,7 @@ bool musika_hasi_menua(void)
 
 	if (Mix_PlayingMusic() == false)
 	{
+		Mix_VolumeMusic(MIX_MAX_VOLUME);
 		if (Mix_PlayMusic(MENUA_MUSIKA, -1) < 0)
 		{
 			dena_ondo = false;
