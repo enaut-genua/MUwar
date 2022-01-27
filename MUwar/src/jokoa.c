@@ -277,6 +277,9 @@ void detektatu_xagua(void)
 			if (aukeratutako_baldosa != NULL)
 			{
 				int tropa_rango = klikatutako_baldosa->tropa->mug_max;
+				Bekt2D bekt_azken_pos = { 0 }; bektorea_lortu_balioa_atzean(BIDEA, (uint8_t*)(&bekt_azken_pos));
+				aukeratutako_baldosa = mapa_lortu_pos(MAPA, bekt_azken_pos.x, bekt_azken_pos.y);
+
 				if (aukeratutako_baldosa->tropa != NULL)
 				{
 					bool atakatu_dezake = true;
@@ -320,7 +323,10 @@ void detektatu_xagua(void)
 
 	if (xagua->ezker_botoia_klikatuta == true && klikatutako_baldosa != NULL)
 	{
-		bidea_registratu(xagua);
+		if (klikatutako_baldosa->tropa->mug_max >= bektorea_lortu_luzeera(BIDEA))
+		{
+			bidea_registratu(xagua);
+		}
 	}
 }
 

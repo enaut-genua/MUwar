@@ -60,7 +60,7 @@ int main(void)
 			controlspantaila(render_lortu_render(), render_lortu_window());
 		}
 		menuFinala(render_lortu_render(), 500, 500, render_lortu_window());
-		SDL_Delay(100);
+		SDL_Delay(500);
 	}
 
 
