@@ -71,9 +71,52 @@ Baldosa* mapa_lortu_pos(Mapa* mapa, int x, int y)
 
 void mapa_rangoa_jarri(Mapa* mapa, int rangoa, int x_pos, int y_pos)
 {
-	for (int i = x_pos - rangoa; i <= x_pos + rangoa; i++)
+	/*for (int i = x_pos - rangoa; i <= x_pos + rangoa; i++)
 	{
 		for (int j = y_pos - rangoa; j <= y_pos + rangoa; j++)
+		{
+			Baldosa* baldosa = mapa_lortu_pos(mapa, i, j);
+			if (baldosa != NULL)
+			{
+				if (baldosa->mota != Ibaia)
+				{
+					baldosa->markatuta = true;
+					if (baldosa->tropa != NULL)
+					{
+						if (baldosa->tropa->id == jokoa_lortu_txanda())
+						{
+							baldosa->markatuta = false;
+						}
+					}
+				}
+			}
+		}
+	}*/
+
+	for (int i = x_pos - rangoa, k = 0; i <= x_pos; i++, k++)
+	{
+		for (int j = y_pos - k; j <= y_pos + k; j++)
+		{
+			Baldosa* baldosa = mapa_lortu_pos(mapa, i, j);
+			if (baldosa != NULL)
+			{
+				if (baldosa->mota != Ibaia)
+				{
+					baldosa->markatuta = true;
+					if (baldosa->tropa != NULL)
+					{
+						if (baldosa->tropa->id == jokoa_lortu_txanda())
+						{
+							baldosa->markatuta = false;
+						}
+					}
+				}
+			}
+		}
+	}
+	for (int i = x_pos, k = 0; i < x_pos + rangoa; i++, k++)
+	{
+		for (int j = y_pos - rangoa + k; j <= y_pos + rangoa - k; j++)
 		{
 			Baldosa* baldosa = mapa_lortu_pos(mapa, i, j);
 			if (baldosa != NULL)

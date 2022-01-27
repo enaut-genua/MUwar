@@ -126,7 +126,7 @@ bool mugitu_tropa(Baldosa* hasiera, Baldosa* bukaera)
 
 	bool mugitu_daiteke = true;
 
-	if (bukaera != NULL && bukaera->tropa == NULL && hasiera->tropa != NULL && bukaera->markatuta == true /*&& bektorea_lortu_luzeera(BIDEA) <= hasiera->tropa->mug_max*/)
+	if (bukaera != NULL && bukaera->tropa == NULL && hasiera->tropa != NULL && bukaera->markatuta == true)
 	{
 		bool jarraitu = true;
 		size_t i = 0;
@@ -323,7 +323,7 @@ void detektatu_xagua(void)
 
 	if (xagua->ezker_botoia_klikatuta == true && klikatutako_baldosa != NULL)
 	{
-		if (klikatutako_baldosa->tropa->mug_max >= bektorea_lortu_luzeera(BIDEA))
+		if (klikatutako_baldosa->tropa != NULL && klikatutako_baldosa->tropa->mug_max >= bektorea_lortu_luzeera(BIDEA))
 		{
 			bidea_registratu(xagua);
 		}

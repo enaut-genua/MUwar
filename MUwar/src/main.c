@@ -9,11 +9,6 @@ static void dena_garbitu(void);
 
 int main(void)
 {
-	/* Memoria ondo borratu den ikusteko, hau borratu entregarako! */
-#ifdef _DEBUG
-	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-#endif // _DEBUG
-
 	srand((unsigned int)(time(NULL)));
 
 	/* jokoa_garbitu() funtzioa programa bukaeran exekutatzeko erregistratu */
