@@ -21,8 +21,10 @@ Bandoa jokoa_lortu_txanda(void);
 /* Lortu irabazlea */
 Bandoa jokoa_lortu_irabazlea(void);
 
+/* Lortu bidea */
+Bektorea* jokoa_lortu_bidea(void);
+
 /* Reset */
 bool jokoa_reset(void);
-
 
 #endif // !JOKOA_H

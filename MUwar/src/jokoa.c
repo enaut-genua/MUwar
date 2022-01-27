@@ -122,26 +122,64 @@ bool jokoa_hasi(void)
 
 bool mugitu_tropa(Baldosa* hasiera, Baldosa* bukaera)
 {
-	bool dena_ondo = false;
+	bool dena_ondo = true;
 
-	if (bukaera != NULL && bukaera->tropa == NULL && hasiera->tropa != NULL && bukaera->markatuta == true)
+	bool mugitu_daiteke = true;
+
+	if (bukaera != NULL && bukaera->tropa == NULL && hasiera->tropa != NULL && bukaera->markatuta == true /*&& bektorea_lortu_luzeera(BIDEA) <= hasiera->tropa->mug_max*/)
 	{
-		TropaStat* tmp = hasiera->tropa;
-		hasiera->tropa = NULL;
-		bukaera->tropa = tmp;
-
-		bukaera->tropa->mugitu_da = true;
-
-		if (baldosa_aldatu_mota(bukaera) == true)
+		for (size_t i = 0; i < bektorea_lortu_luzeera(BIDEA); i++)
 		{
-			// Aldaketaren arabera egin gauzak
+			Baldosa* baldosa = NULL;
+			Bekt2D baldosa_pos = { 0 };
+			bektorea_lortu_balioa_posizioan(BIDEA, i, (uint8_t*)(&baldosa_pos));
+
+			baldosa = mapa_lortu_pos(MAPA, baldosa_pos.x, baldosa_pos.y);
+
+			if (baldosa == NULL)
+			{
+				dena_ondo = false;
+				ERROREA("Ezin izan da baldosa lortu.");
+				goto atera;
+			}
+			else
+			{
+				if (baldosa->mota == Ibaia)
+				{
+					mugitu_daiteke = false;
+				}
+				switch (baldosa->mota)
+				{
+				case Ibaia:
+					mugitu_daiteke = false;
+					break;
+				case Mendia:
+				case Basoa:
+				case Herria:
+					bukaera = baldosa;
+					break;
+				}
+			}
 		}
 
-		tropa_orientazioa(BIDEA, bukaera->tropa);
+		if (mugitu_daiteke)
+		{
+			TropaStat* tmp = hasiera->tropa;
+			hasiera->tropa = NULL;
+			bukaera->tropa = tmp;
 
-		dena_ondo = true;
+			bukaera->tropa->mugitu_da = true;
+
+			if (baldosa_aldatu_mota(bukaera) == true)
+			{
+				// Aldaketaren arabera egin gauzak
+			}
+
+			tropa_orientazioa(BIDEA, bukaera->tropa);
+		}
 	}
 
+atera:
 	return dena_ondo;
 }
 
@@ -153,6 +191,11 @@ Bandoa jokoa_lortu_txanda(void)
 Bandoa jokoa_lortu_irabazlea(void)
 {
 	return IRABAZLEA;
+}
+
+Bektorea* jokoa_lortu_bidea(void)
+{
+	return BIDEA;
 }
 
 bool jokoa_reset(void)

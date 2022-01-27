@@ -74,6 +74,7 @@ void tropa_atakatu(TropaStat** erasotzailea, TropaStat** erasotua)
 		musika_tanke_tiro_efekto();
 		break;
 	}
+
 	if (erasotzailea != NULL && erasotua != NULL)
 	{
 		(*erasotzailea)->bizitza -= (int)(floor(abs((*erasotua)->atakea - (*erasotzailea)->defentsa) * 0.65));
