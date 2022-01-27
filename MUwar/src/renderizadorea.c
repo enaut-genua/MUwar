@@ -1230,7 +1230,10 @@ bool marraztu_tropa_aukeratzeko_menua(void)
 	SDL_Rect laukia_3 = { .y = (int)(floor(leiho_tamaina.y) * 0.30), .w = 100, .h = 100 };
 	SDL_Rect laukia_4 = { .y = (int)(floor(leiho_tamaina.y) * 0.35), .w = 100, .h = 100 };
 
-	SDL_RenderFillRect(RENDERER, &laukia_1);
+	ERABILI_GABE(laukia_1);
+	ERABILI_GABE(laukia_2);
+	ERABILI_GABE(laukia_3);
+	ERABILI_GABE(laukia_4);
 
 
 	return dena_ondo;
