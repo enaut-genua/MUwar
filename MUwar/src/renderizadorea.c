@@ -63,18 +63,18 @@ typedef struct
 
 static ElementuenTexturak* argazkiak_kargatu(void);												/* Argazkiak memoriara kargatzen ditu */
 static void argazkiak_garbitu(ElementuenTexturak** texturak);									/* Argazkiak memoriatik garbitzen ditu */
-static bool letra_tipoa_kargatu(void);
-static void letra_tipoa_garbitu(void);
+static bool letra_tipoa_kargatu(void);															/* Idazteko letrak kargatu */
+static void letra_tipoa_garbitu(void);															/* Idazteko letrak borratu */
 static bool marraztu_baldosa(Baldosa* baldosa, SDL_Rect* rect);									/* Pasatzen zaion baldosa marrazten du */
 static bool marraztu_tropa(Baldosa* baldosa, SDL_Rect* rect);									/* Baldosan dagoen tropa marrazten du */
 static bool marraztu_orientazioa(TropaStat* tropa, Textura* textura, SDL_Rect* rect);			/* marraztu_tropa(2) funtziotik deitzen da, orientazioaren arabera tropa marrazten du */
 static bool marraztu_punteroa(Mapa* mapa, Baldosa* baldosa);									/* Marraztu punteroa */
-static bool marraztu_informazioa(Mapa* mapa);
-static bool marraztu_stat_textua(Mapa* mapa);
-static bool marraztu_textua(SDL_Rect* rect, char* str);
-static bool marraztu_markatua(Baldosa* baldosa, SDL_Rect* rect);
-static bool marraztu_tropa_aukeratzeko_menua(void);
-static bool marraztu_bidea(Baldosa* baldosa, SDL_Rect* rect, int i, int j);
+static bool marraztu_informazioa(Mapa* mapa);													/* Aukeratutako baldosa alboan marraztu */
+static bool marraztu_stat_textua(Mapa* mapa);													/* Tropa bakoitzaren estatisitikak marraztu */
+static bool marraztu_textua(SDL_Rect* rect, char* str);											/* Textu bat marraztu */
+static bool marraztu_markatua(Baldosa* baldosa, SDL_Rect* rect);								/* Rangoa marraztu */
+static bool marraztu_tropa_aukeratzeko_menua(void);												/* Ez da erabiltzen */
+static bool marraztu_bidea(Baldosa* baldosa, SDL_Rect* rect, int i, int j);						/* Tropa batek egin dun bidea marraztu */
 
 /*
  *	END: Funtzio pribatuak
